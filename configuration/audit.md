@@ -15,7 +15,6 @@ menu:
 
 The `velonetics audit` command is a rule evaluation tool that checks configuration files written in any of its [supported formats](/docs/configuration/supported-formats/) and returns practical **security recommendations**. It is designed to raise basic red flags and provide essential advice on your configuration. The output of the configuration and classification is inspired by the [CIS Benchmarks](https://www.cisecurity.org/communities/benchmarks).
 
-
 {{< note title="Security disclaimer" type="warning" >}}
 If the audit command passes, it does not mean that your API is necessarily secure but that the evaluated rules have passed (find them as recommendations below).
 {{< /note >}}

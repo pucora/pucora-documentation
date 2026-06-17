@@ -25,7 +25,7 @@ The flatmap middleware allows you to **manipulate collections** (or arrays, or l
 While the [basic manipulation operations](/docs/backends/data-manipulation/) allow you to work directly with objects, the collections require you to use this **flatmap component**. The flatmap also will enable you to **extract or move nested objects** to have a customized object structure.
 
 {{< note title="Looking for a Query Language manipulation?" type="info" >}}
-If you are an Enterprise user, you might want to use [Response manipulation with query language ](/docs/enterprise/endpoints/jmespath/) instead
+
 {{< /note >}}
 
 When working with lists, Velonetics needs to flatten and expand array structures to objects to operate with them and vice versa. This process is automatically done by the flatmap component, letting you concentrate only on the type of operation you want to execute.
@@ -41,7 +41,6 @@ You can do simultaneous combinations to output the desired result. For instance,
 {{< note title="The flatmap at the endpoint level requires multiple backends" type="info" >}}
 You can use the flatmap both at the `endpoint` and `backend` level, but when used in the endpoint you must have more than one backend. If you have a single backend then move the flatmap operation to the backend level.
 {{< /note >}}
-
 
 ## When to manipulate objects with flatmap
 The flatmap can be used on objects when the [basic data manipulation](/docs/backends/data-manipulation/) options fall short. For instance, when you need to extract and rename nested objects to the root, append, and other more sophisticated operations.
@@ -63,7 +62,6 @@ Depending on the stage you want to do the manipulation, you will need an `extra_
 {{< note title="Flatmap at the endpoint level requires +1 backend" type="info" >}}
 The flatmap does not load at the `endpoint` level unless there is more than one backend configured, as its purpose is to manipulate responses after the merge operation. Therefore, use it in the `backend` if you only have one.
 {{< /note >}}
-
 
 The component structure with three operations would be as follows:
 ```json
@@ -105,7 +103,6 @@ The types of operations are defined as follows:
 - **Append**: To append a collection after another and return only the latter. It needs two arguments.
     - `"type": "append"`
     - `"args": ["collection_to_append", "returned_collection"]`
-
 
 The format of the arguments (`args`) to proceed with the operation is very simple. In short, **object nesting** is represented with **dots**, while the index of an array is represented with a **number**. Or all matching items with **wildcards**. So:
 
@@ -308,7 +305,6 @@ There is a sequence of three operations:
 - Append all the `kindergarten` content to `schools`.
 
 For more examples, [see this test file](https://github.com/velonetics/flatmap/blob/master/tree/tree_example_test.go).
-
 
 ## Mixing flatmap with other manipulation operations
 

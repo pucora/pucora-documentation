@@ -22,7 +22,6 @@ Before you start digging into manipulation, identify which part of the request o
 - **Protocol mapping and performance**: Translate and reformat payload structures, ensuring automatic encoding conversion from APIs with differing formats. Employ cache or gzipped responses to increase delivery speed.
 - **Request and response validation**: Although not a manipulation itself, it allows you to abort requests or responses that do not have compliant data.
 
-
 ## Data transformation and aggregation
 Velonetics dynamically reshapes, filters, and transforms requests and responses, ensuring compatibility between clients and backends. This simplifies payloads, improves performance, and customizes data delivery to fit client needs. The components available to transform data are:
 
@@ -30,17 +29,6 @@ Velonetics dynamically reshapes, filters, and transforms requests and responses,
 - [Response Manipulation](/docs/backends/data-manipulation/): The basic operators allow you to group, filter, map, or capture responses.
 - [Static Manipulation](/docs/backends/martian/): Modify requests and responses with static data. For instance, hardcode authentication on an API, or add new headers to a request.
 - [Manipulation of collections](/docs/backends/flatmap/): Handle and manipulate arrays sequentially in payloads.
-
-In addition, the {{< badge >}}Enterprise{{< /badge >}} edition allows you to set complex logic:
-
-- [Response Manipulation with a Query Language](/docs/enterprise/endpoints/jmespath/): Dynamically manipulate complex payloads with advanced query expressions.
-- [Response Manipulation with Functions](/docs/enterprise/endpoints/content-replacer/): Replace and mask content using pre-defined functions, like regular expressions.
-- [Response Manipulation with Templates](/docs/enterprise/backends/response-body-generator/): Write a template defining the response delivered to the client
-- [Request Manipulation with Templates](/docs/enterprise/backends/body-generator/): Write a template defining the request sent to the backend
-- [Global Response Header modification](/docs/enterprise/service-settings/response-headers-modifier/): Globally alter the headers returned to clients.
-- [Request Enrichment with GeoIP](/docs/enterprise/endpoints/geoip/): Enrich requests with geolocation data for tailored functionality.
-- [Workflows](/docs/enterprise/endpoints/workflows/): Sometimes you cannot do all the transformations in a single shot, and a Workflow can solve that.
-
 
 ## Protocol mapping and performance
 Velonetics transparently converts data from one format to another and even transforms protocols. It ensures smooth integration with various systems and optimizes payload sizes for better efficiency. Some functionalities covering this are:
@@ -54,22 +42,12 @@ Velonetics CE includes:
 
 - [SOAP](/docs/backends/soap/): Craft the body and XML content you will send to a SOAP service and treat it back as XML or JSON automatically.
 
-{{< badge >}}Enterprise{{< /badge >}} additionally offers:
-- [Gzip Compression](/docs/enterprise/service-settings/gzip/): Optimize payload size with Gzip compression
-- [Static server](/docs/enterprise/endpoints/serve-static-content/): Use the gateway as a static web server
-
 ## Request and response validation
 In addition to transforming data and protocols, you can also validate requests and responses against JSON Schema definitions or enforce size restrictions to maintain data integrity. These features ensure data compliance, protect against oversized payloads and enhance system reliability.
 
 - [JSON Schema Request Validation](/docs/endpoints/json-schema/): Validate that the payload set by the client conforms to a schema.
 - [Conditional requests and responses ](/docs/endpoints/common-expression-language-cel/): Allow the request to go in or out based on business rules
 - [Static responses on errors](/docs/endpoints/static-proxy/): Add static content to complement the final response on incomplete and degraded responses.
-
-Plus on the {{< badge >}}Enterprise{{< /badge >}}:
-
-- [JSON Schema Response Validation](/docs/enterprise/endpoints/response-schema-validator/): Validate backend responses according to a schema before delivering them to the client.
-- [Setting Maximum Request Size](/docs/enterprise/endpoints/maximum-request-size/): Control the maximum size of the payload received
-
 
 ## Why manipulate requests and responses?
 Modern APIs must often adapt to varying client requirements, integrate with legacy systems, or comply with stringent data security and performance standards. In addition, most of the time, implementors of these APIs do not have control over the origin of the data. Request and response manipulation allows you to:

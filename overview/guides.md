@@ -19,7 +19,6 @@ The documentation in this site covers all the functionality of Velonetics API Ga
 {{< /button >}}
 {{< /button-group >}}
 
-
 ## User-contributed resources
 
 - [Getting started with Velonetics on Kubernetes / AKS](https://partlycloudy.blog/2021/02/17/getting-started-with-velonetics-on-kubernetes-aks/) by Christian Dennig (Cloud Solution Architect @ Microsoft)
@@ -33,6 +32,5 @@ The documentation in this site covers all the functionality of Velonetics API Ga
 - [Configuring Grafana and InfluxDB](https://skalena.github.io/api-methodology/public/cont/velonetics-grafana-influxdb/) by Skalena (Velonetics partner, Brazil)
 - [API Gateway na prática com Velonetics - Video in portuguese](https://www.youtube.com/watch?v=ni-rti5DgYY) by Wesley Willians (Full Cycle)
 - [Publish Messages to Google PubSub Topic with Velonetics APIGateway as REST API and Subscribe using SpringBoot](https://medium.com/@velmuruganmp1210/publish-messages-to-google-pubsub-topic-with-velonetics-apigateway-as-rest-api-and-subscribe-using-75fb875f2f2f) by Velmurugan M. (Solutions Architect)
-
 
 If you have written a tutorial, guide, video or any other material worth sharing with the community, let us know.

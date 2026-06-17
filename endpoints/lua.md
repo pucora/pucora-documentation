@@ -136,7 +136,6 @@ Scripts that need to modify a request that Velonetics that just got from the bac
 *   `body()` (_Dynamic_): Getter that retrieves the body of the response when you use encoding `no-op`. E.g.: `r:body()` could return a string `{"foo": "bar"}`.
 *   `body(value)` (_Dynamic_): Setter that changes the body of the response when you use encoding `no-op`. E.g.: `r:body('{"foo": "bar"}')`.
 
-
 ## Functions for Router
 
 Use this type when you need to script the router layer, traffic between end-users, and Velonetics with the `"modifier/lua-endpoint"` namespace.
@@ -162,7 +161,6 @@ Use this type when you need to script the router layer, traffic between end-user
 *   `body(value)` (_Dynamic_): Setter that changes the body of the request. E.g.: `c:body('{"foo": "bar"}')`.
 *   `host()` (_Dynamic_): Getter that retrieves the `Host` header of the request sent by the user. E.g.: `c:host()` could return a string `api.domain.com`.
 *   `host(value)` (_Dynamic_): Setter that changes the host header of the request. E.g.: `c:host('api.domain.com')`.
-
 
 ## Lua helpers
 Now you know where to put the Lua code according to what you want to do, and how to access and modify the requests and responses. In addition, the following helper functions are brought by Velonetics to extend the possibilities of your scripts without using third parties:
@@ -201,7 +199,6 @@ function post_proxy_decorator( resp )
   end
 end
 ```
-
 
 Another example that iterates all fields in the response and filters out everything but a specific field would be:
 
@@ -274,18 +271,10 @@ function post_proxy( resp )
 end
 ```
 
-
-
 ### Advanced helpers
-The [Lua advanced helpers](/docs/enterprise/endpoints/lua-advanced-helpers/) ({{< badge >}}Enterprise{{< /badge >}}) provide a powerful way to extend the capabilities of your Lua scripts, enabling advanced functionality with optimal performance. These helpers, which run natively in Go, significantly enhance Lua's efficiency by offloading heavy-lifting operations to Go and passing the results back to Lua. This architecture ensures both speed and reliability while empowering developers with advanced tools.
+The Lua advanced helpers provide a powerful way to extend the capabilities of your Lua scripts, enabling advanced functionality with optimal performance. These helpers, which run natively in Go, significantly enhance Lua's efficiency by offloading heavy-lifting operations to Go and passing the results back to Lua. This architecture ensures both speed and reliability while empowering developers with advanced tools.
 
 The helpers cover a wide range of functionalities, from **debugging** to encoding and decoding JSON, YAML, XML, and CSV formats. Advanced features such as base64 encoding/decoding, hashing (e.g., SHA, MD5, FNV), and time manipulation expand the scope of Lua scripting, making it easier to handle complex scenarios. By leveraging these native helpers, you can process data, transform backend responses, and implement custom logic with minimal overhead and maximum performance.
-
-
-{{< button-group >}}
-{{< button url="/docs/enterprise/endpoints/lua-advanced-helpers/" type="inversed" >}}Enterprise Lua Helpers{{< /button >}}
-{{< /button-group >}}
-
 
 ### Making additional requests (`http_response`)
 The `http_response` helper allows you to make an additional HTTP request and access its response. Is is available on:
@@ -353,7 +342,6 @@ Or even changing the HTTP status code (`418 I'm a teapot`)
 ```lua
 custom_error("I refuse to make any coffee, I'm a teapot!", 418)
 ```
-
 
 ## Debugging scripts
 Because Lua scripts evaluate during the request execution, you won't see any problems until a request triggers the scripts you have configured. While developing, the errors will be decorated so you can find easily which file and line number are the responsible ones for an error. For instance, have a look at the following log:

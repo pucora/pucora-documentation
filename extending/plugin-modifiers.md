@@ -23,9 +23,7 @@ The **request and response modifier plugins** are a type of Velonetics customiza
 
 The injecting of the modifiers is placed at the beginning of the proxy pipe (just after the router layer) and before the request executor (where the executor plugins are injected). The first one can modify the incoming request and the final response, and it's configured at the endpoint level; the second one can modify the request and responses concerning the backend that declares it. Since all the modifiers are executed at the proxy pipe, no extra encoding/decoding cycles are required.
 
-
 The **request and response modifier plugins are not middlewares, but modifier functions** that you can call **sequentially from a new middleware**. Request modifiers can only inspect and modify requests (and other cool things) and response modifiers, only responses.
-
 
 Velonetics **executes the request and response modifiers in the order they are declared at the configuration**. See the [example](#example) below.
 
@@ -293,7 +291,6 @@ Your custom plugin can set errors using two different approaches:
 As gateway errors are not propagated to the end-user, if you want them to see the defined error you must enable [`return_error_message`](/docs/service-settings/router-options/#returning-the-gateway-error-message) as [router options](/docs/service-settings/router-options/).
 
 {{< /note >}}
-
 
 ### Plugin returning an error message only
 The simple example could be something like (as seen in the code above):

@@ -51,4 +51,4 @@ Here is a configuration example:
 ```
 
 ## Avoid HTTP redirection and other options
-To prevent Velonetics from following redirects, use specific TLS options, and utilize intermediate proxies and other options, refer to the [HTTP Client options in the Enterprise Edition](/docs/enterprise/backends/http-client/).
+To prevent Velonetics from following redirects, use specific TLS options, and utilize intermediate proxies and other options, refer to the HTTP Client options in the Velonetics.

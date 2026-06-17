@@ -16,7 +16,6 @@ gpg: Can't check signature: public key not found
 
 {{< /terminal >}}
 
-
 We don't have the packager public key (AB39BEA1) in our system. You need to retrieve the public key from a key server.
 
 {{< terminal title="Term" >}}
@@ -38,7 +37,6 @@ gpg: WARNING: This key is not certified with a trusted signature!
 gpg: There is no indication that the signature belongs to the owner.
 Primary key fingerprint: {{< param pgp_fingerprint >}}
 {{< /terminal >}}
-
 
 ## SHA256
 

@@ -41,7 +41,6 @@ The **key concepts** of `no-op` are:
 - `1:1` relationship between endpoint-backend (one backend per endpoint).
 - `X-Velonetics-Completed` will be false and `X-Velonetics` with current version will be added in response headers
 
-
 ## When to use `no-op`
 Use `no-op` when you need to **couple the client with a specific backend without any Velonetics manipulation**.
 
@@ -49,7 +48,6 @@ Examples:
 
 - You want to set a `Cookie` to the client directly from the backend.
 - You need to keep the headers of the backend as is.
-
 
 ## How to use `no-op`
 To declare endpoints that return the backend response as it is you need to define `"output_encoding": "no-op"`. Velonetics will set the `"encoding": "no-op"` in the `backend` section automatically, ignoring any different value you might have set.

@@ -57,7 +57,6 @@ The example above used [this public key](https://albert-test.auth0.com/.well-kno
 
 **Velonetics is built with security in mind** and uses **JWS** (instead of plain JWT or JWE), and the `kid` points to the right key in the JWS. This is why this entry is mandatory to validate your tokens.
 
-
 ## Basic JWT validation
 The JWT validation must be present inside every endpoint definition needing it. If several endpoints are going to require JWT validation, consider using the [flexible configuration](/docs/configuration/flexible-config/) to avoid repetitive declarations.
 
@@ -94,7 +93,6 @@ This configuration makes sure that:
 - The token has a valid signature
 - The role of the user is either `user` or `admin` (taken from a key in the JWT payload named `http://api.example.com/custom/roles`)
 - The token is not revoked in the bloom filter (see [revoking tokens](/docs/authorization/revoking-tokens/))
-
 
 ## JWT validation settings
 The following settings are available for JWT validation. There are many options, although generally only the **fields `alg` and `jwk_url` or `jwk_local_path` are mandatory**, and the rest of the keys can be added or not at your best convenience or depending on other options.
@@ -231,13 +229,11 @@ The URL Host + Path is used as the key ID, which can be an Amazon Resource Name 
 
 [More information about AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn)
 
-
 #### Azure's Key Vault
 ```
 azurekeyvault://keyID
 ```
 The credentials are taken from the environment unless the `AZURE_KEYVAULT_AUTH_VIA_CLI` environment variable is set to true, in which case it uses the `az` command line.
-
 
 [More information about Azure Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/basic-concepts)
 #### Google Cloud KMS
@@ -252,8 +248,6 @@ hashivault://keyID
 ```
 
 Environment variables `VAULT_SERVER_URL` and `VAULT_SERVER_TOKEN` are used.
-
-
 
 ## Passing claims to the backend URL
 
@@ -277,13 +271,11 @@ Having a `backend` defined with:
 }
 ```
 
-
 The call to your backend would produce the request:
 
 ```nginx
 POST /foo/1234567890
 ```
-
 
 Keep in mind that this syntax in the `url_pattern` field is only available if the backend loads the extra_config `"auth/validator"` and that **it does not work with nested attributes** in the payload.
 
@@ -308,7 +300,6 @@ It is possible to forward claims in a JWT as request headers. It is a common use
     }
 }
 ```
-
 
 In this case, the `sub` claim's value will be added as `x-user` header to the request. If the claim does not exist, the mapping is just skipped.
 

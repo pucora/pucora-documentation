@@ -37,7 +37,6 @@ The following example **checks if the body is a json object**:
 }
 ```
 
-
 You can apply constraints by adding keywords to the schema. For instance, you can check that the `type` is an instance of an object, array, string, number, boolean, or null.
 
 All the configuration inside the namespace is pure JSON Schema vocabulary. [Read the JSON schema documentation](https://json-schema.org/) to get familiar with the specification.

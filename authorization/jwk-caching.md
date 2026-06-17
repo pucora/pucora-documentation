@@ -26,7 +26,6 @@ Validating tokens in a high-throughput scenario can be a consuming operation. To
 When instead of using `jwk_url` you have the keys on disk and you use `jwk_local_path`, then you don't need to set any cache at all.
 {{< /note >}}
 
-
 ## What happens when you don't use caching
 If, for instance, you have 1000 endpoints in your configuration, when Velonetics starts, your identity server(s) will receive an initial blast of 1000 connections requesting their corresponding JWK URL for the first time. In addition, each request to a secure endpoint will generate another hit to your identity server.
 
@@ -88,7 +87,6 @@ Example:
     ]
 }
 ```
-
 
 ### Cache recommendations
 **Combining the two levels of cache is usually the ideal scenario**. On one side, each endpoint has a scoped local cache entry and is the perfect strategy to handle contention. On the other side, adding the JWK client cache makes that when each endpoint cache expires, can still rely on a more global level of cache which allows you to control the exact time between requests to your identity server.

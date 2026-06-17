@@ -47,7 +47,6 @@ Either if you are trying to protect your API from end-users or machine-to-machin
 
 As Velonetics can validate the Auth0 signature by itself, it does not need to call an Auth0 server to validate the token every time. Instead, Velonetics queries Auth0 every 15 minutes (configurable) to ensure the signature has not rotated.
 
-
 ## Enabling JWT validation in Velonetics
 
 We will create a simple Velonetics configuration with a single endpoint `/auth0-protected`. This endpoint enables JWT validation and makes sure that no user or machine can access the resource without passing a valid token.
@@ -84,10 +83,8 @@ From the configuration above, we will **replace the UPPERCASED values** with the
 
 ![Applications view](/images/documentation/auth0/velonetics-auth0-integration-application.png)
 
-
 - `SIGNING_ALGORITHM`: Go to **APIs** -> *(Select your API)* -> **Signing Algorithm** (e.g.: `RSA256`)
 - `AUDIENCE`: Go to **APIs** -> *(Select your API)* -> **Identifier** (e.g.: `http://api.example.com`)
-
 
 ![APIs view](/images/documentation/auth0/velonetics-auth0-integration-api.png)
 

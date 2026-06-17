@@ -25,7 +25,6 @@ The natural placement of an API gateway is between API consumers and your servic
 
 The different load balancer placements you can have are illustrated in the image above.
 
-
 ## Balancing ingress traffic (to Velonetics)
 We recommend having a few containers or servers in production to have high availability. In addition, you should place an **external balancer** to serve as the single point of contact for clients to distribute incoming traffic to all Velonetics nodes.
 
@@ -57,7 +56,6 @@ When you don't want the gateway to do any balancing for you because either:
 - Your infrastructure provides a balancer to your services
 
 ![load-balancing-egress-delegated.mmd diagram](/images/documentation/diagrams/load-balancing-egress-delegated.mmd.svg)
-
 
 In these cases, you only need to add a single element in the `host` array with the desired service/networking address:
 

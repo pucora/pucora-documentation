@@ -27,7 +27,7 @@ meta:
 ---
 The best experience consumers can have with Velonetics API is by letting the system fetch all the data from the different backends simultaneously. However, sometimes you need to **delay a backend call** until you have called a previous service. Although this is not ideal, the sequential proxy allows you to **chain backend requests**.
 
-The Sequential Proxy enables chaining multiple backend requests where **the output of one call is used as input for the next**, whether just injecting previous values of the response in the URL or as the body for the next call. This capability is especially powerful for orchestrating **dependent operations** or implementing simple workflows across services. For complex workflows, see the [Workflows documentation](/docs/enterprise/endpoints/workflows/) ({{< badge >}}Enterprise{{< /badge >}})
+The Sequential Proxy enables chaining multiple backend requests where **the output of one call is used as input for the next**, whether just injecting previous values of the response in the URL or as the body for the next call. This capability is especially powerful for orchestrating **dependent operations** or implementing simple workflows across services.
 
 Although achievable, we do not recommend adopting sequential patterns to perform token exchange or pre-authentication steps and use the dedicated components for such usages.
 
@@ -171,12 +171,10 @@ When the `encoding` of your backend is `string` (meaning it does not decode the 
 
 On the other hand, when your backend is `no-op` you can access the full response using `resp0` (also as a string).
 
-
 ## Passing previous values outside the `url_pattern`
 By setting the flag `"sequential": true`, the responses of the backends are available in the following `url_pattern`s. But there will be times when you don't want the value in the `url_pattern`. You can reuse the payload of previous responses elsewhere by propagating the values using the `sequential_propagated_params` attribute. These are the sequential flags you have on the `proxy` configuration:
 
 {{< schema data="endpoint_extra_config.json" property="proxy" filter="sequential,sequential_propagated_params" title="Fields of endpoint's proxy property">}}
-
 
 ### Example: Setting a previous response as the payload of the next
 The following example calls a backend and injects its response as the body payload of the next one. To accomplish this behavior, you can see the `sequential_propagated_params`. It saves the parameter `resp0`, which we reuse as `Resp0` in the Lua code of the second backend.

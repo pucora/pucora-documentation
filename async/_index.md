@@ -41,7 +41,6 @@ The backend(s) receive the event from the agent as part of the body. Depending o
 
 Notice that as it happens with the endpoints, the messages you consume can be sent in parallel or sequentially to multiple services.
 
-
 ## Configuration
 
 The `async_agent` entry is **an array** with all the different agents you want to have running. Each configuration needs to declare in the `extra_config` the connection driver you want to use. like this:

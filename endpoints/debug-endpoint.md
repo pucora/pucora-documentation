@@ -20,7 +20,6 @@ The endpoint can be used as a **fake backend** if you use as `host` Velonetics i
 }
 ```
 
-
 When developing, add an additional `backend` pointing to Velonetics itself (`"host": "http://localhost:8080"`) with the `/__debug/` endpoint in its `url_pattern`, so you can see exactly what headers and query string parameters your backends are receiving.
 
 The debug endpoint might save you much trouble, as your application might not work when specific headers or parameters are not present. Maybe you are relying upon what your client is sending, but this is not what the gateway is forwarding. Remember: this is not a proxy.
@@ -91,7 +90,6 @@ To test it right now, save the content of this file in a `velonetics-test.json` 
   ]
 }
 ```
-
 
 Start the server:
 

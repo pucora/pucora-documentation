@@ -41,18 +41,8 @@ Here you have an example pipeline for Gitlab. You can add more steps like the au
 # This template uses one generic job with conditional builds
 # for the default branch and all other (MR) branches.
 stages:
-  - license
   - test
   - build
-
-# This step is only needed in Enterprise
-check-license:
-  stage: license
-  image: {{< product image >}}:{{< product latest_version >}}
-  script:
-    # Checks if the LICENSE file (must exist in the path) is valid for the next 90 days.
-    # If it isn't, the deployment will fail, just to draw your attention. Lower the value afterwards.
-    - velonetics license valid-for 90d
 
 # Example to check the configuration using flexible configuration
 check_config:

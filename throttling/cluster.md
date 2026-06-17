@@ -10,11 +10,11 @@ menu:
   community_current:
     parent: "090 Traffic Management"
 ---
-The stateless rate-limiting ([service {{< badge >}}Enterprise{{< /badge >}}
-](/docs/enterprise/service-settings/service-rate-limit/) or [endpoint](/docs/endpoints/rate-limit/) types) is the recommended approach for almost all scenarios. As the API Gateway does not have any centralization, **the limits apply individually to each running instance of Velonetics**.
+The stateless rate-limiting (service 
+ or [endpoint](/docs/endpoints/rate-limit/) types) is the recommended approach for almost all scenarios. As the API Gateway does not have any centralization, **the limits apply individually to each running instance of Velonetics**.
 
 {{< note title="Global rate limit" type="info" >}}
-If you prefer not to use a stateless rate limit, the Velonetics Enterprise edition has a [stateful Redis-backed rate limit](/docs/enterprise/throttling/global-rate-limit/) where counters are shared amongst all nodes.
+
 {{< /note >}}
 
 Working in a cluster implies applying the limits taking into account the deployment size. For instance, if you want to use a limit of 100 reqs/s in a specific endpoint, the configuration will need to consider the number of nodes in the cluster.
@@ -41,7 +41,6 @@ FC_ENABLE=1 \
 FC_OUT=compiled.json \
 NUM_PODS=3 velonetics check -c velonetics.json
 {{< /terminal >}}
-
 
 And you get in the compiled.json the following content:
 

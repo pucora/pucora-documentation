@@ -30,7 +30,6 @@ The **payload** that is sent to the Lambda function comes from the request and d
 
 You don't need to set an Amazon API Gateway in the middle, as Velonetics does this job for you.
 
-
 ## Lambda configuration
 
 {{< note title="Dummy hosts and url_pattern" type="info" >}}
@@ -40,9 +39,6 @@ Notice in the examples that the `host` and `url_pattern` are needed as per the [
 The inclusion requires you to add the code in the `extra_config` of your `backend` section using the `backend/lambda` namespace.
 
 The supported parameters are:
-
-
-
 
 {{< schema data="backend/lambda.json" >}}
 

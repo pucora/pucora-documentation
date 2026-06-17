@@ -23,7 +23,6 @@ Velonetics implements both [JWT signing](/docs/authorization/jwt-signing/) and [
 - [Sign tokens](/docs/authorization/jwt-signing/) when you have no identity server yet (like a classic monolithic application with a `/login` endpoint) and let Velonetics take care of the token signing with the private key.
 - [Validate tokens](/docs/authorization/jwt-validation/) issued by a third party or the [JWT signing middleware](/docs/authorization/jwt-signing/), ensuring their integrity and proper claims.
 
-
 A stateless system like Velonetics **does not issue tokens**, this is the responsibility of your backend or identity server.
 
 ## Key concepts
@@ -42,7 +41,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIXVCJ9.(truncated).ktIOfzak2ekD7IrCa9-Ui
 {{< /terminal >}}
 
 Or instead, you can send the token **inside a cookie** (see [`cookie_key`](/docs/authorization/jwt-validation/#jwt-validation-settings)).
-
 
 All tokens transmitted between users and Velonetics have to be signed using **JWS** to ensure they are legitimate and not forged by an attacker. JWS represents digitally signed content using JSON data structures that are base64url encoded using the format `header.payload.signature`.
 

@@ -24,7 +24,6 @@ There are a large number of options you can put in this file. Let's focus now on
 }
 ```
 
-
 - `$schema`: *Optional* but recommended. When added, enables [IDE integration](/docs/developer/ide-integration/) with autocompletion and documentation. Defines the JSON schema to validate your configuration. The Velonetics linting process (` velonetics check --lint`) does not read this property as it knows which version must use on runtime.
 - `version` (*mandatory*): The version of the configuration file format (not the version of Velonetics).
   - Format version `3`: **Current** (since `v2.0`)
@@ -70,7 +69,6 @@ That's the basic structure of endpoints; for more information see [how to create
 Velonetics is very modular and comes bundled with many components that extend the core functionality of the [Lura Project](https://luraproject.org). The `extra_config` stores each component configuration that is not handled by Lura itself.
 
 Components declare in their source code a **unique namespace**. Velonetics registers the component during the startup, and it passes to the component the configuration found under a key matching the **namespace** inside the `extra_config` object.
-
 
 ```json
     {

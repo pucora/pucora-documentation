@@ -73,7 +73,6 @@ If you send the logs out to an [ELK](/docs/logging/logstash/) or a [GELF server]
     velonetics run -c velonetics.json >/dev/null 2>&1
 {{< /note >}}
 
-
 ### Remove access logs
 Removing the access log increases the number of requests per second the gateway can serve on high concurrency.**[Disable the access log](/docs/service-settings/router-options/#disable_access_log)** to gain more speed. You will still have the problems logged during runtime, but the requests won't be outputted.
 ```json
@@ -156,7 +155,6 @@ Add a `name` key in the configuration file with helpful information to identify 
 }
 ```
 
-
 **During the build in the pipeline**, it might be a good idea to **replace the content** of the `name` attribute with content showing the deployed version (the short SHA from the commit, maybe).
 
 ### Add comments and metadata  (`@`)
@@ -167,7 +165,6 @@ If you use the Velonetics `$schema` to validate your configuration, unknown attr
 {{< /note >}}
 
 For instance, you could add `@comment` fields. Velonetics does not use the field, and it passes the JSON schema validation. Finding it might be fresh air for the developer next to you.
-
 
 {{< highlight json "hl_lines=4" >}}
 {

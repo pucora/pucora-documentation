@@ -24,7 +24,6 @@ The request/response flow is:
 
 ![content-type-flow.seq.mmd diagram](/images/documentation/diagrams/content-type-flow.seq.mmd.svg)
 
-
 - The `encoding` is how Velonetics expects to find the response data of your backends. It is declared in each [`backend` section](/docs/backends/supported-encodings/) (and you can mix types)
 - The `output_encoding` is how you would like to process and return all the responses to the client. It is declared in the `endpoint` section, or globally as a default for all endpoints when you add in the root level.
 
@@ -43,7 +42,7 @@ The following `output_encoding` strategies are available to choose from for ever
 ### Working with JSON
 
 - `json`: This is the **default encoding** when no `output_encoding` is declared or when you pass an invalid option. The endpoint always returns a JSON object to the client, no matter what the `encoding` of your backend is.
-- `fast-json`: Same as `json` but it's ~140% faster on collections and ~30% on objects (average tests). Only available on the Enterprise Edition. You will notice the difference in speed of the fast-json encoding when the payloads increase in size (a small payload has an insignificant comparison to `json` encoding).
+- `fast-json`: Same as `json` but it's ~140% faster on collections and ~30% on objects (average tests). Only available on the Velonetics. You will notice the difference in speed of the fast-json encoding when the payloads increase in size (a small payload has an insignificant comparison to `json` encoding).
 - `json-collection`: Returning an array or collection is not treated equally to an object. You must use this output when the endpoint must return a JSON collection `[...]` instead of an object `{...}`. The backend response expects an object named `collection`, but this is automatically done by Velonetics when you use in the `backend` the [`is_collection` or `safejson`](/docs/backends/supported-encodings/).
 
 ### Working with non-JSON

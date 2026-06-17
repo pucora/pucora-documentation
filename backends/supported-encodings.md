@@ -16,14 +16,11 @@ Setting the `encoding` is an important part of the backend definition, as it inf
 Each backend can reply with a different encoding and Velonetics does not have any problem working with mixed encodings at the same time. You can use the following `encoding` in each `backend` section:
 
 - `json`
-- `fast-json` (Enterprise only)
-- `yaml` (Enterprise only)
 - `safejson`
 - `xml`
 - `rss`
 - `string`
 - `no-op`
-
 
 Notice that all values are in **lower case**. Unknown values for `encoding` or no value at all, is treated as `json`.
 

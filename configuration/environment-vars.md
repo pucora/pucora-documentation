@@ -31,7 +31,6 @@ In essence, you can replace any value in the configuration that lives in the roo
 The following list of variables only set the desired values when you have its associated value in the configuration. They are meant to **override** settings **already present** in the configuration, but if you set one of them and there is no value in the configuration, it won't have any effect.
 {{< /note >}}
 
-
 {{< top_level_envvars >}}
 
 ### Reserved variable example
@@ -65,7 +64,6 @@ The resulting configuration will be:
 }
 ```
 **Important**: Notice that the `port` attribute is not present in the configuration, despite passing a `VELONETICS_PORT` parameter. This is because the `port` didn't exist previously in the configuration file, and the environment variables can only **override** values.
-
 
 ## Setting your environment variables
 If you need to set content using environment variables at any level, you have can either use the [flexible configuration](/docs/configuration/flexible-config/), which includes a series of [advanced functions](/docs/configuration/templates/#sprig-functions) including an `env` function, or you can not use Velonetics at all and rely on the operating system `envsubst` command. Obviously you can also write your custom replacement process.

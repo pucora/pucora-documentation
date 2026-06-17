@@ -91,7 +91,6 @@ See the sections below to use **additional variables**.
 When **client headers** are needed, remember to add them under [`input_headers`](/docs/endpoints/parameter-forwarding/#headers-forwarding) as Velonetics does not forward headers to the backends unless declared in the list.
 {{< /note >}}
 
-
 ## Adding logic in the requests and responses.
 There are three different ways to access the metadata of requests and responses when you are inside the `check_expr` to decide whether or not to continue serving the user command.
 

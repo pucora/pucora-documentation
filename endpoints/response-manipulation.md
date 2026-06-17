@@ -29,7 +29,6 @@ For instance, imagine you have three different API services exposing the resourc
 
 <img title="REST to Graphql" src="/images/documentation/velonetics-merge.png" class="dark-version-available">
 
-
 The merge operation chooses user experience and responsiveness first. It makes its *best effort* to get all the necessary parts from the involved backends and return the composed object as soon as possible.
 
 Velonetics marks the result of the merging operation with the `X-Velonetics-Completed` header, being `true` if all backends succeeded or `false` if some failed. When none succeeded, the gateway returns a `500` status code to the user.
@@ -83,7 +82,6 @@ If the response has missing parts, the cache header won't exist, as we don't wan
 
 At all times, the `X-Velonetics-Completed` header contains a boolean telling you if all backends returned their content (`x-velonetics-completed: true`) or it's a partial response (`x-velonetics-completed: false`).
 
-
 ### Merge example
 
 Imagine an endpoint with the following configuration:
@@ -114,8 +112,6 @@ Imagine an endpoint with the following configuration:
 }
 ```
 
-
-
 When a user calls the endpoint `/users/1`, Velonetics will send two requests and, in the happy scenario, it will receive these responses:
 
 ```json
@@ -144,7 +140,6 @@ When a user calls the endpoint `/users/1`, Velonetics will send two requests and
 }
 ```
 
-
 and
 
 ```json
@@ -155,7 +150,6 @@ and
     "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
 }
 ```
-
 
 With these 'partial responses' and the given configuration, Velonetics will return the following response:
 
@@ -187,7 +181,6 @@ With these 'partial responses' and the given configuration, Velonetics will retu
     "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
 }
 ```
-
 
 ## Filtering
 
@@ -240,10 +233,9 @@ For example: *return the name of all the students older than 18*:
 students[?age > `18` ].name
 ```
 
-See [Advanced query language manipulation {{< badge>}}Enterprise{{< /badge >}}](/docs/enterprise/endpoints/jmespath/)
+See Advanced query language manipulation 
 
 ## Content replacement with functions
-Another Enterprise feature is the `modifier/response-body`, which allows you to search objects in the responses and apply replacement functions, like regular expression, trimming, lowercase, etc.
 
 For instance:
 
@@ -267,4 +259,4 @@ For instance:
 }
 ```
 
-See [Content Replacer {{< badge >}}Enterprise{{< /badge >}}](/docs/enterprise/endpoints/content-replacer/)
+See Content Replacer 

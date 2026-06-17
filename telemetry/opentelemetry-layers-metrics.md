@@ -51,7 +51,6 @@ Below you'll find all possible metrics and traces
 
 {{% otel_metrics %}}
 
-
 ## Measuring added latency and similar metrics
 A common metric developers like to measure is the gateway's added latency and other similar metrics. In order to get coherent results you must take into account that:
 

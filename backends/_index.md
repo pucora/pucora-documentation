@@ -24,8 +24,6 @@ When a Velonetics endpoint is hit, the engine requests **all defined backends in
 Because Velonetics is not a reverse proxy, the status code and headers returned depends on factors like the type of encoding and the configuration you have chosen. See [Status Codes](/docs/endpoints/status-codes/) and (Returning the backend headers and errors)[/docs/backends/detailed-errors/] for more details.
 {{< /note >}}
 
-
-
 ## Backend/Upstream configuration
 Inside the `backend` array, you need to create an object for each upstream service used by its declaring endpoint. The combination of `host` + `url_pattern`set the full URL that Velonetics will use to fetch your upstream services. Most of the backends will require a simple configuration like:
 ```json
@@ -35,8 +33,7 @@ Inside the `backend` array, you need to create an object for each upstream servi
 }
 ```
 
-The `url_pattern` accepts `{variables}` from the endpoint definition, and on {{< badge >}}Enterprise{{< /badge >}} you can also [inject headers](/docs/enterprise/endpoints/dynamic-routing/) with patterns like `/{input_headers.X-Tenant}/foo`
-
+The `url_pattern` accepts `{variables}` from the endpoint definition, and on  you can also inject headers with patterns like `/{input_headers.X-Tenant}/foo`
 
 All the options relative to the **backend definition** are:
 

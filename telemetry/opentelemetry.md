@@ -34,7 +34,6 @@ Velonetics has traditionally offered part of its telemetry integration through t
 While the underlying protocol specification of OpenTelemetry is stable, you'll find [mixed stability statuses](https://opentelemetry.io/docs/specs/status/) in the components lifecycle. While we cannot predict what changes there will be as the technology evolves, Velonetics will always do its best to maintain compatibility between versions. More information about the underlying exporter can be found [here](https://opentelemetry.io/docs/languages/go/exporters/).
 {{< /note >}}
 
-
 ## Collecting metrics and traces
 The `telemetry/opentelemetry` component in Velonetics collects the activity generated for the enabled layers and pushes or exposes the data for pulling. There are two ways of publishing metrics:
 
@@ -60,17 +59,14 @@ Choose the `otlp` exporter when you want to **push the metrics to a local or rem
 The `host` where your collector lives can also point to an external load balancer between Velonetics and multiple collectors if needed:
 ![Velonetics to load balanced collectors, collectors to backend](/images/documentation/diagrams/opentelemetry-otlp-lb.mmd.svg)
 
-
-{{< badge >}}Enterprise{{< /badge >}} users can push directly to external storage passing auth credentials using the [`telemetry/opentelemetry-security` component](/docs/enterprise/telemetry/opentelemetry-security/), so the collector is not needed anymore:
+ users can push directly to external storage passing auth credentials using the `telemetry/opentelemetry-security` component, so the collector is not needed anymore:
 
 ![opentelemetry-otlp-auth.mmd diagram](/images/documentation/diagrams/opentelemetry-otlp-auth.mmd.svg)
 
 This strategy saves a lot of time during the setup of Velonetics.
 
-
 ## OpenTelemetry Configuration
 To enable OpenTelemetry, you will need a Prometheus or an OTEL Collector (or both) and add the `telemetry/opentelemetry` namespace at the top level of your configuration.
-
 
 The configuration of the `telemetry/opentelemetry` namespace is very extensive, but the two key entries are:
 

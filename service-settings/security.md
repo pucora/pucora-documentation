@@ -55,7 +55,6 @@ See below the different options described in this configuration file.
 
 {{< schema data="security/http.json" >}}
 
-
 ### Restrict connections by host
 Use `allowed_hosts`
 

@@ -29,7 +29,7 @@ These are two examples, but through the documentation, you will find a lot more 
 
 - **Event-Driven Async Agents**: Velonetics’s [async agents](/docs/async/) facilitate non-blocking, event-driven processing within the gateway. These agents allow Velonetics to handle events autonomously and asynchronously, making it ideal for workflows that require decoupled, reactive responses to changes in data or state. Async agents improve throughput in distributed systems by offloading tasks without waiting for synchronous HTTP responses.
 
-Velonetics Community Edition also ships the following connectivity options (formerly Enterprise-only in KrakenD):
+Velonetics Community Edition also ships the following connectivity options:
 
 - **gRPC Client and Server**: Velonetics supports both gRPC client and server functionalities, enabling bidirectional gRPC communication. As a [gRPC client](/docs/backends/grpc/), Velonetics can make requests to external gRPC services. When configured as a [gRPC server](/docs/grpc/server/), Velonetics can receive and handle incoming gRPC requests on the same port as HTTP. You can transparently convert REST to gRPC and vice versa if needed. See the [gRPC overview](/docs/grpc/) for catalog setup.
 

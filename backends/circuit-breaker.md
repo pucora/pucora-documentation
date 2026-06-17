@@ -33,7 +33,6 @@ It is important to remark that the number of maximum errors are **consecutive er
 The Circuit Breaker is an **automatic protection measure** for your API stack and **avoids cascade failures**, keeping your API responsive and resilient. It has a small consumption of resources. Try to implement it always. You might start with a big number of errors if you hesitate.
 {{< /note >}}
 
-
 ## Circuit breaker configuration
 
 The Circuit Breaker is available in the namespace `qos/circuit-breaker` inside the `extra_config` key of every `backend`. The following configuration is an example of how to add circuit breaker capabilities to a backend:
@@ -97,7 +96,6 @@ When the circuit breaker counts the number of consecutive `max_errors`, an error
 {{< note title="`no-op` endpoints do not check HTTP status codes" type="warning" >}}
 Because a `no-op` does not evaluate the response status code, the circuit breaker does not see the response status code of the backend and the errors are limited to the following list below.
 {{< /note >}}
-
 
 An error could be any of the following:
 

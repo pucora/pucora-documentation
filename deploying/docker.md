@@ -16,8 +16,6 @@ In its simplified form would be:
 ```Dockerfile
 FROM {{< product image >}}:{{< product minor_version >}}
 COPY velonetics.json /etc/velonetics/velonetics.json
-# Uncomment with Enterprise image:
-# COPY LICENSE /etc/velonetics/LICENSE
 ```
 
 {{< note title="Volume or copy?" type="question" >}}
@@ -46,8 +44,6 @@ FROM {{< product image >}}:{{< product minor_version >}}
 RUN apk upgrade --no-cache --no-interactive
 
 COPY --from=builder --chown=velonetics:nogroup /tmp/velonetics.json .
-# Uncomment with Enterprise image:
-# COPY LICENSE /etc/velonetics/LICENSE
 
 # Uncomment if you have certificates issued by a custom CA
 # e.g., tls: failed to verify certificate: x509: certificate signed by unknown authority

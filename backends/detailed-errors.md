@@ -69,7 +69,6 @@ An error example is:
 When you use `return_error_details`, all status codes returned to the client are `200`. The client must parse the response for the presence of the `error_backend_alias` or any other key you have set to determine if there's a problem.
 {{< /note >}}
 
-
 ### Example
 The following configuration sets an endpoint with two backends that return its errors in two different keys:
 
@@ -151,7 +150,6 @@ Place the following configuration in the configuration:
 ```
 
 Notice that the `return_error_code` and the `return_error_details` are mutually exclusive. You can use one or the other but not both. If you declare them together, the gateway will use only `return_error_details`.
-
 
 ## Show an interpretation but not the error body
 When you want to show the interpretation of the error but not the error of the backend, use the [router option `return_error_msg`](/docs/service-settings/router-options/) as follows:

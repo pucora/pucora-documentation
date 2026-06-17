@@ -28,7 +28,6 @@ Model MacBook Pro (MacBookPro11,4) - August 2015
 Processor: Intel Core i7 2,2 GHz
 {{< /terminal >}}
 
-
 ## Setup
 
 For this test, we stored this configuration at `velonetics.json`
@@ -100,7 +99,6 @@ $ vagrant ssh consumer
 [vagrant@consumer boom]$ /usr/local/bin/test00
 [vagrant@consumer boom]$ /usr/local/bin/test01
 {{< /terminal >}}
-
 
 ## Results
 

@@ -65,8 +65,5 @@ To import the Kibana dashboard included in the ELK repository above, execute the
 curl -X POST "localhost:5601/api/saved_objects/_import" -H "kbn-xsrf: true" --form file=@dashboard.ndjson -H "kbn-xsrf: true"
 {{< /terminal >}}
 
-
-
-
 ## ELK live demo
 If you want to see how this works, you can start the [Velonetics Playground](/docs/overview/playground/).

@@ -14,10 +14,9 @@ weight: 31
 ---
 There are **several components and features** in Velonetics that allow you to define configurations or content manipulations using **templates**.
 
-Whether you are using templates with [flexible configuration](/docs/configuration/flexible-config/), a [Request generator](/docs/enterprise/backends/body-generator/) or [Response manipulation](/docs/enterprise/backends/response-body-generator/) the syntax you use is the same, and it's based on **Go templates** (as Helm, Kubernetes, and many other systems).
+Whether you are using templates with [flexible configuration](/docs/configuration/flexible-config/), a Request generator or Response manipulation the syntax you use is the same, and it's based on **Go templates** (as Helm, Kubernetes, and many other systems).
 
 Our convention for saving templates, is using the `.tmpl` extension, although this is not enforced. This document provides a few direction to use templates.
-
 
 ## Template syntax
 The templates use internally the Go `text/template` package and **Sprig functions**. For templates loaded in the Flexible Configuration, there are additional custom functions to load external resources.
@@ -86,9 +85,6 @@ When calling templates from templates (flexible config), make sure to add the fi
 - `{{ template "hello.tmpl" . }}`: The hello template receives all setting files and works as its calling template.
 - `{{ template "hello.tmpl" .urls.users_api }}`: receives only the string value of the user API.
 - `{{ template "hello.tmpl" "hello world" }}`: receives only a constant string
-
-Only in the {{< badge >}}Enterprise{{< /badge >}} edition you have an additional variable `.meta` holding directory metadata under the settings tree (maybe you want to traverse directory contents in a template).
-
 
 ### Using the `$` notation to access outsider context
 As we have seen, when making a loop with a `range` or accessing a `with`, the variables inside are relative to its context. Still, you can access outsider variables with the `$` notation.
@@ -161,8 +157,6 @@ And call it in the `velonetics.tmpl` like this:
 }
 ```
 
-
-
 ### Sprig functions
 Complementing the [Go built-in template language](http://golang.org/pkg/text/template/), Sprig adds more than 100 commonly used functions.
 
@@ -196,7 +190,6 @@ Sprig provides many functions in the following categories:
     - Reflection: `typeOf`, `kindIs`, `typeIsLike` and more.
     - Cryptographic and Security Functions: `derivePassword`, `sha256sum`, `genPrivateKey` and more.
     - Network: `getHostByName`
-
 
 {{< button-group >}}
 {{< button url="http://masterminds.github.io/sprig/" text="Sprig documentation" >}}<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -315,7 +308,6 @@ In this file, we have written the content of the rate limit configuration and ci
 }
 ```
 
-
 **settings/service.json**
 
 In the settings directory, we write all the files whose values can be accessed as variables.
@@ -359,7 +351,6 @@ This file declares a couple of endpoints that feed on a single backend:
     ]
 }
 ```
-
 
 **velonetics.tmpl**
 

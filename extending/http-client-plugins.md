@@ -30,8 +30,6 @@ An HTTP client is a terminator. It means that it is the last executor in the Vel
 More specifically, if you inject your plugin, you don't have [Client Credentials](/docs/authorization/client-credentials/), [Backend Cache](/docs/backends/caching/), or [Backend Telemetry](/docs/telemetry/opentelemetry-layers-metrics/#data-exposed-in-the-backend-layer) unless you add this logic to your plugin.
 {{< /note >}}
 
-
-
 ## HTTP client interface
 {{< note title="Writing plugins" type="tip" >}}
 Read the introduction to [writing plugins](/docs/extending/writing-plugins/) for compilation and configuration options if you haven't done it yet.
@@ -260,7 +258,6 @@ To test the plugin, request the test endpoint `/test/{id}`. If you request a pat
 curl http://localhost:8080/test/normal
 {"message":"pong"}
 {{< /terminal >}}
-
 
 {{< terminal title="Hijack the request" >}}
 curl http://localhost:8080/test/hijack-me

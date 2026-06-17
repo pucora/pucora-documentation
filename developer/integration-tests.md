@@ -76,7 +76,6 @@ The three parameters of the binary are:
 - `-velonetics_config_path`: The path to the Velonetics configuration file that contains all endpoints you want to test.
 - `-velonetics_specs_path`: The path to the folder containing all your specifications. These are all the tests that you want to run against Velonetics and check its output.
 
-
 {{< button-group >}}
 {{< button url="https://github.com/velonetics/velonetics-ce/tree/master/tests" text="Integration tests" >}}<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />

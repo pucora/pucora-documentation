@@ -12,7 +12,6 @@ weight: 10
 ---
 Velonetics is a **single binary file** that does not require any external libraries to work. To install Velonetics choose your operative system in the downloads section or use the Docker image.
 
-
 {{< button-group >}}
 {{< button url="/download/" text="Download" >}}<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
@@ -94,7 +93,6 @@ Minimum supported versions are Debian 8, and Ubuntu 16.x.
 
 #### Generic Linux (`tar.gz`)
 You can also [download](/download/) the `tar.gz` and decompress it anywhere. Instructions to check the SHA and PGP signature [here](/docs/overview/verifying-packages/).
-
 
 ## Compile from source
 As Velonetics is open source you can opt for [building the binary](https://github.com/velonetics/velonetics-ce). The binary you will produce is the same you can get in our download page, only that compiling it yourself always feels good!

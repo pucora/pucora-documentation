@@ -20,7 +20,6 @@ When you upgrade Velonetics to another version you must recompile your plugins u
 
 Even if a plugin compiles and passes initial tests on its own, it might fail when loaded into Velonetics. This could be due to various reasons such as compilation on a different architecture, mismatches in Go version, or discrepancies in library versions used by both the plugin and Velonetics.
 
-
 The `test-plugin` command offers a real-scenario opportunity to test a compiled binary (usually a `.so` file) and verify if Velonetics can successfully load it.
 
 ## Testing a compiled plugin before it goes live

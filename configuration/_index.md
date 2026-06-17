@@ -27,7 +27,6 @@ New to Velonetics configuration? Use the [Velonetics Configurator](/docs/configu
 If your configuration file is too large or repetitive, or is maintained by many people, it can be split into several files using a templating system. See the [flexible configuration documentation](/docs/configuration/flexible-config/) for more information.
 {{< /note >}}
 
-
 ## Generating the configuration file(s)
 The configuration file is how you provide instructions to Velonetics. To start your first Velonetics configuration, you can:
 

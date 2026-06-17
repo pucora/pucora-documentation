@@ -23,7 +23,6 @@ To enable the `/__echo/` endpoint, you should add in the configuration (service 
 
 When used as a backend, you have a **fake backend** that is very useful for seeing the interaction between the gateway and the backends and testing all sorts of Velonetics components.
 
-
 ### Response fields
 Given a request following the format `[scheme:][//[userinfo@]host][/]path[?query][#fragment]`, the `/__echo/` endpoint will answer with the following structure:
 

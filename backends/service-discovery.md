@@ -16,7 +16,6 @@ The service discovery (`sd`) is an optional attribute of the `backend` section t
 You might also want to read the [Load Balancer](/docs/throttling/load-balancing/) documentation
 {{< /note >}}
 
-
 The chosen **service discovery strategy** determines how to retrieve (statically or dynamically) the final list of IPs, hostnames, or services pointing to your backends. If your host list is dynamic, you can use an external service discovery provider and let Velonetics interact with it to get the hosts. If your host list is static (it doesn't change) or you use a service name or an external load balancer, you can use `static` resolution and directly use the values provided under `host[]`.
 
 Velonetics must be in a network that can reach any declared hosts. With more than one host, Velonetics [load balances](/docs/throttling/load-balancing/) the connections to the hosts in the list.
@@ -25,7 +24,6 @@ Velonetics must be in a network that can reach any declared hosts. With more tha
 The possible configurations and values for `sd` are:
 
 {{< schema data="backend.json" filter="sd,sd_scheme" >}}
-
 
 ## Static resolution
 The `static` resolution is the default service discovery strategy. It implies that you write directly in the configuration the protocol plus the service name, hosts, or IPs you want to connect to.
@@ -115,7 +113,6 @@ For instance:
     "dns_cache_ttl": "10s"
 }
 ```
-
 
 ## How priority and weight affect balancing
 When the Service Discovery answers with the list of hosts, **only the lower priority is taken**. For instance, if you have a response like this one:

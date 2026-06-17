@@ -4,7 +4,7 @@ date: 2020-02-26
 aliases: ["/docs/endpoints/creating-endpoints/"]
 linktitle:  The endpoint object
 title: Endpoint Configuration
-description: Configure and manage API endpoints effectively with Velonetics Enterprise. Explore our documentation to learn how to define and optimize your API endpoints for better performance.
+description: Configure and manage API endpoints with Velonetics. Learn how to define routes, backends, and middleware for your API gateway.
 weight: 10
 menu:
   community_current:
@@ -71,8 +71,7 @@ You might have envisioned Velonetics as a proxy and expected its `endpoint` decl
 For instance, you declared an `"endpoint": "/user/{id}"` and you expected to resolve URLs like `/user/john/profile/preferences`, but you are getting a *404* instead. There are two solutions to this problem:
 
 1. You can declare all possible endpoints: `/user/{id}`, `/user/{id}/{level2}`, `/user/{id}/{level2}/{level3}`, etc.
-2. You use a [Wildcard](/docs/enterprise/endpoints/wildcard/)
-
+2. You use a Wildcard
 
 ### Endpoints listening to multiple methods
 
@@ -123,7 +122,6 @@ As you can see in the examples above, endpoints can define variables in their en
 }
 ```
 
-
 The previous endpoint will accept requests like `/user/123` or `/user/A-B-C`. But **it won't take** a request like `/user/1/2`, as there is an extra slash than the definition, and Velonetics considers this to be a different endpoint.
 
 ### Router rules to avoid collisions
@@ -154,7 +152,6 @@ But you can declare the same route as:
 - endpoint: `/v1/{domain}/user/{userid}/some`
 
 Summarizing, on colliding routes, make sure to use the same variable names.
-
 
 ### Disable RESTful checking
 By default Velonetics only works with **RESTful URL patterns** in its endpoint definition. Enable the option [`disable_rest`](/docs/service-settings/http-server-settings/#disable_rest) in the root of your configuration if need unrestful endpoints, e.g.: `/file.{extension}`

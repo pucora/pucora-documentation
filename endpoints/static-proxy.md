@@ -42,7 +42,6 @@ The supported strategies to inject static data are the following:
 
 Pay attention to the different strategies as they might offer **subtle differences**. The following table shows when each of the strategies will return the content inside its `data`:
 
-
 | Strategy      | Condition to trigger |
 | ------------- | ------------- |
 | `always` | `true` |
@@ -83,7 +82,6 @@ Inside the `strategy` key choose the strategy that fits your use case (one of `a
 
 ## Static proxy example
 The following configuration declares two endpoints that will fail that you can test locally (copy and paste without replacements):
-
 
 ```json
 {
@@ -156,7 +154,6 @@ The following configuration declares two endpoints that will fail that you can t
     ]
 }
 ```
-
 
 - `/static/errored` tries to connect to two unexisting backends which will make the whole endpoint to fail at getting data, and uses the `errored` strategy in the proxy. When this happens, we return a static object that could contain some data to allow the client render something. In this case we are returning:
     ```json

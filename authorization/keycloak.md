@@ -40,7 +40,6 @@ Either if you are trying to protect your API from end-users or machine-to-machin
 
 As Velonetics can validate the Keycloak signature by itself, it does not need to call the Keycloak server to validate the token every time. Instead, Velonetics queries Keycloak every 15 minutes (configurable) to ensure the key has not rotated.
 
-
 ## Protecting endpoints with Keycloak tokens
 
 We will create a simple Velonetics configuration with a single endpoint `/keycloak-protected`. This endpoint enables JWT validation and makes sure that no user or machine can access the resource without passing a valid token.

@@ -29,7 +29,6 @@ For each instance type there are 2 different tests:
 
 The instance types we tested are:
 
-
 | Instance Type | Number of vCPU | Memory |
 |---------------|----|-------|
 | t2.micro | 1 | 1 GB |
@@ -37,7 +36,6 @@ The instance types we tested are:
 | m4.large | 2 | 8 GB|
 | c4.xlarge | 4 | 7.5 GB|
 | c4.2xlarge | 8 | 15 GB|
-
 
 ## Velonetics Configuration for all tests
 

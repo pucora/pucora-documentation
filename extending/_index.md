@@ -51,7 +51,6 @@ For more **advanced and performance-critical** requirements, Velonetics supports
 
 With Go plugins, you can pretty much do anything you want, including integrating with external services, using databases, and anything you can code.
 
-
 ### Go plugins advantages
 - High performance: Compiled Go plugins execute at native speed, suitable for heavy processing tasks.
 - Extensive libraries: A world of Go libraries and an ecosystem for integrating with APIs, databases, and more.
@@ -76,7 +75,6 @@ Both Lua and Go plugins allow you to extend Velonetics's capabilities, but their
 - Lua is best for quick, simple, runtime modifications
 - Go is best for complex, performance-critical, or testable extensions
 
-
 {{< button-group >}}
 {{< button url="/docs/endpoints/lua/" text="Get started with Lua" >}}<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
@@ -87,7 +85,6 @@ Both Lua and Go plugins allow you to extend Velonetics's capabilities, but their
   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
 </svg> Get started with Go Plugins{{< /button >}}
 {{< /button-group >}}
-
 
 ## What about forking?
 Open-source users might be tempted to fork the source code to add modifications. Our recommended way to customize Velonetics is always through plugins or scripts, and you **should avoid forking the code** if you want to keep up to date with the product's progress and security vulnerabilities. We have seen over and over forked projects that are left behind because companies don't have the resources to keep up.

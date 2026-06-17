@@ -49,7 +49,6 @@ As the handler functions are in the previous step, **Velonetics doesn't penalize
 ## The important packages
 The Lura Project (Velonetics's engine) is composed of a set of packages designed as building blocks for creating pipes and processors between an exposed endpoint and one or several API resources served by your backends.
 
-
 ![Lura packages](/images/documentation/config-router-proxy-packages.png)
 
 The most important packages are:
@@ -61,7 +60,6 @@ The most important packages are:
 The rest of the framework packages contain some helpers and adapters for additional tasks, like encoding, logging, or service discovery.
 
 Additionally, Velonetics bundles a lot of middleware and components that are in its scope and package. These packages and others are listed in our [Velonetics Contrib](https://github.com/velonetics/velonetics-contrib) repository.
-
 
 ### The `config` package
 

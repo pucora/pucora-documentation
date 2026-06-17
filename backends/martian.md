@@ -87,7 +87,6 @@ Additionally, it will modify the following headers to ensure proper transport: `
 
 {{< schema data="modifier/martian.json" property="body.Modifier" >}}
 
-
 The following modifier sets the body of the request and the response to `{"msg":"you rock!"}`. Notice that the `body` field is `base64` encoded (e.g., `echo "content" | base64 -w0`).
 
 ```json
@@ -236,13 +235,10 @@ Content-Length: 70
 {"req_uri":"/__echo/querystring.Modifier?amount=75\u0026currency=EUR"}
 {{< /terminal >}}
 
-
-
 ### Copy a header
 Although not widely used, the `header.Copy` lets you duplicate a header using another name.  If you want to return headers to the client, remember to use `no-op` encoding. Notice also that even though the modifier supports request and response, rarely the same headers are used in both directions.
 
 {{< schema data="modifier/martian.json" property="header.Copy" >}}
-
 
 ```json
 {
@@ -273,7 +269,6 @@ The `stash.Modifier` creates a new header (or replaces an existing one with a ma
 {{< schema data="modifier/martian.json" property="stash.Modifier" >}}
 
 The example below adds a header `X-Stash: http://localhost:8080/__echo/stash.Modifier?amount=1` both in the request and the response when the user calls `http://localhost:8080/test/stash.Modifier?amount=1`
-
 
 ```json
 {
@@ -343,7 +338,6 @@ When using `echo`, make sure to add the `-n` option to avoid the final line brea
 {{< terminal title="Term" >}}
 curl -i https://yourapi --header 'Authorization: Basic dXNlcjpwYTU1dzByZA=='
 {{< /terminal >}}
-
 
 If the connection works, it means that your credentials are correct, and you can add the resulting base64 string `dXNlcjpwYTU1dzByZA==` to the Martian modifier right before connecting to your `backend`:
 
@@ -430,9 +424,6 @@ There are some headers that accept only one value, so you won't be able to set m
 }
 ```
 
-
-
-
 ### Header Blacklist
 The `header.Blacklist` removes the listed headers under `names` in the request and response of the backend.
 
@@ -496,7 +487,6 @@ All packages with keys like `package.Filter` are modifiers, but **add a conditio
 
 All filters have in their settings a key `modifier` which executes the declared one when the condition is met, and **optionally** an `else` key to execute another modifier when the condition is not met. Not all filters support an `else`.
 
-
 ### Cookie Filter
 The `cookie.Filter` executes the contained `modifier` when a cookie with a `name` is found. Optionally it can check also if it has a specific `value`. When the condition(s) fail(s), it executes the modifier in the `else` clause when set.
 
@@ -508,7 +498,6 @@ The example below inspects the Cookies in the request and looks for the one name
 curl -H 'Cookie: marketingCookies=no;' http://localhost:8080/test/cookie.Filter
 {"req_headers":{"Accepts-Marketing-Cookies":["false"]}}
 {{< /terminal >}}
-
 
 ```json
 {
@@ -551,7 +540,6 @@ curl -H 'Cookie: marketingCookies=no;' http://localhost:8080/test/cookie.Filter
   ]
 }
 ```
-
 
 ### URL filter
 The `url.Filter` executes its contained modifier if the `request` URL matches all of the provided parameters. Missing parameters are ignored.
@@ -740,8 +728,6 @@ curl -H 'X-Tenant: v1' http://localhost:8080/test/header.Filter
 {"req_uri":"/__echo/header.Filter?legacy=1"}
 {{< /terminal >}}
 
-
-
 ### Header Regexp filter
 The `header.RegexFilter` checks that a regular expression ([RE2 syntax](https://golang.org/s/re2syntax)) passes on the target header and, if it does, executes the `modifier`.
 
@@ -787,7 +773,6 @@ The example below checks a header `X-App-Version` and if it contains the termina
 curl -H 'X-App-Version: v1.2.3-alpha' http://localhost:8080/test/header.RegexFilter
 {"req_uri":"/__echo/header.RegexFilter?testing=1"}
 {{< /terminal >}}
-
 
 ### Port filter
 The `port.Filter` executes its `modifier` only when the port matches the one used in the request. It does not support `else`.
@@ -838,7 +823,6 @@ The `fifo.Group` holds a list of modifiers executed in first-in, first-out order
 
 Example of usage (modify the body, and set a header):
 
-
 ```json
 {
   "endpoint": "/test/fifo.Group",
@@ -881,7 +865,6 @@ Example of usage (modify the body, and set a header):
   ]
 }
 ```
-
 
 ### Priority Group
 The `priority.Group` contains the modifiers you want to execute, but the order in which they are declared is unimportant. Instead, each modifier adds a `priority` attribute that defines the order in which they are run.

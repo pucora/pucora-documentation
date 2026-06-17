@@ -91,7 +91,6 @@ You are seeing these errors now because the latest versions of Velonetics refact
 
 The effect is that you are seeing them for the first time, but the disconnections were always there. If you check the older access logs in the stdout (not the application log), you will still find them.
 
-
 ## Reserved endpoints
 The following endpoints are reserved, and you cannot use them (unless you disable them or rename them):
 

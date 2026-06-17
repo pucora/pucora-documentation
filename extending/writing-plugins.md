@@ -40,17 +40,14 @@ A **simplified version** of the [Execution Flow](/docs/design/execution-flow/#ex
 4. When the backend services return the data, the `proxy pipe` manipulates,merges, applies logic... and returns a single context to the `router pipe`.
 5. The `router pipe` finally converts the internal proxy response into an HTTP response that is returned to the user
 
-
 **TL;DR**: The `Router` deals with HTTP/gRPC and determines how to map the incoming request to an endpoint, the `Proxy` what to do with it, and the `Transport` how to communicate with the involved service(s).
 
-There are **four different types of plugins** you can inject in these pipes, and most of the job is understanding which one is the right kind for the job you want to. Let's see them all:
-
+There are **three types of plugins** you can inject in these pipes, and most of the job is understanding which one is the right kind for the job you want to. Let's see them all:
 
 | Plugin Type    | Pipe | Purpose |
 | -------- | ------- | ------- |
 | {{< badge color="#6f00f0">}}server{{< /badge >}}      | Router | [HTTP server plugins](/docs/extending/http-server-plugins/) modify the HTTP request and response between the end-user and Velonetics (the server)    |
 | {{< badge color="#0000ff">}}req/resp{{< /badge >}}    | Proxy | [Request/Response Modifier plugins](/docs/extending/plugin-modifiers/) modify data (such as headers, body, status code...) |
-| {{< badge color="#f07000">}}middleware{{< /badge >}}  | Proxy | [Middleware plugins](/docs/enterprise/extending/middleware-plugins/)  (**Enterprise only**) inject custom code inside the internals of Velonetics. |
 | {{< badge color="#e900b7">}}client{{< /badge >}}      | Transport | [HTTP client plugins](/docs/extending/http-client-plugins/) modify the request and response between Velonetics and the upstream services (internal HTTP client)    |
 
 As you can see, each type of plugin belongs to a specific pipe where it is injected. Let's see now the same execution flow with its possible type of plugins association:
@@ -66,7 +63,6 @@ What are the capabilities of each plugin?
 - {{< badge color="#6f00f0" >}}server{{< /badge >}}: [HTTP server plugins](/docs/extending/http-server-plugins/) (or **http handlers**) belong to the **router layer** and let you **modify the HTTP request** as soon as it hits Velonetics and before the routing to an endpoint happens. They can also decorate the HTTP response before it is delivered to the consumer. For example, you can modify the request, block traffic, make validations, change the final response, connect to third-party services, databases, or anything else you imagine, scary or not, but it does not allow you to modify the internals of Velonetics. If you need multiple plugins, you can stack them.
 - {{< badge color="#e900b7" >}}client{{< /badge >}}: [HTTP client plugins](/docs/extending/http-client-plugins/) (or proxy client plugins) belong to the **proxy layer** and let you change **how Velonetics interacts (as a client) with a specific backend service**. They are as powerful as server plugins, but their working influence is smaller. You can have only **one plugin for the connecting backend call**, because client plugins are **terminators**. When you set a client plugin, you are replacing the internal HTTP Velonetics client, which means you can lose instrumentation and other features. Despite being called HTTP, the only relationship with HTTP is their interface used to encapsulate the plugin.
 - {{< badge color="#0000ff" >}}reqresp{{< /badge >}}: [Request/Response Modifier plugins](/docs/extending/plugin-modifiers/) are strictly **data modifiers** and let you change headers, paths, body, method, status code both in the request or response to and from your backends. A limitation is that request and response are isolated from each other and don't share context, so you cannot correlate information between the request and the response. These are lighter than the rest but the most frequent ones.
-- {{< badge color="#f07000" >}}middleware{{< /badge >}}: [Middleware plugins](/docs/enterprise/extending/middleware-plugins/) (**Enterprise only**) allow you to inject any behavior in the **proxy layer** at the endpoint or backend levels, alter the native request or response, raise errors, do premature termination, or connect to third parties. This is the most powerful type of plugin and is the equivalent to forking the source code and adding your components.
 
 All different types of plugins let you freely implement your logic without restrictions. However, make sure to write them down, implement the correct interface, and compile them with respect to the requirements.
 
@@ -105,11 +101,8 @@ These are all the steps needed to create a plugin from scratch and successfully 
 These steps are detailed below.
 
 ## Write the Go file
-{{< note title="Enterprise users" type="info" >}}
-In Velonetics Enterprise, you only need to run the command `velonetics plugin init` to create all the boilerplate necessary to build a plugin. [See documentation](/docs/enterprise/extending/generating-plugins/)
-{{< /note >}}
 
-Velonetics open-source users need to create a Go file and implement the interface, as shown in every type of plugin.
+Velonetics CE users create a Go file and implement the interface for the chosen plugin type, as shown in each plugin guide.
 
 When the interface is correct, implement the rest of the custom logic you'd like to have.
 
@@ -131,7 +124,6 @@ Once you have written your plugin with the interface you have chosen, compile it
 go mod init myplugin
 go build -buildmode=plugin -o yourplugin.so .
 {{< /terminal >}}
-
 
 ## Compile the plugin
 {{< note title="Do not compile locally, use the builder" type="warning" >}}
@@ -168,7 +160,6 @@ docker run -it -v "$PWD:/app" -w /app {{< product image_plugin_builder >}}:{{< p
 Regardless of your host architecture when running the Docker builder, the **default plugin architecture target is AMD64**. Therefore, if you want to test the plugin on **ARM64** (e.g., a Macintosh, Raspberry, etc.), you must cross-compile it. This is because the plugin builder is available for AMD64 only, as emulation does not work well on Go compilation.
 
 To cross-compile a plugin for **Docker ARM64**, you need to add extra flags when compiling the plugin:
-
 
 {{< terminal title="Build your plugin for Alpine ARM64" >}}
 docker run -it -v "$PWD:/app" -w /app \

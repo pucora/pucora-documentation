@@ -28,7 +28,6 @@ what are the implications of a certain parameter, see the **[AMQP Complete Refer
 
 **Velonetics creates both the exchange and the queue for you**.
 
-
 ## Producer Configuration
 
 ```json

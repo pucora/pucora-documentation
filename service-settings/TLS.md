@@ -101,7 +101,7 @@ For instance:
 }
 ```
 
-If you need to **define TLS options for an individual backend** see [HTTP Client options](/docs/enterprise/backends/http-client/) {{< badge >}}Enterprise{{< /badge >}}
+If you need to **define TLS options for an individual backend** see HTTP Client options 
 
 These are the `client_tls` options:
 
@@ -177,8 +177,6 @@ For example, to generate a self-signed certificate from the command line, you ca
 openssl req -newkey rsa:2048 -new -nodes -x509 -days 365 -out cert.pem -keyout key.pem \
     -subj "/C=US/ST=California/L=Mountain View/O=Your Organization/OU=Your Unit/CN=localhost"
 {{< /terminal >}}
-
-
 
 ## Common TLS errors
 

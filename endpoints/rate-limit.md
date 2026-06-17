@@ -48,7 +48,6 @@ As we said, you can set the two limiting strategies individually or together. Ha
 
 So, in most cases, it is better to play them together. Adding also a [Circuit Breaker](/docs/backends/circuit-breaker/) is even better.
 
-
 ## Configuration
 The `max_rate` and `client_max_rate` configurations are under a common namespace, `qos/ratelimit/router` (QoS stands for Quality of Service).
 
@@ -227,7 +226,7 @@ In that case, you can rate limit the parameter of the endpoint as follows:
 }
 ```
 
-The configuration above would allow 5 requests to `/api/1234/invoices` every minute and another 5 to `/api/5678/invoices`. In a scenario like this, it would be advisable that you add a [security policy](/docs/enterprise/security-policies/) {{< badge >}}Enterprise{{< /badge >}}
+The configuration above would allow 5 requests to `/api/1234/invoices` every minute and another 5 to `/api/5678/invoices`. In a scenario like this, it would be advisable that you add a security policy 
  that makes sure clients cannot abuse the rate limits of others.
 
 ### Micro-optimizations of the client_rate_limit
@@ -333,8 +332,8 @@ Configuration:
 ### Examples of per-minute or per-hour rate limiting
 The rate limit component measures the router activity using the time window selected under `every`. You can use hours or minutes instead of seconds or you could even set daily or monthly rate-limiting, but taking into account that the counters reset every time you deploy the configuration.
 
-To use units larger than an hour, just express the days by hours. Using large units is not convenient if you often deploy (unless you use the persisted [Redis rate limit {{< badge >}}Enterprise{{< /badge >}}
-](/docs/enterprise/throttling/global-rate-limit/))
+To use units larger than an hour, just express the days by hours. Using large units is not convenient if you often deploy (unless you use the persisted Redis rate limit 
+)
 
 For example, let's say you want the endpoint to cut the access at `30 reqs/day`. It means that within a day, whether the users exhaust the 30 requests in one second or gradually across the day, you won't let them do more than `30` every day. So how do we apply this to the configuration?
 
@@ -367,4 +366,4 @@ Similarly, 30 requests every 5 minutes, could be set like this.
 
 In summary, the `client_max_rate` and the `max_rate` set the speed at which you refill new usage tokens to the user. On the other hand, the `capacity` and `client_capacity` let you play with the buffer you give to the users and let them spend 30 requests in a single second (within the 5 minutes) or not.
 
-For more information, see the [Token Bucket algorithm](/docs/enterprise/throttling/token-bucket/).
+For more information, see the Token Bucket algorithm.

@@ -28,7 +28,6 @@ This is how it could look like:
 ## Editor integration for Velonetics files
 Velonetics has published an updated JSON-schema definition ([source](https://github.com/velonetics/velonetics-schema)) to validate configuration files from your IDE automatically. The editors with built-in json-schema validation will offer this feature **without installing any additional plugin**. All you need to do, is add in the beginning of your `velonetics.json` configuration file a line specifying the schema:
 
-
 ```json
 {
     "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/velonetics.json"
@@ -37,13 +36,11 @@ Velonetics has published an updated JSON-schema definition ([source](https://git
 
 If you want to point to the latest version of Velonetics, and not to a specific version, you can add:
 
-
 ```json
 {
     "$schema": "https://www.velonetics.io/schema/velonetics.json"
 }
 ```
-
 
 There is nothing else you need to do!
 

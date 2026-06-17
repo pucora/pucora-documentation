@@ -17,7 +17,6 @@ As Velonetics is a piece of software in the middle of two parts, there are diffe
 
 ![mtls.mmd diagram](/images/documentation/diagrams/mtls.mmd.svg)
 
-
 1. **Service mTLS**: When you require end-users to provide a certificate to connect to Velonetics.
 2. **Client mTLS**: When you require Velonetics to provide a certificate to connect to your services.
 
@@ -52,7 +51,6 @@ To enable it you need a configuration like this:
 And these are the options you can include under `tls`:
 {{< schema data="tls.json" >}}
 
-
 **Important**: Connections not having a recognized certificate in Velonetics's system CA, will be rejected. For further documentation on TLS, see the [TLS documentation](/docs/service-settings/tls/)
 
 ## Client mTLS Configuration (Gateway to service)
@@ -75,7 +73,7 @@ If you want that **all connections to backends** use mTLS, add the following con
 {{< schema data="client_tls.json" filter="client_certs" >}}
 
 ### Per-backend mTLS
-If instead of enabling mTLS against all backends, you can enable mTLS in a specific backend only. This option is available only in the {{< badge >}}Enterprise Edition{{< /badge >}}
+If instead of enabling mTLS against all backends, you can enable mTLS in a specific backend only. This option is available only in the {{< badge >}}Velonetics{{< /badge >}}
 
 An example configuration would be:
 
@@ -102,12 +100,11 @@ An example configuration would be:
   ]
 }
 ```
-Configuration needed ({{< badge >}}Enterprise Edition{{< /badge >}} only):
+Configuration needed ({{< badge >}}Velonetics{{< /badge >}} only):
 
 {{< schema data="client_tls.json" filter="client_certs" >}}
 
-This is the schema needed for client mTLS, but the [HTTP Client settings](/docs/enterprise/backends/http-client/) have many other options not related to mTLS.
-
+This is the schema needed for client mTLS, but the HTTP Client settings have many other options not related to mTLS.
 
 ## mTLS example
 To use mTLS you need to generate the client and server certificates. The following script example creates the needed files to enable mTLS. Notice that in the `CN` of the certificates we are adding `localhost` as we want to connect to Velonetics from and to localhost.

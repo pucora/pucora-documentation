@@ -59,7 +59,6 @@ For a **subscriber**:
 
 {{< schema data="backend/pubsub/subscriber.json" >}}
 
-
 For a **publisher**:
 
 ```json
@@ -97,7 +96,6 @@ Set the envvar `RABBIT_SERVER_URL='guest:guest@localhost:5672'` and add in the c
 ```
 ## Supported PubSub Drivers
 
-
 ### GCP PubSub
 [Google's Cloud Pub/Sub](https://cloud.google.com/pubsub/) is a fully-managed real-time messaging service that allows you to send and receive messages between independent applications.
 
@@ -122,7 +120,6 @@ Example:
 	}
 }
 ```
-
 
 ### NATS
 [NATS.io](https://nats.io/) is a simple, secure and high performance open source messaging system for cloud native applications, IoT messaging, and microservices architectures.
@@ -150,7 +147,6 @@ Example:
 }
 ```
 
-
 ### AWS SNS
 [Amazon Simple Notification Service (SNS)](https://aws.amazon.com/sns/) is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications. Amazon SNS provides topics for high-throughput, push-based, many-to-many messaging
 
@@ -168,7 +164,6 @@ AWS SNS sets the `url` without any `host` or environment variables, e.g:
 	}
 }
 ```
-
 
 ### AWS SQS
 [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications.

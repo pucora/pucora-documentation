@@ -55,7 +55,6 @@ images:
   </div>
 </section>
 
-
 The gateway sends all the traces to a local **OpenTelemetry Collector** ([see repository](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/azuremonitorexporter)), allowing the gateway to offload data quickly and the collector can take care of additional handling like retries, batching, encryption or even sensitive data filtering. Finally, the Otel Collector pushes all the data to your **Application Insights** on Azure Monitor.
 
 ![Otel collector](/images/documentation/diagrams/azure-collector.mmd.svg)
@@ -161,7 +160,6 @@ With these three steps, you can start sending data to Velonetics. You should sta
 {{< note title="Insecure flag" type="warning" >}}
 Most of the times, the communication between Velonetics and the collector happens in the same machine. It is rare that this connection uses SSL, and if it doesn't, the `insecure` flag must be set to `true`. Otherwise, Velonetics will fail silently.
 {{< /note >}}
-
 
 ## Other Resources
 

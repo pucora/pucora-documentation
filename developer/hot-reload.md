@@ -15,7 +15,7 @@ The Docker tag `:watch` is a **development-phase image** that allows you to **re
 The watch is a regular Velonetics binary wrapped in a [reflex watcher](https://github.com/cespare/reflex). When it detects that any piece inside the configuration has changed, it restarts the service, applying the changes. This behavior is very convenient while developing as it allows you to test new changes without manually restarting Velonetics back and forth
 
 {{< note title="You must build the tag `:watch` on the Community Edition" type="info" >}}
-Since Velonetics became an [official Docker image](https://hub.docker.com/_/velonetics), the `:watch` tag is no longer available in the Docker registry **for the open source edition**. To use `:watch`, you **must build** the Docker tag as described below, but Enterprise users don't need to build this image and can continue working as always as `:watch` is ready to [`docker pull`](/docs/enterprise/developer/hot-reload/).
+Since Velonetics became an [official Docker image](https://hub.docker.com/_/velonetics), the `:watch` tag is not published for Community Edition. To use `:watch`, build the Docker image locally as described below.
 {{< /note >}}
 
 ## Building the watch image

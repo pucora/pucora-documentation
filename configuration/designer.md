@@ -29,7 +29,6 @@ Combined with a [`:watch` container](/docs/developer/hot-reload/), you can **app
 {{< /button >}}
 {{< /button-group >}}
 
-
 ## Automatically applying changes to Velonetics
 Suppose you have a **Chrome, Edge, or Opera** desktop browser. In that case, you can have the whole experience of editing in the browser and see the changes applied to your local development container without doing anything else.
 
@@ -88,4 +87,4 @@ As Velonetics supports hundreds of features, it might be overwhelming to review 
 
 The Designer does not support [flexible configuration](/docs/configuration/flexible-config/), as the browser cannot render Go templates of a complex directory structure.
 
-The Designer supports editing Enterprise and Community features simultaneously. When you enable a single Enterprise feature, you will see a badge informing you about it.
+The Designer supports editing all documented Velonetics CE features. Unsupported configuration keys are highlighted during validation.

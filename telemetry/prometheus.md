@@ -63,7 +63,6 @@ In addition, you can do a **granular configuration** of the metrics you want to 
 ### Demonstration setup
 The following configuration allows you to test a complete metrics experience, from generation and collection to visualization. The first code snippet is a `docker-compose.yaml` that declares three different services:
 
-
 - The `velonetics` service exposing port 8080
 - The `prometheus` service that will scrape the metrics from Velonetics
 - A `grafana` dashboard to display them (it uses our [Grafana dashboard](/docs/telemetry/grafana/))
@@ -104,7 +103,6 @@ The following YAML configuration is a simple example of pulling data from the `/
 {{< note title="Make sure ports are accessible" type="warning" >}}
 To let the scrapper access the metrics endpoint, make sure that the path and the port are the ones you configured, that the listen address allows you to access the data, and that if you use containers, the port is exposed in Velonetics. Also, remember that you cannot use `localhost` as a target because the Prometheus container does not run inside the Velonetics container; use the service name instead.
 {{< /note >}}
-
 
 ```yaml
 global:

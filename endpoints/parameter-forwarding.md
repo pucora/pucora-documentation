@@ -32,7 +32,6 @@ The canonicalization **converts the first letter and any letter following a hyph
 If you get used to writing headers in the canonical format, you will save yourself from a lot of trouble.
 {{< /note >}}
 
-
 **Example**:
 
 Send the query strings `items` and `page` to the backend, as well as `User-Agent` and `Accept` headers:
@@ -121,7 +120,7 @@ While the default policy prevents sending unrecognized query string parameters, 
 **Enabling the wildcard pollutes your backends**, as any query string sent by end-users or malicious attackers gets through the gateway and impacts the backends behind. We recommend letting the gateway know which query strings are in the API contract and specify them in the list, even when it is long, and not use the wildcard. If you decide to go with the wildcard, ensure your backends can handle client abuse attempts.
 
 ### Mandatory query string parameters
-When your backend requires mandatory **query string** parameters and you want to make them **mandatory** in Velonetics, the only way to enforce this with the open source edition (without scripting) is using the `{variable}` placeholders in the endpoints definition. Enterprise users can use [Dynamic Routing](/docs/enterprise/endpoints/dynamic-routing/#routing-based-on-query-strings) and [Security Policies](/docs/enterprise/security-policies/) together. Mandatory means that the endpoint won't exist unless the parameter is passed. For instance:
+When your backend requires mandatory **query string** parameters and you want to make them **mandatory** in Velonetics, the only way to enforce this with the open source edition (without scripting) is using the `{variable}` placeholders in the endpoints definition. Mandatory means that the endpoint won't exist unless the parameter is passed. For instance:
 
 ```json
 {
@@ -161,7 +160,6 @@ Nevertheless, the `input_query_strings` could also be added in this configuratio
 }
 ```
 
-
 With `http://velonetics/v3/iOS/foo?limit=10&evil=here` the backend receives:
 
     /foo?limit=10
@@ -180,7 +178,6 @@ Read the [`/__debug/` endpoint](/docs/endpoints/debug-endpoint/) to understand h
 Velonetics **does not send client headers to the backend** except for the `Content-Type` unless they are under the `input_headers` list. The headers sent by the client that you want to let pass to the backend must be written explicitly in the `input_headers`. See below how to forward [all client headers](/docs/endpoints/parameter-forwarding/#sending-all-client-headers-to-the-backends) (and why it is a bad idea).
 
 **A client request from a browser or a mobile client contains a lot of headers**, including cookies. Typical examples of the variety of headers clients send are `Host`, `Connection`, `Content-Type`, `Accept`, `Cache-Control`, `Cookie`... and a long etcetera. Remember that unless explicitly defined, Velonetics will only allow the `Content-Type`. This security policy will save you from a lot of trouble.
-
 
 ### Default headers sent from Velonetics to Backends
 Velonetics will act as an independent client connecting to your backends and sending headers to them. Some are customizable, and others aren't.
@@ -265,7 +262,6 @@ Even though you allow to pass all headers with `"input_headers": ["*"]`, you can
 
 If you'd like to take those headers into account, use the flag [`forwarded_by_client_ip` under the router section](/docs/service-settings/router-options/#forwarded_by_client_ip)
 {{< /note >}}
-
 
 ### Granular header filtering
 All headers listed in the `input_headers` parameter hit every single backend of the `endpoint`. If you want to add a second level of filtering, you can configure the `input_headers` list in the `backend` section too. Doing this allows you to have backends that receive fewer headers than other backends in the same endpoint.

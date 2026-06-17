@@ -29,7 +29,6 @@ From Velonetics's perspective, **your handler plugins are black boxes** that exp
 
 <img src="/images/documentation/http-handler-plugin.png" class="dark-version-available" title="HTTP handler plugin">
 
-
 ## HTTP handler interface
 {{< note title="Writing plugins" type="tip" >}}
 Read the introduction to [writing plugins](/docs/extending/writing-plugins/) for compilation and configuration options if you haven't done it yet.
@@ -239,7 +238,6 @@ To test the plugin, request an endpoint. If you request a path not declared in t
 curl http://localhost:8080/__health
 {"agents":{},"now":"2022-06-14 16:53:41.845285857 +0200 CEST m=+459.332136249","status":"ok"}%
 {{< /terminal >}}
-
 
 {{< terminal title="Hijack the request" >}}
 curl http://localhost:8080/hijack-me

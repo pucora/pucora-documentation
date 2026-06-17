@@ -45,7 +45,6 @@ All the options you can set under `router` are:
 
 {{< schema data="router.json" >}}
 
-
 ## Return the real client IP
 The flags `forwarded_by_client_ip`, `remote_ip_headers`, and `trusted_proxies` determine together how you get the client IP address.
 

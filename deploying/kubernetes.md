@@ -20,7 +20,6 @@ From here you need to create a `NodePort` and send all the traffic to Velonetics
 Whether you run Velonetics on Kubernetes, OpenShift, or any other platform with the capability to run the container as a specific user UID, make sure you use the **UID 1000**
 {{< /note >}}
 
-
 ## Deployment definition YAML
 The Velonetics `deployment` definition, in a file called `deployment-definition.yaml`:
 
@@ -61,7 +60,6 @@ spec:
         - name: VELONETICS_PORT
           value: "8080"
 ```
-
 
 ## Service definition yaml
 

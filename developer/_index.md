@@ -32,7 +32,6 @@ The [config2dot](https://github.com/velonetics/velonetics-config2dot) is a tool 
 ### velonetics-memviz
 Adds a [DOT](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) file exporter of request/response snapshots to your proxy stack for debug and development purposes. Do not use this in production as it will kill your performance.
 
-
 ### velonetics-spew
 Dumps every entity seen in the pipe: requests and responses passing through the whole stack. Do not use this in production as it will kill your performance.
 

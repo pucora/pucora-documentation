@@ -38,7 +38,6 @@ The Velonetics 2.0 release is a major version that **simplifies the configuratio
 {{< /button >}}
 {{< /button-group >}}
 
-
 ### How to use the legacy migration tool
 
 - Use `git` or similar DVCS to track the changes. Compare the differences at the end.
@@ -90,7 +89,6 @@ Summing up, see the before and after of the following snippet which has 3 of the
     ]
 }
 ```
-
 
 **Velonetics 2**:
 Differences highlighted

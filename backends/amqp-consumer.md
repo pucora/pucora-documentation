@@ -32,7 +32,6 @@ what are the implications of a certain parameter, see the **[AMQP Complete Refer
 
 **Velonetics creates both the exchange and the queue for you**.
 
-
 ## Configuration
 The consumer retrieves messages from the queue when a Velonetics endpoint plugs to its AMQP backend. The recommendation is to connect consumers to `GET` endpoints.
 

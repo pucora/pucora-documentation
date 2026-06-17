@@ -79,11 +79,9 @@ curl -X POST --data '{"user":"john","pass":"doe"}' https://your-backend/token-is
 }
 {{< /terminal >}}
 
-
 Besides these example keys, the payload can contain any other elements you might need.
 
 If you come from a classic login system, based on cookie sessions, you'll realize that adapting your `/login` to this output is straightforward. See [how to generate a token](#how-to-generate-a-jwt-token) at the end of the document for more details.
-
 
 ## JWT signing settings
 The following settings are available to sign JWT:
@@ -152,11 +150,9 @@ For instance, from the plain token above we want to sign the keys `"access_token
 
 The content of `jwk_private_key.json` used in this example [is here](https://github.com/velonetics/playground-community/blob/master/data/jwk/symmetric.json).
 
-
 Notice that we have added a file under `jwk_local_path` which is a [JSON Web key](https://tools.ietf.org/html/rfc7517#appendix-C.1) (could also be hosted via `jwk_url`).
 
 The example adds a `disable_jwk_security` flag because downloading the file from `jwk_local_path` does not use the HTTP protocol.
-
 
 What happens here is that the user requests a `/token` to the gateway and the issuing is delegated to the backend. The response of the backend with the plain token is signed using your private JWK. And then the user receives the signed token, e.g:
 
@@ -174,7 +170,6 @@ Velonetics uses `jose` library, so if you use your own PEM keys for signing you 
 Notice: if you are using [asymmetric algorithms](https://auth0.com/blog/navigating-rs256-and-jwks) and want to use gateway singing and verification simultaneously, you need to use the following keys with the same `kid`:
 -  **private key jwks for signing**
 -  **public key jwks for verification**
-
 
 ## How to generate a JWT token
 Essentially, what you need to adopt JWT in your backend is to adapt your existing `/login` function (maybe passing an additional `?token=true` flag), so when a user logs in, instead of setting the session in a cookie, you return the JSON Web Token for Velonetics to sign.

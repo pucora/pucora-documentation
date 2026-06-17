@@ -103,7 +103,6 @@ In all, the following combinations are possible:
 Since Velonetics CE v2.3.3 the content-type header the GraphQL receives is `application/json`, and is not longer needed to pass it from the client.
 {{< /note >}}
 
-
 ## Examples of GraphQL request generation
 
 ### POST + mutation

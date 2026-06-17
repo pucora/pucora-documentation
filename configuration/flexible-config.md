@@ -38,13 +38,6 @@ When you enable through the environment variables this feature, the configuratio
 
 ## Flexible Configuration variables
 
-{{< note title="Different usage on Enterprise and Open Source" type="note" >}}
-The **Enterprise version** of the Flexible Configuration uses the [Extended Flexible Config](/docs/enterprise/configuration/flexible-config/) engine, which **simplifies** the operation, allows using nested directories, recursivity, or the `$ref` operator, and needs none of the following variables amongst other features.
-
-Still, all your open source-based templates are 100% compatible with the Enterprise counterpart.
-{{< /note >}}
-
-
 The **environment variables** of the flexible configuration are:
 
 - `FC_ENABLE=1`: Activates Flexible Configuration. You can use `1` or any other value (but `0` won't turn it off!). The file passed with the `--config` flag is the **base template** and contains the references to any other templates.
@@ -52,7 +45,6 @@ The **environment variables** of the flexible configuration are:
 - `FC_SETTINGS=path/to/settings`: The path to the `settings` directory. Settings are JSON files that you can use to fill values in the templates, much similar to **env files** in other applications, but richer as you can use multiple files, structures, and nesting.
 - `FC_PARTIALS=path/to/partials`: The path to the `partials` directory. Partial files are pieces of text that DON'T EVALUATE, and they are inserted in the placeholder "as is".
 - `FC_OUT=file.json`: Saves the resulting configuration after rendering the template, useful for debugging, not required for runtime.
-
 
 For instance, let's write a simple template `simple.tmpl` (go template emulating a json format):
 
@@ -134,7 +126,6 @@ services:
       - FC_TEMPLATES=/etc/velonetics/config/templates
     command: ["run","-dc","velonetics.tmpl"]
 ```
-
 
 As the flexible configuration is composed of several pieces, it's easy to make a mistake at some point. Test the syntax of all the files with the `velonetics check` command and pay attention to the output to verify there aren't any errors. When there are errors, the output contains information to help you resolve it, e.g.:
 

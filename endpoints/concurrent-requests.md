@@ -49,7 +49,6 @@ When using concurrent requests, the backend services **must be able to handle an
 }
 ```
 
-
 In the example above, when a user calls the `/products` endpoint, Velonetics opens three different connections to the backends and returns the first fastest successful response.
 
 Notice that despite this backend has only two servers to handle the load, the `concurrent_calls` is set to three. The two settings are not related, and Velonetics is going to open three connections against these two servers nevertheless. Which server receives 1,2 or all three depends on the internal load balancer decision.

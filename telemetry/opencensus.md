@@ -78,8 +78,6 @@ By default, all exporters use a `sample_rate=0`, meaning that **they won't repor
 
 {{< schema data="telemetry/opencensus.json" norecurse="exporters">}}
 
-
-
 ## Transition from OpenCensus
 If you have been using telemetry on Velonetics for the past six years (before Velonetics 2.6), you were using the [OpenCensus](/docs/telemetry/opencensus/) exporters, which have worked like a Swiss clock.
 

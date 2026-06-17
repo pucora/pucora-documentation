@@ -27,9 +27,7 @@ You can use two different filtering strategies, pick one or the other in each en
 - **Deny list** (`deny`)
 - **Allow list** (`allow`)
 
-
 **Note**: Prior to Velonetics 1.2 these terms where known with the outdated term `whitelist` and `blacklist`.
-
 
 ### Deny
 
@@ -84,8 +82,6 @@ The Velonetics endpoint to accept URLs like`/posts/1` is defined as follows:
 }
 ```
 
-
-
 When calling the Velonetics endpoint `/posts/1` the response you would get will be as follows:
 
 ```json
@@ -122,7 +118,6 @@ We will repeat the same exercise we did in the deny list to get the same output.
   }]
 }
 ```
-
 
 When calling the Velonetics endpoint `/posts/1` the response you would get will be as follows:
 
@@ -363,7 +358,6 @@ Velonetics expects all backends to return an object as the response as the defau
 { "a": true, "b": false }
 ```
 
-
 When your API does not return an object but a collection (`[]` or array) you need to declare it explicitly with `"is_collection": true` so that Velonetics can convert it to an object for further manipulation. An example of a JSON collection response is:
 
 ```json
@@ -427,7 +421,7 @@ See [Manipulating arrays - flatmap](/docs/backends/flatmap/)
 ## More advanced manipulations
 If you need more sophisticated manipulation options, there are different approaches you can use:
 
-- Through a [Query Language](/docs/enterprise/endpoints/jmespath/) {{< badge >}}Enterprise{{< /badge >}}
-- Through a [template](/docs/enterprise/backends/response-body-generator/) {{< badge >}}Enterprise{{< /badge >}}
+- Through a Query Language 
+- Through a template 
 - Through [Response modifier plugins](/docs/extending/plugin-modifiers/) - Very performant, requires compilation
 - Through [Lua scripting](/docs/endpoints/lua/) - Less performant, does not require compilation

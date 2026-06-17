@@ -1,45 +1,47 @@
 ---
 date: 2023-06-08
-lastmod: 2023-06-08
-linktitle: Switch to Community or Enterprise
-title: Switching to Community or Enterprise
-description: Learn how to upgrade or downgrade Velonetics from Enterprise Edition (EE) to Community Edition (CE) to keep your existing installation working correctly.
+lastmod: 2026-06-18
+linktitle: Version upgrades
+title: Upgrading Velonetics
+description: Guidelines for upgrading Velonetics Community Edition and validating configuration across versions.
 weight: 20
 menu:
   community_current:
     parent: "999 Frequently Asked Questions"
 ---
 
-If you are considering upgrading to Velonetics Enterprise or downgrading to Velonetics Community, these are the things you should have in mind.
+Velonetics Community Edition is the supported distribution documented in this site. When upgrading between Velonetics releases, follow these guidelines.
 
-## Downgrade to Community
-If you are a Velonetics Enterprise Edition user and you want to switch to the Community Edition, these are the guidelines you should follow to keep your installation working.
+## Before you upgrade
 
-- Obtain the [Community Edition](/download/) and replace it by the Enterprise one
-- Make the configuration migration as described below
-- Start the server with the modified (if necessary) configuration
+1. Run `velonetics check -c velonetics.json` on your current configuration.
+2. Review the release notes for breaking changes in `extra_config` namespaces or schema versions.
+3. Back up your configuration and any custom plugins.
 
-### Configuration migration
-You can run a configuration file designed for the Velonetics Enterprise in a Community Edition straight away, except if you have one of the following options that you should remove and will make your server panic during startup:
+## Configuration compatibility
 
-- [Dynamic routing](/docs/enterprise/endpoints/dynamic-routing/).
-- [Endpoint with wildcards](/docs/enterprise/endpoints/wildcard/) (`/*`)
+Velonetics generally loads older configuration files on newer releases. Unknown `extra_config` keys are ignored rather than crashing the gateway, but features behind those keys will not run.
 
-If you have any of the components above, remove them from the configuration.
+Remove or replace configuration blocks that reference features you no longer use, so audits and reviews stay clear.
 
-The other [Enterprise-only features](/features/) are ignored and not loaded into the server, so whatever you leave or remove them from the configuration makes no difference to the server. Still, you should delete them to avoid confusion when reviewing the configuration later, as none of these actually work.
+## Features included in Velonetics CE
 
-{{< note title="Enterprise features are disabled" type="warning" >}}
-The Community Edition **ignores unrecognized features from the Enterprise Edition** and does not load any of its behavior. If you used critical Enterprise-only components like [Security Policies](/docs/enterprise/security-policies/), [API Keys](/docs/enterprise/authentication/api-keys/), or [OpenAPI](/docs/enterprise/endpoints/openapi), they will not work in CE.
+The following connectivity features are part of Velonetics CE and documented here:
 
-**Velonetics CE** includes [WebSockets](/docs/websockets/), [gRPC](/docs/grpc/), [SOAP](/docs/backends/soap/), [HTTP streaming/SSE](/docs/endpoints/streaming/), [Kafka advanced Pub/Sub](/docs/backends/pubsub/kafka/), and [async Kafka agents](/docs/async/kafka/) — these are not removed when downgrading from Enterprise.
-{{< /note >}}
+- [WebSockets](/docs/websockets/)
+- [gRPC](/docs/grpc/) (client and server)
+- [SOAP](/docs/backends/soap/)
+- [HTTP streaming & SSE](/docs/endpoints/streaming/)
+- [Kafka advanced Pub/Sub](/docs/backends/pubsub/kafka/)
+- [Async Kafka agents](/docs/async/kafka/)
+- [Pub/Sub](/docs/backends/pubsub/), [GraphQL](/docs/backends/graphql/), [Lambda](/docs/backends/lambda/), [Async agents](/docs/async/)
 
-## Upgrade to Enterprise
-To upgrade a Community configuration to an Enterprise one, **no configuration changes are needed**. The only steps required are:
+## After upgrading
 
-- Obtain [Velonetics Enterprise](/docs/enterprise/overview/installing/)
-- Add the [`LICENSE` file](/docs/enterprise/overview/license-file/) to your project
-- Start the new server
+```bash
+velonetics check -c velonetics.json
+velonetics audit -c velonetics.json
+velonetics run -c velonetics.json
+```
 
-If you use the same version, everything you configured on the Community Edition works in the Enterprise Edition.
+Use the [Velonetics Configurator](/docs/configuration/configurator/) to regenerate configs from YAML profiles when migrating large setups.

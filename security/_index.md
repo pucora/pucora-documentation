@@ -39,39 +39,39 @@ Our *Security Program Policy and Incident Response Plan* have the following prin
 - **Software Integrity**: To protect the codebase's and software's integrity by enforcing security measures that prevent unauthorized changes, reduce human error, and mitigate potential security vulnerabilities in real time.
 - **Rapid Incident Response**: To ensure a quick and effective response to security incidents and minimize their impact through defined protocols for containment, eradication, recovery, and post-incident analysis.
 - **Compliance with Industry Standards**: To ensure Velonetics's software adheres to industry standards and security frameworks, such as OWASP best practices, and complies with regulatory requirements for enterprises.
-- **Enterprise-Ready Security**: To provide a robust security framework suitable for large-scale enterprise deployment, ensuring that all software produced by Velonetics is safe, scalable, and reliable for its enterprise customers.
+- **Production-ready security**: Security practices suitable for large-scale deployment, with regular dependency scanning and documented hardening guidance.
 
 Below are the categories in which security is more obvious. Although this is not a complete list, it provides you with a place to start exploring our documentation.
 
 ## Authentication and Authorization
-API authentication and authorization are key to any secured API. Velonetics has mechanisms such as [JWT validation](/docs/authorization/jwt-validation/), [JWT signing](/docs/authorization/jwt-signing/), [OAuth2 Client Credentials](/docs/authorization/client-credentials/) or [API keys](/docs/enterprise/authentication/api-keys/) {{< badge >}}Enterprise{{< /badge >}} to name a few examples.
+API authentication and authorization are key to any secured API. Velonetics has mechanisms such as [JWT validation](/docs/authorization/jwt-validation/), [JWT signing](/docs/authorization/jwt-signing/), [OAuth2 Client Credentials](/docs/authorization/client-credentials/) or API keys  to name a few examples.
 
 Authorization allows you to implement Role-based (RBAC) and attribute-based access control (ABAC) policies.
 
-In addition, if you need to invalidate legitimate tokens that are still within a valid TTL, Velonetics supports [JWT token revocation using bloom filters](/docs/authorization/revoking-tokens/) and [centralized token revocation servers](/docs/enterprise/authentication/revoke-server/), ensuring revoked tokens are immediately invalidated across all Velonetics nodes.
+In addition, if you need to invalidate legitimate tokens that are still within a valid TTL, Velonetics supports [JWT token revocation using bloom filters](/docs/authorization/revoking-tokens/) and centralized token revocation servers, ensuring revoked tokens are immediately invalidated across all Velonetics nodes.
 
 ## Encryption and Secure Communication
 The gateway supports [TLS](/docs/service-settings/tls/) for traffic coming from consumers (server) and also between Velonetics and your services (client). It defaults to TLS 1.3 unless downgraded by config.
 
 For business-to-business authentication, [Mutual TLS (mTLS)](/docs/authorization/mutual-authentication/) creates a secure and exclusive channel based on trusted certificates.
 
-Governments can also get a Docker container with [FIPS 140-2 validated cryptography](/docs/enterprise/security/fips-140/) {{< badge >}}Enterprise{{< /badge >}} for compliance with their regulations.
+Governments can also get a Docker container with FIPS 140-2 validated cryptography  for compliance with their regulations.
 
 ## Data protection
-Showing the right data or allowing limited access is key on any API. In addition to blocking users without enough privileges to consume data, you can apply [data filtering and manipulation](/docs/enterprise/backends/data-manipulation/) or even [masking of data](/docs/enterprise/endpoints/content-replacer/) {{< badge >}}Enterprise{{< /badge >}}
+Showing the right data or allowing limited access is key on any API. In addition to blocking users without enough privileges to consume data, you can apply data filtering and manipulation or even masking of data 
 
-In addition, to prevent malicious or malformed requests, Velonetics allows you to [validate the payload](/docs/endpoints/JSON-schema/) of requests against a JSON schema before it reaches your service. But it also works the other way around: you can also [validate responses](/docs/enterprise/endpoints/response-schema-validator/) {{< badge >}}Enterprise{{< /badge >}} of your services against a schema and decide whether is worth or not returning it to the end user.
+In addition, to prevent malicious or malformed requests, Velonetics allows you to [validate the payload](/docs/endpoints/JSON-schema/) of requests against a JSON schema before it reaches your service. But it also works the other way around: you can also validate responses  of your services against a schema and decide whether is worth or not returning it to the end user.
 
-Finally, the [Security policy engine](/docs/enterprise/security-policies/) is designed to enforce complex business logic based on real-time evaluation of requests, responses, and tokens.
+Finally, the Security policy engine is designed to enforce complex business logic based on real-time evaluation of requests, responses, and tokens.
 
 ## Traffic Control
-**[API Throttling](/docs/enterprise/throttling/)** is a dragon of many heads. You might want to limit the throughput your users do against your API with one of the many rate-limiting strategies: [per-service](/docs/enterprise/service-settings/service-rate-limit/), [per-tier](/docs/enterprise/service-settings/tiered-rate-limit/) (both {{< badge >}}Enterprise{{< /badge >}})
+**API Throttling** is a dragon of many heads. You might want to limit the throughput your users do against your API with one of the many rate-limiting strategies: per-service, per-tier (both )
 , [per-endpoint](/docs/endpoints/rate-limit/), [per-user](/docs/endpoints/rate-limit/#client-rate-limiting-client_max_rate), or [per-proxy](/docs/backends/rate-limit/).
 
 Another key security component is the [Circuit Breaker](/docs/backends/circuit-breaker/), which automatically blocks calls to failing backends, **preventing cascading failures** and reducing the load on a suffering system.
 
-Then, depending on your environment you might want to enable [IP Filtering](/docs/enterprise/throttling/ipfilter/) or [GeoIP filtering](/docs/enterprise/endpoints/geoip/) to restrict API traffic based on IP addresses, CIDR ranges, or geography (both are {{< badge >}}Enterprise{{< /badge >}}
-), [Bot detection](/docs/throttling/botdetector/),or enable conditional requests with [Conditional Expression Language](/docs/endpoints/common-expression-language-cel/) (CEL) or Security Policies (also {{< badge >}}Enterprise{{< /badge >}}
+Then, depending on your environment you might want to enable IP Filtering or GeoIP filtering to restrict API traffic based on IP addresses, CIDR ranges, or geography (both are 
+), [Bot detection](/docs/throttling/botdetector/),or enable conditional requests with [Conditional Expression Language](/docs/endpoints/common-expression-language-cel/) (CEL) or Security Policies (also 
 ).
 
 ## HTTPS Security and OWASP Recommendations

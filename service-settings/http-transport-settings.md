@@ -20,7 +20,6 @@ If you want to customize any of the settings below, they must be written at the 
 
 Finally, the **TLS Handshake Timeout** is hardcoded to 10 seconds and cannot be changed.
 
-
 ## Override settings using environment vars
 When you declare in the configuration file any of the HTTP server or transport settings declared above, you can [override its value through environment variables](/docs/configuration/environment-vars/) when starting the server.
 
@@ -37,7 +36,6 @@ All the environment variables have the same name as the settings above in upperc
 - `VELONETICS_RESPONSE_HEADER_TIMEOUT`
 - `VELONETICS_EXPECT_CONTINUE_TIMEOUT`
 
-
 You can start Velonetics with the desired variables to override what you have in the configuration:
 
 {{< terminal title="Term" >}}
@@ -53,7 +51,6 @@ Having a high number of IDLE connections to every backend affects directly to th
 	"max_idle_connections": 150
 }
 ```
-
 
 Velonetics will close connections sitting idle in a "keep-alive" state when `max_idle_connections` is reached. If no value is set in the configuration file, Velonetics will use `250` by default.
 

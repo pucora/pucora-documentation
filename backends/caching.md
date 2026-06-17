@@ -105,9 +105,6 @@ On the other hand, backends `A` and `D` use a shared cache bucket, so if one of 
 Systems with high pressure and concurrency perform better with an individual cache. If the content you are caching is unlikely used often by another endpoint, leave it individual. On the other hand, if several backends are doing the same query repeatedly, you might want to share the cache bucket to improve the performance of your backend systems.
 {{< /note >}}
 
-
-
-
 ## Cache TTL, size, expiration, purge
 When you enable the caching module, your backends control the expiration time of the cache by setting the `Cache-Control` header. If your backends do not set the header or it is set to zero, Velonetics won't store any content in its internal cache.
 
@@ -144,7 +141,6 @@ In addition, there are other ways to check if backend responses are served from 
 {{< note title="Configurations not eligible for caching" type="warning" >}}
 The components [Client Credentials](/docs/authorization/client-credentials/), [Lambda functions](/docs/backends/lambda/), [AMQP Consumers or Producers](/docs/backends/amqp-consumer/), [Publish/Subscribe](/docs/backends/pubsub/), and [HTTP Client plugins](/docs/extending/http-client-plugins/) **don't support direct caching** because they use a **custom HTTP client** with extended functionality that does not use the one with caching capabilities. Generally speaking, connections with upstream services that need authentication or custom HTTP clients are not eligible to cache their responses.
 {{< /note >}}
-
 
 ## Custom directives (Stale cache, freshness)
 You can allow your API consumers to pass **custom directives (instructions)** in their `Cache-Control` header when they make the request.

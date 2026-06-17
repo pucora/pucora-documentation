@@ -28,7 +28,7 @@ The `telemetry/logging` has the following logging capabilities:
 - Add a prefix to log lines
 - Select the reporting level
 - Option to use a predefined or custom format
-- Use custom layouts and define logged fields ([{{< badge >}}Enterprise{{< /badge >}} version](/docs/enterprise/logging/))
+- Use custom layouts and define logged fields ( version)
 
 ## Types of log messages
 The content that Velonetics writes in its log represents two types of logging:
@@ -48,11 +48,10 @@ The access log shows **users' activity** and prints: which endpoints are request
 
 **Access logs are never written in the syslog**, regardless of their configuration, and they show only in **stdout**.
 
-While the access log is not customizable in the Open Source edition, {{< badge >}}Enterprise{{< /badge >}} allows you to write the format you want to output using the attribute `access_log_format` (see below).
+While the access log is not customizable in the Open Source edition,  allows you to write the format you want to output using the attribute `access_log_format` (see below).
 
 #### Disabling the access log
 You can also disable the access log setting the flag `disable_access_log`, or you can [remove specific requests from logs ](/docs/service-settings/router-options/#remove-requests-from-logs), like when you don't want to see the health checks.
-
 
 ### Application log
 The application log messages are the errors, warnings, debugging information, and other messages shown by the gateway while it operates.
@@ -132,14 +131,13 @@ For example, you can customize your pattern like this:
 }
 ```
 ### Customizing the access log
-Similarly, only on {{< badge >}}Enterprise{{< /badge >}} you can customize how the access log prints. The following `access_log_format` values are available:
+Similarly, only on  you can customize how the access log prints. The following `access_log_format` values are available:
 
 - `default`: Uses `%{prefix} %{time} [AccessLog] |%{statusCode}| %{latencyMs} | %{clientIP} | %{method} %{path}\n` as pattern.
 - `httpdCommon`: Uses `%{clientIP} - - [%{time}] \"%{method} %{uri} %{proto}\" %{statusCode} -\n` as in the Apache HTTPd log format
 - `httpdCombined`: The Apache HTTPd Combined log format `%{clientIP} - - [%{time}] \"%{method} %{uri} %{proto}\" %{statusCode} - \"%{header.Referer}\" \"%{header.User-Agent}\"\n`
 - `json`: Uses `{\"prefix\":\"%{prefix}\", \"time\":\"%{time}\", \"status_code\":%{statusCode}, \"latency\":\"%{latency}\", \"client_ip\":\"%{clientIP}\", \"method\":\"%{method}\", \"path\":\"%{path}\"}\n`
 - `custom`: Write your own pattern, as defined in the `access_log_custom_format` attribute.
-
 
 #### Variables available to `access_log_custom_format`
 When the `access_log_format` is set to `custom`, you can use these variables under `access_log_custom_format` to specify your format:

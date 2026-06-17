@@ -67,7 +67,6 @@ The important part of the configuration is the `otlp` exporter, which accepts th
 
 In addition, you can configure how the `layers` behave ([see all options](/docs/telemetry/opentelemetry/#layers)).
 
-
 ## Datadog agent
 You must set your Datadog API key in the agent. The exporter communicates with the agent and is the agent the one reporting to Datadog.
 

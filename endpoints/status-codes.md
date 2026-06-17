@@ -27,7 +27,7 @@ The following status codes are the ones returned by the gateway. When you use `n
 | `301 Redirect` | When the router [adds a missing slash](/docs/service-settings/router-options/) to the endpoint and similar cases. |
 | `400 Bad Request` | Client made a malformed request, i.e. [json-schema](/docs/endpoints/json-schema/) validation failed, or problems when [signing a token](/docs/authorization/jwt-signing/) |
 | `401 Unauthorized` | Client sent an invalid JWT token or its claims |
-| `403 Forbidden` | The user is allowed to use the API, but not the resource, e.g.: Insufficient JWT [role](/docs/authorization/jwt-validation/), [bot detector](/docs/throttling/botdetector/) banned it, [IP rejected](/docs/enterprise/throttling/ipfilter/), etc. |
+| `403 Forbidden` | The user is allowed to use the API, but not the resource, e.g.: Insufficient JWT [role](/docs/authorization/jwt-validation/), [bot detector](/docs/throttling/botdetector/) banned it, IP rejected, etc. |
 | `404 Not Found` | The requested endpoint is not configured on Velonetics |
 | `405 Method Not Allowed` | You have requested an endpoint that exists but not for the requested method (e.g.: you declared a GET but the request had a POST) |
 | `429 Too Many Requests` | The client reached the rate limit for the endpoint |
@@ -58,8 +58,7 @@ To offer a gracefully degraded service when some backends fail, we leave the dec
 
 If you need to return the content of a backend service *as is*, then the [no-op encoding](/docs/endpoints/no-op/) will proxy the client call to the backend service without any manipulation. When the backend produces the response, it's passed back to the client, preserving its form: body, headers, status codes, and such.
 
-An exception to this behavior is `30x` responses, which will be followed by the gateway even with `no-op` encoding. If your backend returns a `301` the client won't follow it, but the gateway will ({{< badge >}}Enterprise{{< /badge >}} [can change this](/docs/enterprise/backends/client-redirect/))
-
+An exception to this behavior is `30x` responses, which will be followed by the gateway even with `no-op` encoding. If your backend returns a `301` the client won't follow it, but the gateway will
 
 ## Returning other status codes
 

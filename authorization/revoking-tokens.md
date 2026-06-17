@@ -17,12 +17,9 @@ meta:
 ---
 The API Gateway authorizes users that provide valid tokens according to your criteria, but at some point, you might want to change your mind and decide to **revoke JWT tokens that are still valid**.
 
-{{< note title="Revoke tokens via API" type="info" >}}
-The Enterprise version offers a [Revoke Server](/docs/enterprise/authentication/revoke-server/) that coordinates token revokes in a cluster using a REST API.
-{{< /note >}}
+When you need to revoke perfectly valid tokens, build a bloom filter client that talks to the Velonetics revoker RPC interface. The [bloomfilter client](https://github.com/velonetics/bloomfilter/tree/master/cmd/client) and the [playground JWT revoker sample](https://github.com/velonetics/playground-community/tree/master/images/jwt-revoker) show how to push revoked token keys.
 
-
-When are you going to need this? Examples of situations where you might need to revoke perfectly legit tokens:
+Examples:
 
 - A user wants to log out from all my devices.
 - An administrator wants to kick out someone from the platform.
@@ -42,11 +39,9 @@ The bloom filter component brings the following functionalities:
 ### Bloom filter client
 The communication with the bloom filter is RPC-based. The component exposes a listening port of your choice to receive updates of the bloom filter (single or batch), but **a client is needed to communicate with the component**.
 
-**When using the open-source edition**, you have to build your client. Look at the bloom filter library, which includes a [client](https://github.com/velonetics/bloomfilter/tree/master/cmd/client). In addition, the Velonetics Playground project consists of a sample [web page with a form and an RPC client](https://github.com/velonetics/playground-community/tree/master/images/jwt-revoker) that sends commands to the bloom filter and updates it.
+You need to build a bloom filter client. Look at the bloom filter library, which includes a [client](https://github.com/velonetics/bloomfilter/tree/master/cmd/client). In addition, the Velonetics Playground project consists of a sample [web page with a form and an RPC client](https://github.com/velonetics/playground-community/tree/master/images/jwt-revoker) that sends commands to the bloom filter and updates it.
 
 Note that this low-level bloom filter client requires elements added to the bloom filter to conform to a special format: a key, representing a field in the token, separated by a hypen (`-`); and the value of that field that will be used to revoke requests. [In the example below](#applied-example), you could expire the token for an individual user by adding `jti-mnb23vcsrt756yuiomnbvcx98ertyuiop` to the bloom filter. This can also be seen in the sample [web page with a form and an RPC client](https://github.com/velonetics/playground-community/tree/master/images/jwt-revoker) in the Velonetics Playground project.
-
-**When using the Enterprise edition** the [Revoke Server](/docs/enterprise/authentication/revoke-server/) connects to all Velonetics instances as a client, and there's nothing you need to build to make it work.
 
 ### Bloom filter performance
 The Bloom filter is ideal for supporting a massive rejection of tokens with very little memory consumption. For instance, **100 million tokens** of any size consume around 0.5GB RAM (with a rate of false positives of 1 in 999,925,224 tokens), and lookups resolve in constant time (*k*-number of hashes). These numbers are impossible to get with a key value or a relational database.
@@ -73,14 +68,11 @@ The bloom filter lives at the `extra_config` in the root level of the configurat
 }
 ```
 
-
-
 All the configuration fields **are mandatory** and are explained below:
 
 {{< schema data="auth/revoker.json" filter="N,P,hash_name,TTL,port,token_keys">}}
 
-If you use the bloom filter together with the Revoken Server {{< badge >}}Enterprise{{< /badge >}}, see [its configuration](/docs/enterprise/authentication/revoke-server/).
-
+If you use the bloom filter together with the Revoken Server , see its configuration.
 
 {{< note title="Hygiene habits" >}}
 Keep the life of your tokens short (e.g., 30 minutes).
@@ -100,7 +92,6 @@ Our sample JWT payload has the following characteristics:
     "exp": 1735689600
 }
 ```
-
 
 The following list shows the possible functionalities with an example`"token_keys": ["jti","sub","did","aud"]`:
 
@@ -125,4 +116,4 @@ If you want to learn bloomfilters by example or additional information on token 
 
 - [Bloomfilter tutorial](https://llimllib.github.io/bloomfilter-tutorial/)
 - [Bloomfilter calculator](https://hur.st/bloomfilter/?n=1000000&p=1.0E-9&m=&k=)
-- [Revoke Server](/docs/enterprise/authentication/revoke-server/) {{< badge>}}Enterprise{{< /badge >}}
+- Revoke Server 

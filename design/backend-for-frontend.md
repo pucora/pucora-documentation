@@ -22,7 +22,6 @@ Another problem is that the clients consuming this data, like a desktop web UI, 
 
 In addition to the problems above, each client needs to rely on **multiple domains** to complete a single use case. For instance, on the front page screen of an e-commerce application (whether it's a mobile app or web page), you might need to simultaneously consume data from the `user`, `catalog`, `cart`, `pricing`, and `promotions` services.
 
-
 ![Problem with multiple API usage](/images/documentation/diagrams/backend-for-frontend-problem-2.mmd.svg)
 
 As you can see in the diagram above, the client must deal with four different HTTP connections, wait for the fat responses coming back by a slow channel (network), parse all the data, and pick only the attributes needed to render the page. So why wouldn't you give what the client needs in the first place, omitting unnecessary data?

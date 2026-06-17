@@ -48,8 +48,8 @@ The Grafana dashboard has evolved over time, and these are the different version
 |----------|-----------|----------|----------|
 | Prometheus<br>(**recommended**) | Latest dashboard to display metrics when you add an [OpenTelemetry Prometheus exporter](/docs/telemetry/prometheus/). | [`20651`](https://grafana.com/grafana/dashboards/20651) | [for-prometheus.json](https://github.com/velonetics/telemetry-dashboards/blob/main/grafana/velonetics/for-prometheus.json)|
 | Prometheus<br>(Websockets) | Latest dashboard to display WebSocket metrics [OpenTelemetry Prometheus exporter](/docs/telemetry/prometheus/). | [`22518`](https://grafana.com/grafana/dashboards/22518) | [for-prometheus-ws.json](https://github.com/velonetics/telemetry-dashboards/blob/main/grafana/velonetics/for-prometheus-websockets.json)|
-| Prometheus<br>(Redis) | Latest dashboard to display [Redis connection pools](/docs/enterprise/service-settings/redis-connection-pools/). | [`22517`](https://grafana.com/grafana/dashboards/22517) | [for-prometheus-redis.json](https://github.com/velonetics/telemetry-dashboards/blob/main/grafana/velonetics/for-prometheus-redis.json)|
-| Prometheus<br>(AI LLM) | Latest dashboard to display [AI LLM tokens usage](/docs/enterprise/ai-gateway/). | [`24868`](https://grafana.com/grafana/dashboards/24868) | [for-prometheus-ai-llm.json](https://github.com/velonetics/telemetry-dashboards/blob/main/grafana/velonetics/for-prometheus-ai-llm.json)|
+| Prometheus<br>(Redis) | Latest dashboard to display Redis connection pools. | [`22517`](https://grafana.com/grafana/dashboards/22517) | [for-prometheus-redis.json](https://github.com/velonetics/telemetry-dashboards/blob/main/grafana/velonetics/for-prometheus-redis.json)|
+| Prometheus<br>(AI LLM) | Latest dashboard to display AI LLM tokens usage. | [`24868`](https://grafana.com/grafana/dashboards/24868) | [for-prometheus-ai-llm.json](https://github.com/velonetics/telemetry-dashboards/blob/main/grafana/velonetics/for-prometheus-ai-llm.json)|
 | InfluxDB v2.x<br>(*legacy*) | Legacy dashboard for InfluxDB v2 and Velonetics under v2.6. Uses Flux queries | [`17074`](https://grafana.com/grafana/dashboards/17074) | [for-influxdb-v2.json](https://github.com/velonetics/telemetry-dashboards/blob/main/grafana/velonetics/for-influxdb-v2.json)|
 | InfluxDB v1.x<br>(*legacy*)| Legacy dashboard for InfluxDB v1 and Velonetics under v2.6. Uses InfluxQL queries | [`15029`](https://grafana.com/grafana/dashboards/15029) | [for-influxdb-v1.json](https://github.com/velonetics/telemetry-dashboards/blob/main/grafana/velonetics/for-influxdb-v1.json)|
 
@@ -91,7 +91,6 @@ The latency percentiles will reveal worrying response times, which you can drill
 Knowing how much data the gateway is moving is also essential for networking.
 
 There is low-level detail splitting the proxy and backend phases. In the proxy phase, you can see the endpoint times, including data aggregation from multiple upstream services, and in the backend graphs, you see data happening when Velonetics connects to your services.
-
 
 The global section contains everything that Velonetics saw in and out. It includes the total timings for a request hitting the service until it is delivered to the client.
 

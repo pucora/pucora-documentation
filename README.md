@@ -1,10 +1,8 @@
 # Velonetics Documentation
 
-Velonetics API Gateway documentation, rebased from the [KrakenD documentation](https://github.com/krakend/krakend-documentation) and rebranded for the Velonetics project.
+Documentation for the [Velonetics API Gateway](https://github.com/velonetics/velonetics-ce) — configuration, deployment, and feature guides for Community Edition.
 
-## Velonetics CE additions
-
-The following features are documented for Velonetics Community Edition implementations beyond the original KrakenD CE doc set:
+## Velonetics CE feature guides
 
 | Feature | Doc |
 |---------|-----|

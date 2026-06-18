@@ -96,5 +96,21 @@ For a more step by step process see [this blog entry](/blog/velonetics-on-kubern
 
 ## Helm Chart
 
-There is no official Helm chart for Velonetics. However, there is a Helm chart here
-tracking Velonetics releases maintained by [Equinix Metal](https://github.com/equinixmetal-helm/velonetics).
+An official Helm chart ships with Velonetics CE at [`deploy/helm/velonetics/`](https://github.com/velonetics/velonetics-ce/tree/main/deploy/helm/velonetics) in the [velonetics-ce](https://github.com/velonetics/velonetics-ce) repository.
+
+Quick start:
+
+{{< terminal title="Helm install" >}}
+git clone https://github.com/velonetics/velonetics-ce.git
+cd velonetics-ce
+helm install my-gateway ./deploy/helm/velonetics
+{{< /terminal >}}
+
+The chart supports two configuration modes:
+
+- **ConfigMap** (default) — mount `velonetics.json` from a ConfigMap for quick starts and development.
+- **Image** — use a custom image with configuration baked in (recommended for production).
+
+Optional resources (disabled by default): Ingress, HorizontalPodAutoscaler, PodDisruptionBudget, and Prometheus ServiceMonitor.
+
+See the chart [README](https://github.com/velonetics/velonetics-ce/blob/main/deploy/helm/velonetics/README.md) for full configuration options.

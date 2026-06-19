@@ -4,7 +4,7 @@ date: 2024-11-26
 toc: true
 linktitle: Manipulation toolkit
 title: Introduction to Request and Response Manipulation
-description: Explore the request and response manipulation capabilities in Velonetics API Gateway, allowing you to modify and enhance API responses for a better user experience
+description: Explore the request and response manipulation capabilities in Pucora API Gateway, allowing you to modify and enhance API responses for a better user experience
 weight: -1
 menu:
   community_current:
@@ -14,7 +14,7 @@ images:
 - /images/documentation/hero/request-response-manipulation.png
 ---
 
-One of Velonetics's standout features is its powerful capability to manipulate requests and responses, allowing you to shape data flows to meet your application's needs. With Velonetics, you can transform incoming requests and outgoing responses on the fly, ensuring your APIs are efficient and perfectly aligned with your business logic. Whether you need to filter sensitive information, restructure payloads, enrich responses, or enforce specific rules, Velonetics provides a robust toolkit to get the job done.
+One of Pucora's standout features is its powerful capability to manipulate requests and responses, allowing you to shape data flows to meet your application's needs. With Pucora, you can transform incoming requests and outgoing responses on the fly, ensuring your APIs are efficient and perfectly aligned with your business logic. Whether you need to filter sensitive information, restructure payloads, enrich responses, or enforce specific rules, Pucora provides a robust toolkit to get the job done.
 
 Before you start digging into manipulation, identify which part of the request or response needs modification and define the transformation logic. Then, choose the right components from the range of declarative configurations to suit different manipulation tasks. There are several components at your disposal that we could group as follows:
 
@@ -23,7 +23,7 @@ Before you start digging into manipulation, identify which part of the request o
 - **Request and response validation**: Although not a manipulation itself, it allows you to abort requests or responses that do not have compliant data.
 
 ## Data transformation and aggregation
-Velonetics dynamically reshapes, filters, and transforms requests and responses, ensuring compatibility between clients and backends. This simplifies payloads, improves performance, and customizes data delivery to fit client needs. The components available to transform data are:
+Pucora dynamically reshapes, filters, and transforms requests and responses, ensuring compatibility between clients and backends. This simplifies payloads, improves performance, and customizes data delivery to fit client needs. The components available to transform data are:
 
 - [API Composition and Aggregation](/docs/endpoints/response-manipulation/): Combine multiple API responses into a unified payload.
 - [Response Manipulation](/docs/backends/data-manipulation/): The basic operators allow you to group, filter, map, or capture responses.
@@ -31,14 +31,14 @@ Velonetics dynamically reshapes, filters, and transforms requests and responses,
 - [Manipulation of collections](/docs/backends/flatmap/): Handle and manipulate arrays sequentially in payloads.
 
 ## Protocol mapping and performance
-Velonetics transparently converts data from one format to another and even transforms protocols. It ensures smooth integration with various systems and optimizes payload sizes for better efficiency. Some functionalities covering this are:
+Pucora transparently converts data from one format to another and even transforms protocols. It ensures smooth integration with various systems and optimizes payload sizes for better efficiency. Some functionalities covering this are:
 
 - [Interpretation of backend responses](/docs/backends/supported-encodings/): Tell the gateway what type of response it will read, and it will be able to manipulate its data automatically.
 - [Re-encoding of responses](/docs/endpoints/content-types/): Choose the format of responses returned to clients. It does not matter their origin, whether JSON, XML, SOAP, etc.
 - [Response Caching](/docs/backends/caching/): Improve performance by caching frequently used responses.
 - [Non-rest connectivity](/docs/non-rest-connectivity/): Connect to Lambda functions, GraphQL, Pub/Sub, WebSockets, gRPC, SOAP, and others.
 
-Velonetics CE includes:
+Pucora CE includes:
 
 - [SOAP](/docs/backends/soap/): Craft the body and XML content you will send to a SOAP service and treat it back as XML or JSON automatically.
 

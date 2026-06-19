@@ -3,8 +3,8 @@ lastmod: 2025-04-10
 date: 2021-05-21
 toc: true
 linktitle: HTTP client plugins
-title: HTTP Client Plugins for Velonetics API Gateway
-description: Learn how to extend the functionality of Velonetics API Gateway by utilizing HTTP client plugins, enabling customized communication with external services
+title: HTTP Client Plugins for Pucora API Gateway
+description: Learn how to extend the functionality of Pucora API Gateway by utilizing HTTP client plugins, enabling customized communication with external services
 weight: 110
 menu:
   community_current:
@@ -18,14 +18,14 @@ images:
 - /images/documentation/velonetics-plugins.png
 - /images/documentation/http-client-plugin.png
 ---
-The **HTTP client** plugins execute in the proxy layer when Velonetics tries to reach your backends for content. They allow you to intercept, transform, and manipulate the requests **before they hit your backend services**, and their way back. It is the perfect time to modify the request before it reaches the backend.
+The **HTTP client** plugins execute in the proxy layer when Pucora tries to reach your backends for content. They allow you to intercept, transform, and manipulate the requests **before they hit your backend services**, and their way back. It is the perfect time to modify the request before it reaches the backend.
 
 <img src="/images/documentation/http-client-plugin.png" class="dark-version-available" title="HTTP client plugins">
 
-You **cannot chain HTTP client plugins**, limiting them to one plugin per backend connection, and **replace the default Velonetics's HTTP client**.
+You **cannot chain HTTP client plugins**, limiting them to one plugin per backend connection, and **replace the default Pucora's HTTP client**.
 
 {{< note title="HTTP client components will stop working" type="warning" >}}
-An HTTP client is a terminator. It means that it is the last executor in the Velonetics pipe. When you add an HTTP client plugin, **you replace Velonetics's default client** with your own. It means some built-in functionality in the default HTTP client won't exist unless you code it.
+An HTTP client is a terminator. It means that it is the last executor in the Pucora pipe. When you add an HTTP client plugin, **you replace Pucora's default client** with your own. It means some built-in functionality in the default HTTP client won't exist unless you code it.
 
 More specifically, if you inject your plugin, you don't have [Client Credentials](/docs/authorization/client-credentials/), [Backend Cache](/docs/backends/caching/), or [Backend Telemetry](/docs/telemetry/opentelemetry-layers-metrics/#data-exposed-in-the-backend-layer) unless you add this logic to your plugin.
 {{< /note >}}
@@ -185,9 +185,9 @@ docker run -it -v "$PWD:/app" -w /app \
 go build -buildmode=plugin -o velonetics-client-example.so .
 {{< /terminal >}}
 
-There is no output for this command. Now you have a file `velonetics-client-example.so`, the Velonetics binary has to side load. Remember that you cannot use this binary in a different architecture (e.g., compiling the binary in Mac and loading it in a Docker container).
+There is no output for this command. Now you have a file `velonetics-client-example.so`, the Pucora binary has to side load. Remember that you cannot use this binary in a different architecture (e.g., compiling the binary in Mac and loading it in a Docker container).
 
-The plugin is ready to use! You can now load your plugin in the configuration. Add the `plugin` and `extra_config` entries in your configuration. Here's an example of `velonetics.json`:
+The plugin is ready to use! You can now load your plugin in the configuration. Add the `plugin` and `extra_config` entries in your configuration. Here's an example of `pucora.json`:
 
 ```json
 {
@@ -220,9 +220,9 @@ The plugin is ready to use! You can now load your plugin in the configuration. A
 }
 ```
 
-Start the server with `velonetics run -dc velonetics.json`. When you run the server, the expected output (with `DEBUG` log level) is:
+Start the server with `pucora run -dc pucora.json`. When you run the server, the expected output (with `DEBUG` log level) is:
 
-    Parsing configuration file: velonetics.json
+    Parsing configuration file: pucora.json
     yyyy/mm/dd hh:mm:ss VELONETICS ERROR: [SERVICE: Logging] Unable to create the logger: getting the extra config for the velonetics-gologging module
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Plugin Loader] Starting loading process
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [PLUGIN: velonetics-client-example] Logger loaded
@@ -230,7 +230,7 @@ Start the server with `velonetics run -dc velonetics.json`. When you run the ser
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Handler Plugin] plugin #0 (velonetics-client-example/velonetics-client-example.so): plugin: symbol HandlerRegisterer not found in plugin velonetics-client-example
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Modifier Plugin] plugin #0 (velonetics-client-example/velonetics-client-example.so): plugin: symbol ModifierRegisterer not found in plugin velonetics-client-example
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Plugin Loader] Loading process completed
-    yyyy/mm/dd hh:mm:ss VELONETICS INFO: Starting the Velonetics instance
+    yyyy/mm/dd hh:mm:ss VELONETICS INFO: Starting the Pucora instance
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: /test/:id] Building the proxy pipe
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [BACKEND: /__health] Building the backend pipe
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: The plugin is now hijacking the path /hijack-me

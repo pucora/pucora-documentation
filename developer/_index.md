@@ -7,24 +7,24 @@ menu:
   community_current:
     parent: "170 API Documentation and Dev Tools"
 title: Custom developer tools
-description: Discover what are the development tools you can compile additionally to work with Velonetics Open Source edition. These tools are not bundled by default with Velonetics.
+description: Discover what are the development tools you can compile additionally to work with Pucora Open Source edition. These tools are not bundled by default with Pucora.
 weight: 10
 dark_header_image: true
 images:
   - /images/documentation/hero/developer.png
 ---
 
-There are some additional resources that might help you when developing with Velonetics. These tools are meant to be used only in development and **never in production**, they are **not bundled with Velonetics** and are separate components that you must compile.
+There are some additional resources that might help you when developing with Pucora. These tools are meant to be used only in development and **never in production**, they are **not bundled with Pucora** and are separate components that you must compile.
 
 ## Hot reload the configuration
-There is an additional Velonetics Docker image using Reflex to watch the configuration directory and reload Velonetics when there are changes. This is very convenient while you are developing as it allows you to test new changes without having to restart manually and making the process less tedious.
+There is an additional Pucora Docker image using Reflex to watch the configuration directory and reload Pucora when there are changes. This is very convenient while you are developing as it allows you to test new changes without having to restart manually and making the process less tedious.
 
-You can use the Docker image `docker pull velonetics/velonetics-ce:watch`
+You can use the Docker image `docker pull pucora/velonetics-ce:watch`
 
 [More information in our blog post](/blog/reloading-the-velonetics-configuration/)
 
 ## Generating an image with the configuration
-The [config2dot](https://github.com/velonetics/velonetics-config2dot) is a tool to create graphs automatically after reading your configuration file `velonetics.json`. For instance:
+The [config2dot](https://github.com/pucora/velonetics-config2dot) is a tool to create graphs automatically after reading your configuration file `pucora.json`. For instance:
 
 ![config2dot example](/images/documentation/config2dot.png)
 

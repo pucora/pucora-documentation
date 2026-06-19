@@ -10,13 +10,13 @@ menu:
   community_current:
     parent: "040 Routing and Forwarding"
 ---
-When Velonetics communicates using HTTP **with all your upstream services**, it implements a concurrent-safe round tripper that supports HTTP, HTTPS, and HTTP proxies, and it caches connections for future re-use. This may leave many open connections when accessing many hosts. You can change the behavior of the transport layer using several settings presented below.
+When Pucora communicates using HTTP **with all your upstream services**, it implements a concurrent-safe round tripper that supports HTTP, HTTPS, and HTTP proxies, and it caches connections for future re-use. This may leave many open connections when accessing many hosts. You can change the behavior of the transport layer using several settings presented below.
 
-The following settings affect **all connections from Velonetics to your services**.
+The following settings affect **all connections from Pucora to your services**.
 
 If you want to customize any of the settings below, they must be written at the top level of the configuration.
 
-{{< schema data="velonetics.json" filter="dialer_timeout,dialer_keep_alive,dialer_fallback_delay,disable_compression,disable_keep_alives,max_idle_connections,max_idle_connections_per_host,idle_connection_timeout,response_header_timeout,expect_continue_timeout,client_tls" title="Settings for Velonetics to your service communication" >}}
+{{< schema data="pucora.json" filter="dialer_timeout,dialer_keep_alive,dialer_fallback_delay,disable_compression,disable_keep_alives,max_idle_connections,max_idle_connections_per_host,idle_connection_timeout,response_header_timeout,expect_continue_timeout,client_tls" title="Settings for Pucora to your service communication" >}}
 
 Finally, the **TLS Handshake Timeout** is hardcoded to 10 seconds and cannot be changed.
 
@@ -36,10 +36,10 @@ All the environment variables have the same name as the settings above in upperc
 - `VELONETICS_RESPONSE_HEADER_TIMEOUT`
 - `VELONETICS_EXPECT_CONTINUE_TIMEOUT`
 
-You can start Velonetics with the desired variables to override what you have in the configuration:
+You can start Pucora with the desired variables to override what you have in the configuration:
 
 {{< terminal title="Term" >}}
-VELONETICS_MAX_IDLE_CONNECTIONS_PER_HOST=200 velonetics run -c velonetics.json
+VELONETICS_MAX_IDLE_CONNECTIONS_PER_HOST=200 pucora run -c pucora.json
 {{< /terminal >}}
 
 ## Max IDLE connections
@@ -52,7 +52,7 @@ Having a high number of IDLE connections to every backend affects directly to th
 }
 ```
 
-Velonetics will close connections sitting idle in a "keep-alive" state when `max_idle_connections` is reached. If no value is set in the configuration file, Velonetics will use `250` by default.
+Pucora will close connections sitting idle in a "keep-alive" state when `max_idle_connections` is reached. If no value is set in the configuration file, Pucora will use `250` by default.
 
 Every ecosystem needs its own setting, have this in mind:
 

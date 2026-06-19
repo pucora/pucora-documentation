@@ -71,7 +71,7 @@ The full list of options is:
 
 {{< schema data="telemetry/opentelemetry-endpoint.json" filter="proxy" title="OpenTelemetry settings per endpoint">}}
 
-In the Velonetics you have more override options, like override entirely the exporter you want to use.
+In the Pucora you have more override options, like override entirely the exporter you want to use.
 
 ## Backend override of metrics and traces
 For instance, you have a specific backend that is adding noise to your dashboards and you'd like to disable all layers:

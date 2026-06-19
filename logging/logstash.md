@@ -4,15 +4,15 @@ date: 2019-09-15
 notoc: true
 linktitle: Logging in JSON (Logstash)
 title: "Logstash Integration (JSON logs)"
-description: Streamline log management and analysis by integrating Logstash with Velonetics. Follow our documentation to set up seamless integration and gain valuable insights from your API logs.
+description: Streamline log management and analysis by integrating Logstash with Pucora. Follow our documentation to set up seamless integration and gain valuable insights from your API logs.
 weight: 360
-source: https://github.com/velonetics/velonetics-logstash
+source: https://github.com/pucora/velonetics-logstash
 aliases: ["/docs/logging-metrics-tracing/logstash/"]
 menu:
   community_current:
     parent: "160 Monitoring, Logs, and Analytics"
 ---
-The [Logstash](https://www.elastic.co/logstash/) integration prints **Velonetics application logs in JSON format** (not access logs) to ingest them and process them later. If you want to log using the Logstash standard via stdout, you need to add the `telemetry/logging` integration as a dependency.
+The [Logstash](https://www.elastic.co/logstash/) integration prints **Pucora application logs in JSON format** (not access logs) to ingest them and process them later. If you want to log using the Logstash standard via stdout, you need to add the `telemetry/logging` integration as a dependency.
 
 ## Configuration
 The configuration you need to enable Logstash is very simple:
@@ -23,7 +23,7 @@ The configuration you need to enable Logstash is very simple:
     "extra_config": {
         "telemetry/logging": {
             "level": "INFO",
-            "prefix": "[VELONETICS]",
+            "prefix": "[PUCORA]",
             "stdout": true,
             "syslog": false,
             "format":"custom",
@@ -39,7 +39,7 @@ The configuration you need to enable Logstash is very simple:
 When the `format` of the logging format is `logstash` then the output of the application log (not the access log) is printed in JSON format, as follows:
 
     {"@timestamp":"2022-06-15T15:37:02.619+00:00", "@version": 1, "level": "DEBUG", "message": "[SERVICE: Gin] Debug enabled", "module": "VELONETICS"}
-    {"@timestamp":"2022-06-15T15:37:02.619+00:00", "@version": 1, "level": "INFO", "message": "Starting the Velonetics instance", "module": "VELONETICS"}
+    {"@timestamp":"2022-06-15T15:37:02.619+00:00", "@version": 1, "level": "INFO", "message": "Starting the Pucora instance", "module": "VELONETICS"}
     {"@timestamp":"2022-06-15T15:37:02.619+00:00", "@version": 1, "level": "DEBUG", "message": "[ENDPOINT: /test] Building the proxy pipe", "module": "VELONETICS"}
     {"@timestamp":"2022-06-15T15:37:02.619+00:00", "@version": 1, "level": "DEBUG", "message": "[BACKEND: /404] Building the backend pipe", "module": "VELONETICS"}
 

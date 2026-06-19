@@ -12,7 +12,7 @@ images:
 
 weight: 31
 ---
-There are **several components and features** in Velonetics that allow you to define configurations or content manipulations using **templates**.
+There are **several components and features** in Pucora that allow you to define configurations or content manipulations using **templates**.
 
 Whether you are using templates with [flexible configuration](/docs/configuration/flexible-config/), a Request generator or Response manipulation the syntax you use is the same, and it's based on **Go templates** (as Helm, Kubernetes, and many other systems).
 
@@ -29,7 +29,7 @@ There are two initial external documentation pages worth reading to get familiar
 ### Basics of templates
 You will recognize templates because their data evaluations or control structures use surrounding `{{` and `}}`. Any other text outside these delimiters is unprocessed text copied to the output as it is.
 
-For instance, let's write a simple template `velonetics.tmpl` (A Go template rendering in JSON format):
+For instance, let's write a simple template `pucora.tmpl` (A Go template rendering in JSON format):
 
 ```go-text-template
 {
@@ -50,7 +50,7 @@ The template above uses a Sprig function `add` that sums two numbers, and prints
 A few basics to get started:
 
 - Comments look like `{{/* a comment */}}` and can be multiline
-- Variables set by Velonetics are under `{{ .variable_name }}`. Notice the starting dot `.`.
+- Variables set by Pucora are under `{{ .variable_name }}`. Notice the starting dot `.`.
 - Variables you assign can use the syntax `{{ $myvariable := "hello" }}`, and when a variable already exists with `{{ $myvariable = "hello2" }}`
 - Conditionals use the syntax `{{ if CONDITION }}yes{{else}}no{{end}}`. You can also use `{{else if}}`. Empty values evaluate to `false`.
 - Loops, or iterations use the syntax `{{ range .ELEMENT}}...{{end}}` or `{{ range .ELEMENT}}...{{else}}...{{end}}`. The `else` is used when the element you want to iterate is empty. Additionally you can use `{{break}}` and `{{continue}}` in loops.
@@ -140,7 +140,7 @@ Then, the `marshal` dumps all the contents provided. The dollar sign `$` inside 
 The `index` function gives you access to an element of the map, so `index $ $setting` is equivalent to `$[$setting]` in other languages.
 
 ### Inserting an external file as base64
-A few fields in Velonetics require you to set their value in base64 format instead of the raw counterpart. For example, sometimes you want to version control the raw file in an external file and reference it as base64. To do so, you could have a template `render_as_base64.tmpl` with the following content:
+A few fields in Pucora require you to set their value in base64 format instead of the raw counterpart. For example, sometimes you want to version control the raw file in an external file and reference it as base64. To do so, you could have a template `render_as_base64.tmpl` with the following content:
 
 ```go-text-template
 {{/* Notice the dashes (-) at the beginning and end of the following code.
@@ -148,7 +148,7 @@ They remove all spaces and linebreaks that appear before and after when the resu
 {{- $raw_content := include . -}}
 {{- $raw_content | b64enc -}}
 ```
-And call it in the `velonetics.tmpl` like this:
+And call it in the `pucora.tmpl` like this:
 
 ```go-text-template
 {
@@ -259,7 +259,7 @@ The template `template_name.tmpl` is executed and processed. The depicted variab
 #### The context
 The context is data you pass to a template as if it were a single parameter of a function.
 
-When the base template loads (e.g., the `velonetics.tmpl`), it automatically **receives in the context the whole settings tree**. It means that if you dump the content of the context, you will see the entire tree made of all files and data structures in the settings dir.
+When the base template loads (e.g., the `pucora.tmpl`), it automatically **receives in the context the whole settings tree**. It means that if you dump the content of the context, you will see the entire tree made of all files and data structures in the settings dir.
 
 If you want to pass **all the settings tree** to the calling template, write just a dot `.`, which stands for "everything". For instance:
 
@@ -281,7 +281,7 @@ There is a lot of theory so far. To demonstrate the usage of the flexible config
 
 ```
 .
-├── velonetics.tmpl
+├── pucora.tmpl
 ├── partials
 │   └── all_backends_extra_config.json
 └── settings
@@ -295,7 +295,7 @@ In this file, we have written the content of the rate limit configuration and ci
 
 ```json
 {
-    "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/backend_extra_config.json",
+    "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/backend_extra_config.json",
     "qos/ratelimit/proxy": {
         "max_rate": 100,
         "capacity": 100
@@ -352,7 +352,7 @@ This file declares a couple of endpoints that feed on a single backend:
 }
 ```
 
-**velonetics.tmpl**
+**pucora.tmpl**
 
 Finally, let's introduce the base template. It inserts the content of other files using `include`, uses the variables declared in the settings files, and writes json content with `marshal`.
 

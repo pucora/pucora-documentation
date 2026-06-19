@@ -2,8 +2,8 @@
 lastmod: 2023-01-31
 date: 2023-01-18
 linktitle: Configuration audit
-title: Auditing Velonetics API Gateway Configurations
-description: Learn how to configure configuration auditing in Velonetics API Gateway to ensure file integrity and print security recommendations and statistical information
+title: Auditing Pucora API Gateway Configurations
+description: Learn how to configure configuration auditing in Pucora API Gateway to ensure file integrity and print security recommendations and statistical information
 weight: 21
 notoc: false
 images:
@@ -13,7 +13,7 @@ menu:
     parent: "010 Configuration files"
 ---
 
-The `velonetics audit` command is a rule evaluation tool that checks configuration files written in any of its [supported formats](/docs/configuration/supported-formats/) and returns practical **security recommendations**. It is designed to raise basic red flags and provide essential advice on your configuration. The output of the configuration and classification is inspired by the [CIS Benchmarks](https://www.cisecurity.org/communities/benchmarks).
+The `pucora audit` command is a rule evaluation tool that checks configuration files written in any of its [supported formats](/docs/configuration/supported-formats/) and returns practical **security recommendations**. It is designed to raise basic red flags and provide essential advice on your configuration. The output of the configuration and classification is inspired by the [CIS Benchmarks](https://www.cisecurity.org/communities/benchmarks).
 
 {{< note title="Security disclaimer" type="warning" >}}
 If the audit command passes, it does not mean that your API is necessarily secure but that the evaluated rules have passed (find them as recommendations below).
@@ -29,19 +29,19 @@ The purpose of the audit command is to add extra checks in your [automated CI pi
 ## Audit configuration
 The `audit` command has the following options:
 
-{{< terminal title="Usage of Velonetics audit" >}}
-velonetics audit --help
+{{< terminal title="Usage of Pucora audit" >}}
+pucora audit --help
 {{< ascii-logo >}}
 
 Version: {{< product latest_version >}}
 
-Audits a Velonetics configuration.
+Audits a Pucora configuration.
 
 Usage:
-  velonetics audit [flags]
+  pucora audit [flags]
 
 Examples:
-velonetics audit -i 1.1.1,1.1.2 -s CRITICAL -c velonetics.json
+pucora audit -i 1.1.1,1.1.2 -s CRITICAL -c pucora.json
 
 Flags:
   -c, --config string        Path to the configuration file
@@ -55,7 +55,7 @@ Flags:
 The simplest version of the command requires the path to the configuration file only, and outputs any problems found:
 
 {{< terminal title="Audit configuration" >}}
-velonetics audit -c velonetics.json
+pucora audit -c pucora.json
 1.2.1	[HIGH]   	 Prioritize using JWT for endpoint authorization to ensure security.
 2.2.1	[MEDIUM]   Hide the version banner in runtime.
 3.3.4	[CRITICAL] Set timeouts to below 1 minute for improved performance.
@@ -79,10 +79,10 @@ By default, the audit command will include **all severity levels**. However, you
 - `MEDIUM`
 - `LOW`
 
-When the `--severity` is not defined, Velonetics uses `--severity CRITICAL,HIGH,MEDIUM,LOW`. You can use a **comma separated** string (no spaces) with all the severities you want to print. For instance, using the same example we had above, to filter by the most severe problems you would type:
+When the `--severity` is not defined, Pucora uses `--severity CRITICAL,HIGH,MEDIUM,LOW`. You can use a **comma separated** string (no spaces) with all the severities you want to print. For instance, using the same example we had above, to filter by the most severe problems you would type:
 
 {{< terminal title="Term" >}}
-velonetics audit --severity CRITICAL,HIGH -c velonetics.json
+pucora audit --severity CRITICAL,HIGH -c pucora.json
 1.2.1	[HIGH]   	 Prioritize using JWT for endpoint authorization to ensure security.
 3.3.4	[CRITICAL] Set timeouts to below 1 minute for improved performance.
 {{< /terminal >}}
@@ -95,10 +95,10 @@ The outputted security recommendations by the command are generic to any install
 For the inline option, you could do the following:
 
 {{< terminal title="Ignore rules 1.2.3 and 4.5.6" >}}
-velonetics audit --ignore=1.2.3,4.5.6 -c velonetics.json
+pucora audit --ignore=1.2.3,4.5.6 -c pucora.json
 {{< /terminal >}}
 
-For the option of an ignore file, you should create a plain text file with one rule per line. You can place this file anywhere and it does not require a specific extension or name. However, if it is not in the Velonetics workdir (`/etc/velonetics/`), you must specify its relative or absolute path:
+For the option of an ignore file, you should create a plain text file with one rule per line. You can place this file anywhere and it does not require a specific extension or name. However, if it is not in the Pucora workdir (`/etc/pucora/`), you must specify its relative or absolute path:
 
 {{< terminal title="Content of the ignore file" >}}
 cat .audit_ignore
@@ -108,7 +108,7 @@ cat .audit_ignore
 
 And then calling it with:
 {{< terminal title="Ignore rules 1.2.3 and 4.5.6" >}}
-velonetics audit --ignore-file=.audit_ignore -c velonetics.json
+pucora audit --ignore-file=.audit_ignore -c pucora.json
 {{< /terminal >}}
 
 ### Customizing the output
@@ -122,7 +122,7 @@ The default template, as shown in the screenshot, applies the following go templ
 As the output is processed using a template, you can inject anything you like. For instance, the example below generates a [TOML file](https://toml.io/en/) into `recommendations.toml`.
 
 {{< terminal title="Custom output" >}}
-velonetics audit -f '{{range .Recommendations}}
+pucora audit -f '{{range .Recommendations}}
 [[recommendation]]
   rule = "{{.Rule}}"
   message = "{{.Message}}"
@@ -133,7 +133,7 @@ velonetics audit -f '{{range .Recommendations}}
 Or the **JSON format** is even easier to write:
 
 {{< terminal title="JSON output" >}}
-velonetics audit -f '{{ marshal . }}' > recommendations.json
+pucora audit -f '{{ marshal . }}' > recommendations.json
 {{< /terminal >}}
 
 As you can see, the templates use a series of **variables and functions**, as follows:

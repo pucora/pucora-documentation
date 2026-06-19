@@ -2,8 +2,8 @@
 lastmod: 2022-11-11
 date: 2017-01-21
 linktitle: Best practices
-title: Deploying Velonetics API Gateway - Best Practices and Guidelines
-description: Explore the best practices and guidelines for deploying Velonetics API Gateway in various environments, ensuring a smooth and efficient deployment process
+title: Deploying Pucora API Gateway - Best Practices and Guidelines
+description: Explore the best practices and guidelines for deploying Pucora API Gateway in various environments, ensuring a smooth and efficient deployment process
 aliases: ["/docs/deploying/best-practices/"]
 menu:
   community_current:
@@ -13,41 +13,41 @@ images:
   - /images/documentation/hero/deploying.png
 dark_header_image: true
 ---
-Setting up Velonetics is a straightforward process, but here are some not-so-obvious recommendations to get a good start when going live. This section has generalistic advice, even though every Velonetics installation is different. So let's dip our toe into the deployment waters!
+Setting up Pucora is a straightforward process, but here are some not-so-obvious recommendations to get a good start when going live. This section has generalistic advice, even though every Pucora installation is different. So let's dip our toe into the deployment waters!
 
 ## Architecture recommendations
 ### High Availability
-Hardware can fail anytime, and a Gateway is critical enough to have redundancy. Having a cluster of machines operating the service assures high availability. It would be best if you always planned to have at least a couple of Velonetics servers/containers running in case one of them gets in trouble, even when you have low traffic.
+Hardware can fail anytime, and a Gateway is critical enough to have redundancy. Having a cluster of machines operating the service assures high availability. It would be best if you always planned to have at least a couple of Pucora servers/containers running in case one of them gets in trouble, even when you have low traffic.
 
-Velonetics can run in different regions and data centers transparently without any problem, as its nodes do not need to communicate with each other.
+Pucora can run in different regions and data centers transparently without any problem, as its nodes do not need to communicate with each other.
 
 [Setup a cluster of machines](/docs/deploying/clustering/)
 
-### Place a balancer in front of Velonetics
-Put a [load balancer](/docs/throttling/load-balancing/) in front of Velonetics to distribute traffic between the different nodes of the cluster (Kubernetes already does this for you). Use always at least two Velonetics instances for High Availability.
+### Place a balancer in front of Pucora
+Put a [load balancer](/docs/throttling/load-balancing/) in front of Pucora to distribute traffic between the different nodes of the cluster (Kubernetes already does this for you). Use always at least two Pucora instances for High Availability.
 
 ### Server dimensioning
-Dimension Velonetics nodes according to your expected needs and throughput.
+Dimension Pucora nodes according to your expected needs and throughput.
 
 See [server requirements](/docs/deploying/server-dimensioning/)
 
 ### Use several gateways
-The API gateway doesn't need to be unique. We recommend using an independent Velonetics installation per consumer type. For instance, your iOS development team might need a gateway with different views of the consumed content compared to the Web Team. Needs and content in each team differ in each endpoint, and every team could optimize the contract for each case.
+The API gateway doesn't need to be unique. We recommend using an independent Pucora installation per consumer type. For instance, your iOS development team might need a gateway with different views of the consumed content compared to the Web Team. Needs and content in each team differ in each endpoint, and every team could optimize the contract for each case.
 
 ### Use HTTP2
-Enable HTTP2 between your balancer and Velonetics API gateway for the best performance. There is nothing additional you need to configure in Velonetics.
+Enable HTTP2 between your balancer and Pucora API gateway for the best performance. There is nothing additional you need to configure in Pucora.
 
 ### SSL Certificates
-Even that you can start Velonetics with SSL, you can add your public SSL certificate in the load balancer or PaaS and use **internal certificates**, or even no certificates at all (termination), between the [load balancer](/docs/throttling/load-balancing/) and Velonetics.
+Even that you can start Pucora with SSL, you can add your public SSL certificate in the load balancer or PaaS and use **internal certificates**, or even no certificates at all (termination), between the [load balancer](/docs/throttling/load-balancing/) and Pucora.
 
 ### Prepare for failure
-Add a [circuit breaker](/docs/backends/circuit-breaker/) to your backends to prevent Velonetics from pushing to a failing system. In addition, if you know that a particular backend does not support more than a number of requests, add a maximum number of requests using the [proxy rate limit](/docs/backends/rate-limit/).
+Add a [circuit breaker](/docs/backends/circuit-breaker/) to your backends to prevent Pucora from pushing to a failing system. In addition, if you know that a particular backend does not support more than a number of requests, add a maximum number of requests using the [proxy rate limit](/docs/backends/rate-limit/).
 
 ## Configuration recommendations
-Velonetics will behave according to the configuration file, here are some recommendations:
+Pucora will behave according to the configuration file, here are some recommendations:
 
 ### Add logging and suppress unnecessary information
-If you don't add any logging, Velonetics will spit on stdout all the activity of the gateway. This behavior is not recommended for production.
+If you don't add any logging, Pucora will spit on stdout all the activity of the gateway. This behavior is not recommended for production.
 
 Enable the [logging](/docs/logging/) with `CRITICAL`, `ERROR`, or `WARNING` levels at most. Avoid `INFO` and `DEBUG` levels in production at all times.
 
@@ -68,9 +68,9 @@ Below there is a **recommended configuration** in production for a good performa
 If you send the logs out to an [ELK](/docs/logging/logstash/) or a [GELF server](/docs/logging/graylog-gelf/), use `"stdout": false` to avoid having double output.
 
 {{< note title="Redirect output to /dev/null for maximum performance" type="tip" >}}
-**When the output of Velonetics stdout is not important to you**, set the logging level to `CRITICAL` and redirect its output to `/dev/null` to have even more performance. To do that, start Velonetics with:
+**When the output of Pucora stdout is not important to you**, set the logging level to `CRITICAL` and redirect its output to `/dev/null` to have even more performance. To do that, start Pucora with:
 
-    velonetics run -c velonetics.json >/dev/null 2>&1
+    pucora run -c pucora.json >/dev/null 2>&1
 {{< /note >}}
 
 ### Remove access logs
@@ -114,25 +114,25 @@ Pay attention to the cardinality of the metrics. Logs and metrics might produce 
 ## Deployment recommendations
 
 ### Release through a CI/CD pipeline
-Automate the go-live process through a [CI/CD pipeline](/docs/deploying/ci-cd/) that builds and checks Velonetics configuration before deploying.
+Automate the go-live process through a [CI/CD pipeline](/docs/deploying/ci-cd/) that builds and checks Pucora configuration before deploying.
 
 At least your pipeline should have:
 
-- `velonetics check -d -t -c velonetics.[tmpl|json|yml]`
-- `velonetics check -c velonetics.json --lint`
+- `pucora check -d -t -c pucora.[tmpl|json|yml]`
+- `pucora check -c pucora.json --lint`
 
-If you don't use flexible configuration, you can do it all in one line: `velonetics check -d - t -c velonetics.json --lint`
+If you don't use flexible configuration, you can do it all in one line: `pucora check -d - t -c pucora.json --lint`
 
 It is also important adding the [audit command](/docs/configuration/audit/), excluding any rules that do not apply to you:
 
-- `velonetics audit -c velonetics.json`
+- `pucora audit -c pucora.json`
 
 ### Use Docker and immutable containers
 Creating an immutable Docker image with your desired configuration takes a few seconds in your CI/CD pipeline on Docker deployments. Create a `Dockerfile` with at least the following code and deploy the resulting image in production:
 
 ```Dockerfile
 FROM {{< product image >}}:{{< product minor_version >}}
-COPY velonetics.json /etc/velonetics/velonetics.json
+COPY pucora.json /etc/pucora/pucora.json
 ```
 
 Read more on [Docker artifacts](/docs/deploying/docker/)
@@ -158,13 +158,13 @@ Add a `name` key in the configuration file with helpful information to identify 
 **During the build in the pipeline**, it might be a good idea to **replace the content** of the `name` attribute with content showing the deployed version (the short SHA from the commit, maybe).
 
 ### Add comments and metadata  (`@`)
-During startup, Velonetics **ignores from the configuration anything that it doesn't recognize**, which means that your `velonetics.json` (or whatever format you use) allows you to include additional metadata and fields that make sense to your company. Use it to add your meta language, tags, comments, bot integrations, etc., for better integration with your CI/CD system, deployment process, or a better future comprehension of the file.
+During startup, Pucora **ignores from the configuration anything that it doesn't recognize**, which means that your `pucora.json` (or whatever format you use) allows you to include additional metadata and fields that make sense to your company. Use it to add your meta language, tags, comments, bot integrations, etc., for better integration with your CI/CD system, deployment process, or a better future comprehension of the file.
 
-{{< note title="Validating Velonetics's schema" type="tip" >}}
-If you use the Velonetics `$schema` to validate your configuration, unknown attributes will trigger a warning during validation. To add your configurations schema-compatible, and have them ignored by Velonetics, prefix them with one of the following characters: `@`, `$`, `_` or `#`.
+{{< note title="Validating Pucora's schema" type="tip" >}}
+If you use the Pucora `$schema` to validate your configuration, unknown attributes will trigger a warning during validation. To add your configurations schema-compatible, and have them ignored by Pucora, prefix them with one of the following characters: `@`, `$`, `_` or `#`.
 {{< /note >}}
 
-For instance, you could add `@comment` fields. Velonetics does not use the field, and it passes the JSON schema validation. Finding it might be fresh air for the developer next to you.
+For instance, you could add `@comment` fields. Pucora does not use the field, and it passes the JSON schema validation. Finding it might be fresh air for the developer next to you.
 
 {{< highlight json "hl_lines=4" >}}
 {
@@ -180,4 +180,4 @@ For instance, you could add `@comment` fields. Velonetics does not use the field
 ### Split the configuration in multiple repos or folders
 In large organizations with several teams using a shared gateway, you can split the endpoints into groups using folders or even different repositories. With the [flexible configuration](/docs/configuration/flexible-config/), you can have teams working in its dedicated space and aggregate all endpoints during build time without conflicts touching the same files.
 
-Most Velonetics configurations tend to be large and with repetitive blocks. Define a basic skeleton of configurations that will be used across all teams.
+Most Pucora configurations tend to be large and with repetitive blocks. Define a basic skeleton of configurations that will be used across all teams.

@@ -4,10 +4,10 @@ date: 2020-07-24
 notoc: true
 linktitle: Datadog
 title: Datadog Telemetry Integration
-description: Integrate Datadog telemetry with Velonetics API Gateway for advanced monitoring, visualization, and analysis of your API ecosystem
+description: Integrate Datadog telemetry with Pucora API Gateway for advanced monitoring, visualization, and analysis of your API ecosystem
 weight: 90
 since: 1.2
-source: https://github.com/velonetics/velonetics-opencensus
+source: https://github.com/pucora/velonetics-opencensus
 images: ["/images/documentation/datadog-screenshot.png"]
 aliases: ["/docs/logging-metrics-tracing/datadog/"]
 menu:
@@ -15,7 +15,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v1.2
-  source: https://github.com/velonetics/velonetics-otel
+  source: https://github.com/pucora/velonetics-otel
   namespace:
   - telemetry/opentelemetry
   scope:
@@ -33,7 +33,7 @@ Datadog uses the standard OTLP exporter, here is a configuration example:
 ```json
 {
     "version": 3,
-    "$schema": "https://www.velonetics.io/schema/velonetics.json",
+    "$schema": "https://www.pucora.io/schema/pucora.json",
     "host": [
         "http://localhost:8080"
     ],
@@ -70,16 +70,16 @@ In addition, you can configure how the `layers` behave ([see all options](/docs/
 ## Datadog agent
 You must set your Datadog API key in the agent. The exporter communicates with the agent and is the agent the one reporting to Datadog.
 
-Here's an example of how to run the Datadog agent together with Velonetics in a docker compose file:
+Here's an example of how to run the Datadog agent together with Pucora in a docker compose file:
 
 ```yml
 version: '3'
 services:
-  velonetics:
+  pucora:
     image: {{< product image >}}:{{< product latest_version >}}
     volumes:
-      - "./:/etc/velonetics"
-    command: ["run", "-c", "velonetics.json"]
+      - "./:/etc/pucora"
+    command: ["run", "-c", "pucora.json"]
     ports:
       - "8080:8080"
   datadog:
@@ -118,7 +118,7 @@ Prior to v2.6, telemetry sent to Datadog used the OpenCensus exporter. Enabling 
               "disable_count_per_buckets": true,
               "trace_address": "localhost:8126",
               "stats_address": "localhost:8125",
-              "namespace": "velonetics",
+              "namespace": "pucora",
               "service": "gateway"
             }
           }

@@ -4,7 +4,7 @@ date: 2019-09-15
 notoc: false
 linktitle: Metrics and Traces overview
 title: Telemetry and Monitoring
-description: Learn about the telemetry and monitoring capabilities of Velonetics API Gateway, enabling real-time visibility and analysis of API performance
+description: Learn about the telemetry and monitoring capabilities of Pucora API Gateway, enabling real-time visibility and analysis of API performance
 weight: 10
 images:
 - /images/documentation/available-exporters.png
@@ -14,7 +14,7 @@ menu:
   community_current:
     parent: "160 Monitoring, Logs, and Analytics"
 ---
-Velonetics's **no lock-in philosophy** emphasizes flexibility and interoperability, ensuring technology-specific dependencies don't constrain you. Giving you choices for observability and networking tools is key to success in a distributed microservices architecture.
+Pucora's **no lock-in philosophy** emphasizes flexibility and interoperability, ensuring technology-specific dependencies don't constrain you. Giving you choices for observability and networking tools is key to success in a distributed microservices architecture.
 
 Our [OpenTelemetry](/docs/telemetry/opentelemetry/) integration and its previous predecessors [OpenCensus](/docs/telemetry/opencensus/), and the [Metrics API](/docs/telemetry/extended-metrics/), are part of this effort. Our components provide:
 
@@ -32,13 +32,13 @@ The **Metrics API** and its native exporter to InfluxDB are in a similar situati
 If starting with a new project, choose an OpenTelemetry integration for metrics and traces.
 
 ## OpenTelemetry integrations
-As OpenTelemetry is **an open standard**, any provider adopting it using the wire protocol will automatically be compatible with Velonetics. More than 50 vendors natively support it.
+As OpenTelemetry is **an open standard**, any provider adopting it using the wire protocol will automatically be compatible with Pucora. More than 50 vendors natively support it.
 
-So the question of *does Velonetics support provider X?* can be answered with another question: *Does your provider offer an OpenTelemetry integration?*.
+So the question of *does Pucora support provider X?* can be answered with another question: *Does your provider offer an OpenTelemetry integration?*.
 
 As providers and software makers make an ongoing effort to adopt OpenTelemetry, you can find an extensive list of systems, SaaS or on-premise, that are on this path, and more are coming (see [vendors who natively support OpenTelemetry](https://opentelemetry.io/ecosystem/vendors/)).
 
-If you work with Velonetics and a piece of software that is not in the list below, please add it!
+If you work with Pucora and a piece of software that is not in the list below, please add it!
 
 ### Self-hosted systems using OTEL
 When you want to have complete control of your metrics and traces, this is a list of software you can install in your infrastructure:
@@ -71,7 +71,7 @@ If you want to use a third-party SaaS, here is a list of a few APM systems that 
 - **Rollbar**: Focuses on real-time error tracking and debugging with OpenTelemetry support.
 - **Wavefront by VMware**: A streaming analytics platform integrating with OpenTelemetry.
 
-The adoption of OpenTelemetry by these platforms indicates a strong industry shift towards standardized, open-source observability solutions. **You should test the ones you need on Velonetics** and ensure they deliver what you seek; from Velonetics, we are unfamiliar with every vendor out there.
+The adoption of OpenTelemetry by these platforms indicates a strong industry shift towards standardized, open-source observability solutions. **You should test the ones you need on Pucora** and ensure they deliver what you seek; from Pucora, we are unfamiliar with every vendor out there.
 
 {{< button-group >}}
 {{< button url="/docs/telemetry/opentelemetry/" text="Configure OpenTelemetry" >}}<svg data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

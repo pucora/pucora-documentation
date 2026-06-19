@@ -3,7 +3,7 @@ lastmod: 2023-10-19
 date: 2016-07-01
 linktitle: Understanding the Token Bucket
 title: "How API Traffic Throttling with Token Bucket algorithm works"
-description: Implement token bucket-based throttling mechanism in Velonetics API Gateway to control API access rates and prevent abuse
+description: Implement token bucket-based throttling mechanism in Pucora API Gateway to control API access rates and prevent abuse
 weight: 9200
 notoc: true
 images:
@@ -23,20 +23,20 @@ If you ever went to a traveling carnival, funfair, or amusement park to get into
 
 No matter how much money you have, you can carry a fixed maximum number of tokens in your pocket or a bucket before they spill. Picture yourself now with a bucket full of these. The number of rides and games you can have at the fair is the number of tokens left in the bucket (assuming 1 token = 1 ride). The bigger your bucket or pocket, the more rides you can do before going to the ticket booth to refill again.
 
-Extrapolating to Velonetics, the rides are the API requests. Each token is a remaining gateway request you can do, and the bucket represents how many requests you are allowed to do before acquiring more tokens.
+Extrapolating to Pucora, the rides are the API requests. Each token is a remaining gateway request you can do, and the bucket represents how many requests you are allowed to do before acquiring more tokens.
 
 ## Understanding the Token Bucket algorithm
 The Token Bucket algorithm ([Wikipedia definition](https://en.wikipedia.org/wiki/Token_bucket)) is based on an analogy similar to the one described above.
 
-Velonetics uses the bucket capacity to determine the number of requests it can serve. At the same time, it **fills the bucket with new tokens at a constant rate** while there is free space in it. Then, **users spend one token for each request**, and a token is removed from the bucket.
+Pucora uses the bucket capacity to determine the number of requests it can serve. At the same time, it **fills the bucket with new tokens at a constant rate** while there is free space in it. Then, **users spend one token for each request**, and a token is removed from the bucket.
 
 <img title="Token Bucket algorithm" src="/images/documentation/velonetics-token-bucket.png" class="dark-version-available">
 
-Users might spend the tokens faster than they are refilled. If the bucket gets empty, Velonetics rejects the requests until there is at least another token in the bucket.
+Users might spend the tokens faster than they are refilled. If the bucket gets empty, Pucora rejects the requests until there is at least another token in the bucket.
 
 We call `capacity` (or **max burst**) the number of tokens you can put in the bucket and `max_rate` the speed at which you refill the bucket. The `max_rate` determines the **maximum rate users will have on average**. The `capacity` and the `max_rate` can be different.
 
-Velonetics adds a new token in the bucket every `1 ÷ max_rate` (for an `every` of `1s`). As each request is worth a token, you can serve as many requests as tokens remain in the bucket at every given time. The capacity (number of tokens) determines the maximum peak of requests you can absorb instantly. But remember that, on average, you can serve the number of requests in the `max_rate`.
+Pucora adds a new token in the bucket every `1 ÷ max_rate` (for an `every` of `1s`). As each request is worth a token, you can serve as many requests as tokens remain in the bucket at every given time. The capacity (number of tokens) determines the maximum peak of requests you can absorb instantly. But remember that, on average, you can serve the number of requests in the `max_rate`.
 
 **When the bucket is empty**, the [Spike Arrest](/docs/throttling/spike-arrest/) policy takes place and requests rejected.
 
@@ -46,7 +46,7 @@ You want to limit users to **300 requests every minute**. A couple of ways to ex
 - `max_rate=300` and `every=1m`, or
 - `max_rate=5` and `every=1s` (300/60s=5)
 
-When you define a `max_rate=5` with `every=1s` (or its alternative above), Velonetics will refill the bucket at a speed of one token every `1s ÷ 5 = 0.2s`. So, every 0.2 seconds, the bucket receives a new token. If your `every` uses units different than seconds, internally, they are converted to seconds for this calculation.
+When you define a `max_rate=5` with `every=1s` (or its alternative above), Pucora will refill the bucket at a speed of one token every `1s ÷ 5 = 0.2s`. So, every 0.2 seconds, the bucket receives a new token. If your `every` uses units different than seconds, internally, they are converted to seconds for this calculation.
 
 **On average** users can make five requests per second because if they push the system beyond the instant capacity, they need to wait 0.2 seconds to make another request, having the desired five every second. The `capacity` conditionates the effective number of requests you can do in a given instant as it holds the size of the bucket.
 

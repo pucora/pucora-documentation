@@ -10,16 +10,16 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/velonetics/velonetics-websocket
+  source: https://github.com/pucora/velonetics-websocket
   namespace:
   - websocket
   scope:
   - endpoint
 ---
 
-Velonetics supports bidirectional communication using the [WebSocket protocol (RFC-6455)](https://datatracker.ietf.org/doc/html/rfc6455). Clients connect to the gateway over WebSocket; the gateway connects to one or more backend hosts using `ws://` or `wss://`.
+Pucora supports bidirectional communication using the [WebSocket protocol (RFC-6455)](https://datatracker.ietf.org/doc/html/rfc6455). Clients connect to the gateway over WebSocket; the gateway connects to one or more backend hosts using `ws://` or `wss://`.
 
-Implemented by [`velonetics-websocket`](https://github.com/velonetics/velonetics-websocket) and configured per endpoint via `extra_config.websocket`.
+Implemented by [`velonetics-websocket`](https://github.com/pucora/velonetics-websocket) and configured per endpoint via `extra_config.websocket`.
 
 ## Operating modes
 
@@ -34,7 +34,7 @@ Multiplexing is recommended when many clients talk to the same backend service. 
 
 **1.** Run any WebSocket echo server on `ws://127.0.0.1:8081/`.
 
-**2.** Gateway config (`velonetics.json`):
+**2.** Gateway config (`pucora.json`):
 
 ```json
 {
@@ -66,7 +66,7 @@ Multiplexing is recommended when many clients talk to the same backend service. 
 **3.** Run and test:
 
 ```bash
-velonetics run -c velonetics.json
+pucora run -c pucora.json
 websocat ws://localhost:8080/ws/echo
 ```
 
@@ -112,7 +112,7 @@ Many clients share one backend WebSocket. The gateway wraps traffic in a JSON **
 When the gateway opens the backend connection it sends:
 
 ```json
-{"msg":"Velonetics WS proxy starting"}
+{"msg":"Pucora WS proxy starting"}
 ```
 
 The backend **must** reply with the plain text string `OK` before client traffic is forwarded.
@@ -202,10 +202,10 @@ After a successful upgrade, frames are not re-validated. Issue short-lived token
 
 | Metric | Description |
 |--------|-------------|
-| `velonetics.websocket.connections` | Active client connections |
-| `velonetics.websocket.messages.in` | Messages from clients |
-| `velonetics.websocket.messages.out` | Messages to clients |
-| `velonetics.websocket.reconnects` | Backend reconnect attempts |
+| `pucora.websocket.connections` | Active client connections |
+| `pucora.websocket.messages.in` | Messages from clients |
+| `pucora.websocket.messages.out` | Messages to clients |
+| `pucora.websocket.reconnects` | Backend reconnect attempts |
 
 ## What is not supported
 
@@ -215,15 +215,15 @@ After a successful upgrade, frames are not re-validated. Issue short-lived token
 
 ## Local example
 
-From the Velonetics CE repository:
+From the Pucora CE repository:
 
 ```bash
 make ws-compose-test
 ```
 
-See [examples/websocket](https://github.com/velonetics/velonetics-ce/tree/main/examples/websocket) for Docker Compose stacks covering direct, multiplex, and JWT-protected endpoints.
+See [examples/websocket](https://github.com/pucora/velonetics-ce/tree/main/examples/websocket) for Docker Compose stacks covering direct, multiplex, and JWT-protected endpoints.
 
 ## Related
 
 - [HTTP Streaming & SSE](/docs/endpoints/streaming/) — server-to-client streams over plain HTTP
-- [Velonetics Configurator](/docs/configuration/configurator/) — `websocket` preset for quick setup
+- [Pucora Configurator](/docs/configuration/configurator/) — `websocket` preset for quick setup

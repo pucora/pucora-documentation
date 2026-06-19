@@ -6,7 +6,7 @@ menu:
   community_current:
     parent: "010 Configuration files"
 title: Environment variables in the configuration
-description: Learn how to leverage environment variables in Velonetics API Gateway configuration for flexible and dynamic configuration management
+description: Learn how to leverage environment variables in Pucora API Gateway configuration for flexible and dynamic configuration management
 weight: 40
 meta:
   since: v1.2
@@ -15,13 +15,13 @@ meta:
   scope:
   - service
 ---
-When Velonetics runs (whether with `run` or `check`), all the behavior is loaded from the [configuration file](/docs/configuration/structure/). Through environment variables, you can also set values. There are two different ways of injecting environment vars:
+When Pucora runs (whether with `run` or `check`), all the behavior is loaded from the [configuration file](/docs/configuration/structure/). Through environment variables, you can also set values. There are two different ways of injecting environment vars:
 
 - **Use a `VELONETICS_`-like reserved environment variable**: To override values set in the configuration.
 - **Set your own environment variables** when using the `{{env}}` function in [flexible configuration](/docs/configuration/flexible-config/) templates.
 
 ## Use a reserved environment variable
-There are a group of reserved environment variables that are automatically recognized by Velonetics when set.
+There are a group of reserved environment variables that are automatically recognized by Pucora when set.
 
 Examples are when you want to replace the `port`, the default `timeout`, or the configuration `name` (sent to your telemetry) that already exists in the configuration.
 
@@ -34,7 +34,7 @@ The following list of variables only set the desired values when you have its as
 {{< top_level_envvars >}}
 
 ### Reserved variable example
-For instance, take the following `velonetics.json` configuration as an example:
+For instance, take the following `pucora.json` configuration as an example:
 
 ```json
 {
@@ -51,7 +51,7 @@ You could start the server with the following command which would allow you to o
 VELONETICS_NAME="Build ABC0123" \
 VELONETICS_TIMEOUT="500ms" \
 VELONETICS_PORT=9000 \
-velonetics run -c velonetics.json
+pucora run -c pucora.json
 {{< /terminal >}}
 
 The resulting configuration will be:
@@ -66,7 +66,7 @@ The resulting configuration will be:
 **Important**: Notice that the `port` attribute is not present in the configuration, despite passing a `VELONETICS_PORT` parameter. This is because the `port` didn't exist previously in the configuration file, and the environment variables can only **override** values.
 
 ## Setting your environment variables
-If you need to set content using environment variables at any level, you have can either use the [flexible configuration](/docs/configuration/flexible-config/), which includes a series of [advanced functions](/docs/configuration/templates/#sprig-functions) including an `env` function, or you can not use Velonetics at all and rely on the operating system `envsubst` command. Obviously you can also write your custom replacement process.
+If you need to set content using environment variables at any level, you have can either use the [flexible configuration](/docs/configuration/flexible-config/), which includes a series of [advanced functions](/docs/configuration/templates/#sprig-functions) including an `env` function, or you can not use Pucora at all and rely on the operating system `envsubst` command. Obviously you can also write your custom replacement process.
 
 ### Environment variables with Flexible Configuration
 Here is an example with Flexible Configuration:
@@ -77,12 +77,12 @@ Here is an example with Flexible Configuration:
     "name": "Configuration for {{ env "MY_POD_NAMESPACE" }}"
 }
 ```
-When you use the flexible configuration, you can start Velonetics from the template that uses them.
+When you use the flexible configuration, you can start Pucora from the template that uses them.
 
 ### Environment variables with envsubst
-Another example is not to use any of the built-in features of Velonetics and rely on your operating system via the command `envusbst`.
+Another example is not to use any of the built-in features of Pucora and rely on your operating system via the command `envusbst`.
 
-For instance, you have a configuration file `velonetics.template.json` like the following:
+For instance, you have a configuration file `pucora.template.json` like the following:
 
 ```json
 {
@@ -90,12 +90,12 @@ For instance, you have a configuration file `velonetics.template.json` like the 
     "name": "Configuration for $MY_POD_NAMESPACE"
 }
 ```
-Then you can generate the final configuration `velonetics.json` like this:
+Then you can generate the final configuration `pucora.json` like this:
 
 {{< terminal title="Environment variable substitution" >}}
-export MY_POD_NAMESPACE="my-namespace" && envsubst < velonetics.template.json > velonetics.json
+export MY_POD_NAMESPACE="my-namespace" && envsubst < pucora.template.json > pucora.json
 {{< /terminal >}}
 
 The command, which is generally available in Linux distributions, takes a template file as input and outputs the same file with the environment variables replaced (you cannot override the same file). You have to be aware that missing variables are simply replaced by an empty string.
 
-Note: on Alpine-based containers, like the Velonetics image, you need to do an `apk add envsubst` to use this command.
+Note: on Alpine-based containers, like the Pucora image, you need to do an `apk add envsubst` to use this command.

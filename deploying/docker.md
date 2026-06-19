@@ -2,8 +2,8 @@
 lastmod: 2021-12-07
 date: 2021-12-07
 linktitle: Docker artifact
-title: Deploying Velonetics API Gateway with Docker
-description: Learn how to deploy Velonetics API Gateway using Docker, enabling containerized deployments for efficient scaling and management
+title: Deploying Pucora API Gateway with Docker
+description: Learn how to deploy Pucora API Gateway using Docker, enabling containerized deployments for efficient scaling and management
 notoc: true
 menu:
   community_current:
@@ -15,7 +15,7 @@ If you use containers, the recommended approach is to write your own `Dockerfile
 In its simplified form would be:
 ```Dockerfile
 FROM {{< product image >}}:{{< product minor_version >}}
-COPY velonetics.json /etc/velonetics/velonetics.json
+COPY pucora.json /etc/pucora/pucora.json
 ```
 
 {{< note title="Volume or copy?" type="question" >}}
@@ -28,22 +28,22 @@ A more real-life example illustrates below a combination of the `check` command 
 FROM {{< product image >}}:{{< product minor_version >}} as builder
 ARG ENV=prod
 
-COPY velonetics.tmpl .
+COPY pucora.tmpl .
 COPY config .
 
 # Save temporary file to /tmp to avoid permission errors
 RUN FC_ENABLE=1 \
-    FC_OUT=/tmp/velonetics.json \
-    FC_PARTIALS="/etc/velonetics/partials" \
-    FC_SETTINGS="/etc/velonetics/settings/$ENV" \
-    FC_TEMPLATES="/etc/velonetics/templates" \
-    velonetics check -d -t -c velonetics.tmpl --lint
+    FC_OUT=/tmp/pucora.json \
+    FC_PARTIALS="/etc/pucora/partials" \
+    FC_SETTINGS="/etc/pucora/settings/$ENV" \
+    FC_TEMPLATES="/etc/pucora/templates" \
+    pucora check -d -t -c pucora.tmpl --lint
 
 FROM {{< product image >}}:{{< product minor_version >}}
 # Keep operating system updated with security fixes between releases
 RUN apk upgrade --no-cache --no-interactive
 
-COPY --from=builder --chown=velonetics:nogroup /tmp/velonetics.json .
+COPY --from=builder --chown=pucora:nogroup /tmp/pucora.json .
 
 # Uncomment if you have certificates issued by a custom CA
 # e.g., tls: failed to verify certificate: x509: certificate signed by unknown authority
@@ -54,8 +54,8 @@ COPY --from=builder --chown=velonetics:nogroup /tmp/velonetics.json .
 
 The `Dockerfile` above has two stages:
 
-1. The copy of all templates and intermediate files to end with a `check` command that compiles the template `velonetics.tmpl` and any included sub-template inside. The command outputs (thanks to `FC_OUT`) the result into a `/tmp/velonetics.json` file.
-2. The `velonetics.json` file from the previous build is the only addition to the final Docker image.
+1. The copy of all templates and intermediate files to end with a `check` command that compiles the template `pucora.tmpl` and any included sub-template inside. The command outputs (thanks to `FC_OUT`) the result into a `/tmp/pucora.json` file.
+2. The `pucora.json` file from the previous build is the only addition to the final Docker image.
 
 The example `Dockerfile` above assumes that you have a file structure like this:
 
@@ -70,21 +70,21 @@ The example `Dockerfile` above assumes that you have a file structure like this:
     │   └── templates
     │       └── some.tmpl
     ├── Dockerfile
-    └── velonetics.tmpl
+    └── pucora.tmpl
 
-If you want to try this code, you can either download a [working Flexible Config example](https://github.com/velonetics/examples/tree/main/3.flexible-configuration), or generate an **empty skeleton** like this:
+If you want to try this code, you can either download a [working Flexible Config example](https://github.com/pucora/examples/tree/main/3.flexible-configuration), or generate an **empty skeleton** like this:
 ```bash
 mkdir -p config/{partials,settings,templates}
 mkdir -p config/settings/{prod,test}
 touch config/settings/{prod,test}/env.json
 touch Dockerfile
-touch velonetics.tmpl
+touch pucora.tmpl
 ```
 
 Now the only missing step to generate the image, is to build it, making sure that the environment argument matches our folder inside the `settings` folder:
 
 {{< terminal title="Docker build" >}}
-docker build --build-arg ENV=prod -t myvelonetics .
+docker build --build-arg ENV=prod -t mypucora .
 {{< /terminal >}}
 
 The resulting image, including your configuration, weighs around `80MB`.

@@ -3,21 +3,21 @@ lastmod: 2026-06-18
 date: 2026-06-18
 linktitle: gRPC Server
 title: gRPC Server
-description: Expose gRPC services on the same port as the Velonetics HTTP gateway
+description: Expose gRPC services on the same port as the Pucora HTTP gateway
 weight: 220
 menu:
   community_current:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/velonetics/velonetics-grpc
+  source: https://github.com/pucora/velonetics-grpc
   namespace:
   - grpc.server
   scope:
   - service
 ---
 
-Velonetics can **publish gRPC services** on the same port as HTTP. Each method maps to one or more backends (REST, gRPC, or mixed).
+Pucora can **publish gRPC services** on the same port as HTTP. Each method maps to one or more backends (REST, gRPC, or mixed).
 
 gRPC reflection is enabled automatically. Use `grpcurl -protoset flights.pb -plaintext localhost:8080 list` to discover services.
 
@@ -82,7 +82,7 @@ Under `grpc.server.opentelemetry`:
 make grpc-compose-test   # includes server smoke via grpcurl
 ```
 
-Config: `velonetics-server.json` in [examples/grpc](https://github.com/velonetics/velonetics-ce/tree/main/examples/grpc).
+Config: `velonetics-server.json` in [examples/grpc](https://github.com/pucora/velonetics-ce/tree/main/examples/grpc).
 
 ## Related
 

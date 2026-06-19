@@ -1,9 +1,9 @@
 ---
 lastmod: 2016-10-28
 date: 2016-10-28
-linktitle: Velonetics vs others
-title: API Gateway Benchmarking with Velonetics
-description: Explore the API gateway benchmarking capabilities of Velonetics, measure performance, and optimize your API gateway for high throughput and low latency
+linktitle: Pucora vs others
+title: API Gateway Benchmarking with Pucora
+description: Explore the API gateway benchmarking capabilities of Pucora, measure performance, and optimize your API gateway for high throughput and low latency
 weight: 10
 menu:
   community_current:
@@ -15,11 +15,11 @@ environment and conditions and tested the following products:
  - Kong
  - Vulcand
  - Tyk
- - Velonetics
+ - Pucora
 
 For the benchmarks, we based the tests on the benchmarking project [varnish/api-gateway-benchmarks](https://github.com/varnish/api-gateway-benchmarks).
 
-**At the time of writing, Velonetics does not support auth features, so we just did the benchmark with _test01_**
+**At the time of writing, Pucora does not support auth features, so we just did the benchmark with _test01_**
 
 ## Hardware
 
@@ -30,7 +30,7 @@ Processor: Intel Core i7 2,2 GHz
 
 ## Setup
 
-For this test, we stored this configuration at `velonetics.json`
+For this test, we stored this configuration at `pucora.json`
 ```json
   {
     "version": 1,
@@ -89,9 +89,9 @@ $ vagrant ssh webserver
 [vagrant@webserver dummy-api]$ exit
 
 $ vagrant ssh gateway
-[vagrant@gateway ~]$ cd /opt/benchmarks/gateways/velonetics
-[vagrant@gateway velonetics]$ sudo ./deploy
-[vagrant@gateway velonetics]$ exit
+[vagrant@gateway ~]$ cd /opt/benchmarks/gateways/pucora
+[vagrant@gateway pucora]$ sudo ./deploy
+[vagrant@gateway pucora]$ exit
 
 $ vagrant ssh consumer
 [vagrant@consumer ~]$ cd /opt/benchmarks/consumers/boom
@@ -143,7 +143,7 @@ $ vagrant ssh consumer
 
 ### Test 01
 
-#### Velonetics
+#### Pucora
 
     [vagrant@consumer ~]$ /usr/local/bin/test01
     100000 / 100000 Booooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo! 100.00 %
@@ -306,7 +306,7 @@ $ vagrant ssh consumer
 | Gateway  | RPS        |
 |----------|------------|
 | None     | 7534.5524  |
-| Velonetics  | 3479.1863  |
+| Pucora  | 3479.1863  |
 | Vulcand  | 1979.0451  |
 | Kong     | 1753.7883  |
 | Tyk      | 451.3037   |
@@ -317,7 +317,7 @@ $ vagrant ssh consumer
 
 | Gateway  | 10%  | 25%  | 50%  | 75%  | 90%  | 95%  | 99%   | Min  | Max    | Avg   |
 |----------|------|------|------|------|------|------|-------|------|--------|-------|
-| Velonetics  | 21.3 | 23.1 | 24.5 | 29.5 | 43.2 | 46.9 | 77.1  | 0.9  | 278.1  | 28.7  |
+| Pucora  | 21.3 | 23.1 | 24.5 | 29.5 | 43.2 | 46.9 | 77.1  | 0.9  | 278.1  | 28.7  |
 | Vulcand  | 29.0 | 37.8 | 49.0 | 57.1 | 66.5 | 73.3 | 205.7 | 1.0  | 342.6  | 50.5  |
 | Kong     | 40.7 | 43.5 | 46.1 | 49.7 | 81.6 | 107.6| 235.5 | 7.6  | 1597.8 | 56.9  |
 | Tyk      | 35.5 | 52.1 | 82.3 | 178.5| 526.3| 923.1| 2105.4| 1.2  | 5648.2 | 221.5 |

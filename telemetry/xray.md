@@ -3,7 +3,7 @@ lastmod: 2022-10-24
 date: 2019-09-15
 linktitle: AWS X-Ray
 title: AWS X-Ray Telemetry Integration
-description: Push Velonetics metrics to AWS X-Ray Telemetry with a small snippet of configuration to monitor and analyze Velonetics API Gateway performance effectively
+description: Push Pucora metrics to AWS X-Ray Telemetry with a small snippet of configuration to monitor and analyze Pucora API Gateway performance effectively
 weight: 120
 notoc: true
 aliases: ["/docs/logging-metrics-tracing/xray/"]
@@ -11,7 +11,7 @@ menu:
   community_current:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
-  source: https://github.com/velonetics/velonetics-opencensus
+  source: https://github.com/pucora/velonetics-opencensus
   namespace:
   - telemetry/opencensus
   log_prefix:

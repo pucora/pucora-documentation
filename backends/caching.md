@@ -3,7 +3,7 @@ lastmod: 2025-01-31
 date: 2018-10-29
 linktitle: Response caching
 title: Caching Strategies
-description: Learn how to implement effective caching strategies in Velonetics API Gateway to improve API performance and reduce backend load
+description: Learn how to implement effective caching strategies in Pucora API Gateway to improve API performance and reduce backend load
 weight: 100
 menu:
   community_current:
@@ -11,7 +11,7 @@ menu:
 notoc: false
 meta:
   since: v0.4
-  source: https://github.com/velonetics/velonetics-httpcache
+  source: https://github.com/pucora/velonetics-httpcache
   namespace:
   - qos/http-cache
   scope:
@@ -19,11 +19,11 @@ meta:
 ---
 Caching allows you to **store backend responses in memory** to reduce the number of calls a user sends to the origin, **reducing the network traffic and alleviating the pressure on your services**.
 
-Velonetics works similarly to the default rules of a CDN to cache responses, as it adheres mostly to the [RFC-7234](https://datatracker.ietf.org/doc/html/rfc7234) (HTTP/1.1 Caching) in its implementation, and all the internals follow the decisions based on the RFC.
+Pucora works similarly to the default rules of a CDN to cache responses, as it adheres mostly to the [RFC-7234](https://datatracker.ietf.org/doc/html/rfc7234) (HTTP/1.1 Caching) in its implementation, and all the internals follow the decisions based on the RFC.
 
-The caching component is a capability of the default Velonetics HTTP client connecting to your upstream services, and can store content in-memory so the next request that is within a valid expiration window can be returned right away without using the network, alleviating pressure and improving times.
+The caching component is a capability of the default Pucora HTTP client connecting to your upstream services, and can store content in-memory so the next request that is within a valid expiration window can be returned right away without using the network, alleviating pressure and improving times.
 
-Velonetics does not cache the final content delivered to the end-user (the endpoint output), but the response of the backend (close, but not the same). Its approach is to store individual backend responses rather than aggregated content. In an endpoint with aggregation, you will need to add the cache component to all the backends that need caching individually. If you have manipulations of content after retrieving the content, these are not cached either.
+Pucora does not cache the final content delivered to the end-user (the endpoint output), but the response of the backend (close, but not the same). Its approach is to store individual backend responses rather than aggregated content. In an endpoint with aggregation, you will need to add the cache component to all the backends that need caching individually. If you have manipulations of content after retrieving the content, these are not cached either.
 
 {{< note title="Caching increases memory consumption" type="warning">}}
 Caching can significantly increase the load and memory consumption as the returned data is saved in memory **until its expiration period**. The size of the cache depends 100% on your backends and configuration. You will need to dimension your instance accordingly, and monitor its consumption!
@@ -32,12 +32,12 @@ Caching can significantly increase the load and memory consumption as the return
 ## What is cached and for how long?
 You can only cache your backend's `GET` methods. If you connect to a backend using `POST`, `DELETE`, `PUT`, or any other **unsafe method**, the cache is skipped, and nothing stored. The method that counts for caching or not is the one used to connect to the backend, and not the one used in the endpoint, which might be different. For instance, you could still have an endpoint offering a `POST` method to the end-user, but if the backend uses a `GET` you could cache its response.
 
-When Velonetics receives the response from the backend, checks its headers. **The `Cache-Control` header sets for how long this content is stored** in the cache. See the different headers and values that affect caching below. The cache is stored in a key that contains the final URL sent to the backend plus the combination of any existing `Vary` headers.
+When Pucora receives the response from the backend, checks its headers. **The `Cache-Control` header sets for how long this content is stored** in the cache. See the different headers and values that affect caching below. The cache is stored in a key that contains the final URL sent to the backend plus the combination of any existing `Vary` headers.
 
 When responses are returned to users, the memory is filled according to the header directives. Stale content is replaced by fresh content when needed automatically.
 
 ## Cache configuration
-To enable the caching of the backend services you only need to add in the `backend` section of your `velonetics.json` the following:
+To enable the caching of the backend services you only need to add in the `backend` section of your `pucora.json` the following:
 ```json
 {
     "backend": [{
@@ -106,11 +106,11 @@ Systems with high pressure and concurrency perform better with an individual cac
 {{< /note >}}
 
 ## Cache TTL, size, expiration, purge
-When you enable the caching module, your backends control the expiration time of the cache by setting the `Cache-Control` header. If your backends do not set the header or it is set to zero, Velonetics won't store any content in its internal cache.
+When you enable the caching module, your backends control the expiration time of the cache by setting the `Cache-Control` header. If your backends do not set the header or it is set to zero, Pucora won't store any content in its internal cache.
 
-The response's content size directly impacts Velonetics memory consumption, as Velonetics does not set any hard limit. Therefore, you must be aware of the response sizes, caching times, and the hit rate of the calls.
+The response's content size directly impacts Pucora memory consumption, as Pucora does not set any hard limit. Therefore, you must be aware of the response sizes, caching times, and the hit rate of the calls.
 
-Finally, Velonetics does not offer any interface to purge the cache. The cache will cleanse itself as defined by the cache-control header, and only a restart of the service would wipe the store entirely. Nevertheless, you can make a few tweaks, as described below.
+Finally, Pucora does not offer any interface to purge the cache. The cache will cleanse itself as defined by the cache-control header, and only a restart of the service would wipe the store entirely. Nevertheless, you can make a few tweaks, as described below.
 
 ## Headers affecting the cache
 As we said, the only possible methods to cache are `GET` and `HEAD`, but this is only true as long as there isn't a `Range` header in the response (multipart downloads).
@@ -119,14 +119,14 @@ The cache takes into account the `Vary` header too. When present, it won't retur
 
 If a recently generated response is already saved in the cache, it will be retrieved without requiring a connection to the server. However, if the saved response is outdated or stale, any validators included in the new request will be used to give the server an opportunity to respond with a `NotModified` status. If the server provides this status, then the cached response will be returned.
 
-When storing the content in cache, it takes into account the headers `Date`, `Etag` and `Last-Modified`, and Velonetics will send to the `if-none-match` and `if-modified-since` accordingly.
+When storing the content in cache, it takes into account the headers `Date`, `Etag` and `Last-Modified`, and Pucora will send to the `if-none-match` and `if-modified-since` accordingly.
 
 If a response includes both an `Expires` header and a `max-age` directive, the `max-age` directive overrides the `Expires` header, even if the `Expires` header is more restrictive.
 
 The `Cache-Control` header honors the time settings and the properties `no-store`, `only-if-cached` , `no-cache`.
 
 ## Is my content cached?
-Velonetics **does not provide an explicit mechanism for the developer to keep track of hits or misses** or actively manage its entries. For users with advanced needs managing caching who do not want automatic management of entries, we recommend using an advanced caching system such as Varnish Cache. One endpoint might result from several cached components, so the final content might be a sum of caches.
+Pucora **does not provide an explicit mechanism for the developer to keep track of hits or misses** or actively manage its entries. For users with advanced needs managing caching who do not want automatic management of entries, we recommend using an advanced caching system such as Varnish Cache. One endpoint might result from several cached components, so the final content might be a sum of caches.
 
 Nevertheless, a simple rule exists to identify whether a response is cached: **look at the response time in the access logs**.
 
@@ -145,7 +145,7 @@ The components [Client Credentials](/docs/authorization/client-credentials/), [L
 ## Custom directives (Stale cache, freshness)
 You can allow your API consumers to pass **custom directives (instructions)** in their `Cache-Control` header when they make the request.
 
-Velonetics can honor the directives `max-stale`, `max-age`, `stale-if-error`, and `min-fresh` present in the request when you add the `Cache-Control` in the `input_headers` endpoint configuration:
+Pucora can honor the directives `max-stale`, `max-age`, `stale-if-error`, and `min-fresh` present in the request when you add the `Cache-Control` in the `input_headers` endpoint configuration:
 
 ```json
 {
@@ -154,19 +154,19 @@ Velonetics can honor the directives `max-stale`, `max-age`, `stale-if-error`, an
 }
 ```
 
-If you don't allow the input headers to pass, Velonetics ignores the consumer's request and returns the cached content according to the backend response.
+If you don't allow the input headers to pass, Pucora ignores the consumer's request and returns the cached content according to the backend response.
 
 But if you do, if clients are willing to accept **stale cache** and pass the directive `max-stale` (or similarly `stale-if-error`) in the request, then a response that has exceeded its expiration time by no more than the specified number of seconds in the directive receives a stale cache.
 
 ### Overriding the expiration time
-As you have seen, the caching module does not accept any parameters to control the cache expiration because it relies on the input headers it finds when the response returns. But as Velonetics can transform data in many ways, you can modify the `Cache-Control` header right before the cache module picks it.
+As you have seen, the caching module does not accept any parameters to control the cache expiration because it relies on the input headers it finds when the response returns. But as Pucora can transform data in many ways, you can modify the `Cache-Control` header right before the cache module picks it.
 
 The [Martian module](/docs/backends/martian/) is the component that can transform the headers from the backend as long as you don't use the `no-op` encoding (as it does not allow manipulation). Let's illustrate how you can do this in the following example.
 
 ```json
 {
     "version": 3,
-    "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/velonetics.json",
+    "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
     "endpoints": [
         {
             "endpoint": "/cached",
@@ -176,14 +176,14 @@ The [Martian module](/docs/backends/martian/) is the component that can transfor
                     "url_pattern": "/api/timezone/Europe/Madrid",
                     "extra_config": {
                         "qos/http-cache": {
-                            "@comment": "This API returns a cache-control: max-age=0 so Velonetics won't cache this unless changed"
+                            "@comment": "This API returns a cache-control: max-age=0 so Pucora won't cache this unless changed"
                         },
                         "modifier/martian": {
                             "header.Modifier": {
                                 "scope": ["response"],
                                 "name": "Cache-Control",
                                 "value": "max-age=60, public",
-                                "@comment": "We will change the max-age policy before Velonetics checks the content for caching. Now content is cached 60 seconds."
+                                "@comment": "We will change the max-age policy before Pucora checks the content for caching. Now content is cached 60 seconds."
                               }
                         }
                     }
@@ -194,4 +194,4 @@ The [Martian module](/docs/backends/martian/) is the component that can transfor
 }
 ```
 
-Notice in the configuration above how Velonetics consumed a backend without an actionable cache-control header, but it set a cache of one minute anyway. This technique might be handy when you have little control of the cache headers in the response.
+Notice in the configuration above how Pucora consumed a backend without an actionable cache-control header, but it set a cache of one minute anyway. This technique might be handy when you have little control of the cache headers in the response.

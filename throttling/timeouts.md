@@ -3,14 +3,14 @@ lastmod: 2022-10-11
 date: 2018-01-04
 linktitle: Timeouts
 title: API Throttling and Timeout Management
-description: Learn how to effectively manage API throttling and timeouts with Velonetics API Gateway to ensure optimal performance and prevent abuse
+description: Learn how to effectively manage API throttling and timeouts with Pucora API Gateway to ensure optimal performance and prevent abuse
 weight: 200
 menu:
   community_current:
     parent: "040 Routing and Forwarding"
 ---
 
-Being Velonetics, an API Gateway that talks to other services, controlling the waiting times for different aspects is crucial. Velonetics will allow you to fine-tune these settings.
+Being Pucora, an API Gateway that talks to other services, controlling the waiting times for different aspects is crucial. Pucora will allow you to fine-tune these settings.
 
 The timeouts can apply to:
 
@@ -20,7 +20,7 @@ The timeouts can apply to:
 Additionally, you can control the number of [**maximum IDLE connections**](/docs/service-settings/http-transport-settings/).
 
 ## Default timeout
-The `timeout` key in the `velonetics.json` at the root level is used to apply a **default timeout** for those endpoints that do not specify one. The duration you write in the timeout represents the **whole duration of the pipe**, so it counts the time all your backends take to respond and the processing of all the components involved in the endpoint (the request, fetching data, manipulation, etc.). You can see it is an **end-user timeout**, the maximum amount of time a user will wait for a response.
+The `timeout` key in the `pucora.json` at the root level is used to apply a **default timeout** for those endpoints that do not specify one. The duration you write in the timeout represents the **whole duration of the pipe**, so it counts the time all your backends take to respond and the processing of all the components involved in the endpoint (the request, fetching data, manipulation, etc.). You can see it is an **end-user timeout**, the maximum amount of time a user will wait for a response.
 
 ```json
 {
@@ -52,7 +52,7 @@ To do so, place it inside the desired endpoint:
 The example above will use **1 second** timeout for the `/different-timeout` endpoint and **2 seconds** (expressed in milliseconds) for any the other endpoint. Note that the `backend` section is omitted for better reading.
 
 ## Context deadline exceeded
-What happens when the timeout is reached? Velonetics will exhaust the specified `timeout` trying to fetch and process the content, but if that happens, the user will receive an HTTP status code `500 Internal Server Error` when there is no content to return.
+What happens when the timeout is reached? Pucora will exhaust the specified `timeout` trying to fetch and process the content, but if that happens, the user will receive an HTTP status code `500 Internal Server Error` when there is no content to return.
 
 If you connected to more than one backend and you have at least a valid response, the gateway will return a `200` status code with a **partial response** (the backends that worked)
 
@@ -62,10 +62,10 @@ The logs will show `context deadline exceeded` every time that you hit a timeout
 When setting timeouts, you always have to respect the following rule:
 
 ```
-Client timeout > Velonetics timeout > Your API timeout
+Client timeout > Pucora timeout > Your API timeout
 ```
 
-From the consumer to the provider, the timeouts need to decrease. For instance, your javascript application should have a timeout greater than Velonetics timeouts, and Velonetics should have a greater timeout than your backend API.
+From the consumer to the provider, the timeouts need to decrease. For instance, your javascript application should have a timeout greater than Pucora timeouts, and Pucora should have a greater timeout than your backend API.
 
 ## HTTP Server and Transport timeouts
 In addition to the timeouts, you can configure the specific HTTP transport timeouts and the HTTP server timeout.

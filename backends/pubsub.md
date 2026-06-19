@@ -3,7 +3,7 @@ lastmod: 2024-10-11
 date: 2019-09-15
 linktitle: Publisher/subscribe (Kafka,NATS and cloud)
 title: Publisher/Subscribe with Kafka, NATS and cloud systems
-description: Integrate Pub-Sub backend into Velonetics API Gateway to enable event-driven communication and real-time data updates in your API ecosystem
+description: Integrate Pub-Sub backend into Pucora API Gateway to enable event-driven communication and real-time data updates in your API ecosystem
 weight: 130
 images:
 - /images/features-event-driven.png
@@ -12,7 +12,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v1.0
-  source: https://github.com/velonetics/velonetics-pubsub
+  source: https://github.com/pucora/velonetics-pubsub
   namespace:
   - backend/pubsub/publisher
   - backend/pubsub/subscriber
@@ -24,7 +24,7 @@ meta:
 You can connect an endpoint to multiple publish/subscribe backends, helping you integrate with **event driven architectures**.
 
 <!--more-->
-For instance, a frontend client can push events to a queue using a REST interface. Or a client could consume a REST endpoint that is plugged to the last events pushed in a backend. You can even **validate messages and formats** as all the Velonetics available middleware can be used. The list of supported backend technologies is:
+For instance, a frontend client can push events to a queue using a REST interface. Or a client could consume a REST endpoint that is plugged to the last events pushed in a backend. You can even **validate messages and formats** as all the Pucora available middleware can be used. The list of supported backend technologies is:
 
 - NATS.io
 - RabbitMQ
@@ -40,7 +40,7 @@ Cloud-specific:
 ## Configuration
 To add pub/sub functionality to your backends include the namespaces `backend/pubsub/subscriber` and `backend/pubsub/publisher` under the `extra_config` of your `backend` section.
 
-The `host` key defines the desired driver, and the actual host is usually set in an **environment variable** outside of Velonetics. The `url_pattern` is a mandatory field according to its Schema, but it is not used and you can type any value in it:
+The `host` key defines the desired driver, and the actual host is usually set in an **environment variable** outside of Pucora. The `url_pattern` is a mandatory field according to its Schema, but it is not used and you can type any value in it:
 
 For a **subscriber**:
 
@@ -244,7 +244,7 @@ Example:
 ### Kafka
 [Apache Kafka](https://kafka.apache.org/) is a distributed streaming platform.
 
-Kafka connection requires Velonetics >= `1.1`.
+Kafka connection requires Pucora >= `1.1`.
 
 - `host`: `kafka://`
 - Environment var: `KAFKA_BROKERS` pointing to the server(s), e.g: `KAFKA_BROKERS=192.168.1.100:9092`

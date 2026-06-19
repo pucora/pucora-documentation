@@ -3,21 +3,21 @@ lastmod: 2022-01-31
 date: 2016-09-30
 linktitle: HTTP Security
 title: HTTP Security Considerations
-description: Velonetics's HTTP Security component enhances API protection by enabling features like Clickjacking protection, MIME-Sniffing prevention, and XSS protection, and more
+description: Pucora's HTTP Security component enhances API protection by enabling features like Clickjacking protection, MIME-Sniffing prevention, and XSS protection, and more
 weight: 40
 menu:
   community_current:
     parent: "070 Security"
 meta:
   since: v0.4
-  source: https://github.com/velonetics/velonetics-httpsecure
+  source: https://github.com/pucora/velonetics-httpsecure
   namespace:
   - security/http
   scope:
   - service
 ---
 
-Velonetics has implemented several security strategies, controlled via the `security/http` component. To enable them you only need to add its namespace `security/http` at the `extra_config` in the root level of the configuration.
+Pucora has implemented several security strategies, controlled via the `security/http` component. To enable them you only need to add its namespace `security/http` at the `extra_config` in the root level of the configuration.
 
 The following configuration describes all possible options:
 
@@ -58,14 +58,14 @@ See below the different options described in this configuration file.
 ### Restrict connections by host
 Use `allowed_hosts`
 
-Define a list of hosts that Velonetics should accept requests to.
+Define a list of hosts that Pucora should accept requests to.
 
-When a request hits Velonetics, it will confirm if the value of the `Host` HTTP header is in the list. If so, it will further process the request. If the host is not in the allowed hosts list, Velonetics will simply reject the request.
+When a request hits Pucora, it will confirm if the value of the `Host` HTTP header is in the list. If so, it will further process the request. If the host is not in the allowed hosts list, Pucora will simply reject the request.
 
 The list must contain the fully qualified domain names that are allowed, along with the origin port. When the list is empty accepts any host.
 
 ### Clickjacking protection
-Velonetics follow the OWASP's recommendations by adding a frame-breaking strategy.
+Pucora follow the OWASP's recommendations by adding a frame-breaking strategy.
 
 Use `frame_deny` together with `custom_frame_options_value`
 
@@ -109,8 +109,8 @@ OWASP defines the HPKP as
 
 ## OAuth2
 
-Velonetics supports the client credentials grant.
+Pucora supports the client credentials grant.
 
-Use this feature if you need to authorize the Velonetics to access your backend services.
+Use this feature if you need to authorize the Pucora to access your backend services.
 
 See the specific docs for [OAuth2 Client Credentials](/docs/authorization/client-credentials/)

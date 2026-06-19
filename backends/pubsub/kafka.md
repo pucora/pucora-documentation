@@ -10,7 +10,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/velonetics/velonetics-pubsub
+  source: https://github.com/pucora/velonetics-pubsub
   namespace:
   - backend/pubsub/publisher/kafka
   - backend/pubsub/subscriber/kafka
@@ -120,7 +120,7 @@ Event Hubs require SASL handshake v0. Set `azure_event_hub: true` and use PLAIN 
 
 ## Offset commits
 
-Kafka has no per-message ACK. Velonetics commits partition offsets after each message is read, including when the decode step fails after a successful fetch.
+Kafka has no per-message ACK. Pucora commits partition offsets after each message is read, including when the decode step fails after a successful fetch.
 
 ## Local example
 
@@ -128,7 +128,7 @@ Kafka has no per-message ACK. Velonetics commits partition offsets after each me
 make pubsub-kafka-advanced-compose-test
 ```
 
-See [examples/pubsub/kafka-advanced](https://github.com/velonetics/velonetics-ce/tree/main/examples/pubsub/kafka-advanced).
+See [examples/pubsub/kafka-advanced](https://github.com/pucora/velonetics-ce/tree/main/examples/pubsub/kafka-advanced).
 
 ## Related
 

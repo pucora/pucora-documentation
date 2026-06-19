@@ -3,7 +3,7 @@ lastmod: 2024-10-24
 date: 2022-01-18
 linktitle: HTTP Server settings
 title: HTTP Server Settings
-description: Configure HTTP server settings in Velonetics API Gateway for optimal performance, security, and compatibility with your infrastructure
+description: Configure HTTP server settings in Pucora API Gateway for optimal performance, security, and compatibility with your infrastructure
 weight: 50
 notoc: true
 menu:
@@ -16,7 +16,7 @@ meta:
   log_prefix:
   - "[SERVICE: HTTP Server]"
 ---
-Velonetics starts an HTTP server to offer the API Gateway server. You can personalize some of the settings used to start the service and also override the default settings of the underlying Go [standard library](https://pkg.go.dev/net/http#Server).
+Pucora starts an HTTP server to offer the API Gateway server. You can personalize some of the settings used to start the service and also override the default settings of the underlying Go [standard library](https://pkg.go.dev/net/http#Server).
 
 If you want to customize any of the settings below, they must be written at the top level of the configuration.
 
@@ -35,8 +35,8 @@ All the environment variables have the same name are the same settings above in 
 - `VELONETICS_USE_H2C`
 - etc...
 
-You can start Velonetics with the desired variables to override what you have in the configuration:
+You can start Pucora with the desired variables to override what you have in the configuration:
 
 {{< terminal title="Term" >}}
-VELONETICS_PORT=8000 VELONETICS_READ_TIMEOUT="1s" velonetics run -c velonetics.json
+VELONETICS_PORT=8000 VELONETICS_READ_TIMEOUT="1s" pucora run -c pucora.json
 {{< /terminal >}}

@@ -2,10 +2,10 @@
 aliases: ["/faq"]
 date: 2016-10-26
 lastmod: 2025-09-19
-linktitle: Velonetics F.A.Q
-title: Frequently Asked Questions (FAQ) - Velonetics API Gateway
+linktitle: Pucora F.A.Q
+title: Frequently Asked Questions (FAQ) - Pucora API Gateway
 weight: -1
-description: Get quick answers to frequently asked questions about how Velonetics works and the reason behind different responses.
+description: Get quick answers to frequently asked questions about how Pucora works and the reason behind different responses.
 menu:
   community_current:
     parent: "999 Frequently Asked Questions"
@@ -24,13 +24,13 @@ The gateway will default sending an HTTP status 200 if the backend returns a 200
 When my backend returns a `204 No Content` code, the gateway returns a 500 error.
 
 ### Explanation
-Velonetics can run either as a full API gateway or as a transparent proxy using [no-op encoding](/docs/endpoints/no-op/). When set as a proxy, Velonetics faithfully returns backend headers, status codes (including 204), and response bodies, but most gateway features like circuit breakers are inactive since Velonetics does not modify or interpret the response.
+Pucora can run either as a full API gateway or as a transparent proxy using [no-op encoding](/docs/endpoints/no-op/). When set as a proxy, Pucora faithfully returns backend headers, status codes (including 204), and response bodies, but most gateway features like circuit breakers are inactive since Pucora does not modify or interpret the response.
 
-The recommended mode is full gateway operation, which unlocks response composition, traffic control, security layers, and more. For many of these features to work correctly, **Velonetics expects responses with non-empty bodies** from backends. A 204 status by definition means **no content**, so Velonetics sees this as invalid when trying to compose or aggregate responses and returns an error.
+The recommended mode is full gateway operation, which unlocks response composition, traffic control, security layers, and more. For many of these features to work correctly, **Pucora expects responses with non-empty bodies** from backends. A 204 status by definition means **no content**, so Pucora sees this as invalid when trying to compose or aggregate responses and returns an error.
 
-Because of this, the 204 status is considered invalid in contexts where Velonetics needs a payload to process. It's not about 204 being an HTTP-invalid code, but about Velonetics's internal handling requirements.
+Because of this, the 204 status is considered invalid in contexts where Pucora needs a payload to process. It's not about 204 being an HTTP-invalid code, but about Pucora's internal handling requirements.
 
-The no-op encoding mode was introduced precisely to handle these edge cases, where you want Velonetics to behave purely as a proxy without response processing.
+The no-op encoding mode was introduced precisely to handle these edge cases, where you want Pucora to behave purely as a proxy without response processing.
 
 If you want features like the circuit breaker on responses that can be empty, you'll need to adjust the backend to avoid 204 responses in those routes (instead returning something like a minimal JSON body with a 200 status) or configure those endpoints to use no-op encoding.
 
@@ -61,13 +61,13 @@ Remember: failing fast is always better than overloading your infrastructure and
 ## I have empty responses
 The main reasons for having responses are:
 
-- **Timeout** when connecting the backend. The Velonetics service will cut the connection and will return an empty response if the backend does not respond in the time you set through the `timeout` variable. This variable is usually written in a magnitude of **milliseconds**.
+- **Timeout** when connecting the backend. The Pucora service will cut the connection and will return an empty response if the backend does not respond in the time you set through the `timeout` variable. This variable is usually written in a magnitude of **milliseconds**.
 - **Invalid JSON/XML**. When the backend received a malformed object as response and could not decode it.
 
 See the solutions below.
 
 ### Solution to cuts by timeout
-When there is a timeout, you'll see the `context deadline exceeded` in the log, which means only one thing: Velonetics couldn't get the info on time (because of a network problem or backend slowness).
+When there is a timeout, you'll see the `context deadline exceeded` in the log, which means only one thing: Pucora couldn't get the info on time (because of a network problem or backend slowness).
 
     Error #01: context deadline exceeded
 
@@ -75,7 +75,7 @@ Whenever possible, add caching layers in your backends, scale the infrastructure
 
 Values above `2000ms` are not recommended.
 
-There are other times when Velonetics cannot reach the host due to a networking issue.
+There are other times when Pucora cannot reach the host due to a networking issue.
 
 ### Solution to invalid responses.
 Make sure your backend sources return valid JSON/XML/... data. Try any online service to check the validity and format
@@ -85,9 +85,9 @@ of the returned content. If the response of your API is a collection, e.g., resp
 You start to see in the log `context canceled` errors, but before the upgrade, you didn't.
 
 ### Solution
-The error means that the client disconnected while consuming the content. Velonetics can only do something if a client cuts the connection in the middle of the transmission: notify it.
+The error means that the client disconnected while consuming the content. Pucora can only do something if a client cuts the connection in the middle of the transmission: notify it.
 
-You are seeing these errors now because the latest versions of Velonetics refactored how the router logging worked. Before this refactor, errors like this were showing in the access log (which was an incorrect approach) instead of the application log, where they belong.
+You are seeing these errors now because the latest versions of Pucora refactored how the router logging worked. Before this refactor, errors like this were showing in the access log (which was an incorrect approach) instead of the application log, where they belong.
 
 The effect is that you are seeing them for the first time, but the disconnections were always there. If you check the older access logs in the stdout (not the application log), you will still find them.
 

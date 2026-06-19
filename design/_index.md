@@ -5,7 +5,7 @@ aliases: ["/docs/extending/the-big-picture/"]
 toc: true
 linktitle: The big picture
 title: Design principles. The big picture.
-description: Discover the Velonetics API architecture and its design principles, as well its most important internal packages.
+description: Discover the Pucora API architecture and its design principles, as well its most important internal packages.
 weight: -1
 menu:
   community_current:
@@ -14,10 +14,10 @@ images:
 - /images/documentation/config-router-proxy-packages.png
 skip_header_image: true
 ---
-Before starting to dive into the Velonetics code, you should spend a few minutes understanding the big pieces of the system, how they work, and the philosophy behind it.
+Before starting to dive into the Pucora code, you should spend a few minutes understanding the big pieces of the system, how they work, and the philosophy behind it.
 
 ## The design rules
-Let's start with the rules followed to code Velonetics (shared with [The Lura Project](https://luraproject.org)), as they answer architectural design questions:
+Let's start with the rules followed to code Pucora (shared with [The Lura Project](https://luraproject.org)), as they answer architectural design questions:
 
 * [Reactive is key](http://www.reactivemanifesto.org/)
 * Failing fast is better than succeeding slow
@@ -25,29 +25,29 @@ Let's start with the rules followed to code Velonetics (shared with [The Lura Pr
 * Everything is pluggable
 * Each request must be processed in its request-scoped context
 
-## Velonetics internal states
-When you start Velonetics, the system goes through two internal states: **building** and **working**. So let's see what happens in every state.
+## Pucora internal states
+When you start Pucora, the system goes through two internal states: **building** and **working**. So let's see what happens in every state.
 
 ### Building state
 The building state administers the service start-up and prepares the system before it can start receiving traffic. During the building state, three things happen:
 
 - Parsing of the configuration to fix the system behavior
-- Preparation of the middlewares (all components in Velonetics)
+- Preparation of the middlewares (all components in Pucora)
 - Construction of the pipes (see below)
 
-A `pipe` is a function that receives a request message, processes it, and produces the response message and an error. The Velonetics router binds the pipes to the selected transport layer (e.g., HTTP, gRPC).
+A `pipe` is a function that receives a request message, processes it, and produces the response message and an error. The Pucora router binds the pipes to the selected transport layer (e.g., HTTP, gRPC).
 
-When the building state finishes, the Velonetics service **will not need to calculate any route** or lookup for the associated handler function, as all the mapping is direct in-memory. This is a crucial difference with any other system and leads to a significant performance.
+When the building state finishes, the Pucora service **will not need to calculate any route** or lookup for the associated handler function, as all the mapping is direct in-memory. This is a crucial difference with any other system and leads to a significant performance.
 
 [Read more on pipes](/docs/design/execution-flow/)
 
 ### Working state
 The working state is when the system is ready and can process the requests. When they arrive, the `router` already has the request mapping with the handler function and triggers the pipe execution. The `proxy` is the step of the pipe that manipulates, aggregates, and does other data handling for the rest of the process.
 
-As the handler functions are in the previous step, **Velonetics doesn't penalize the performance depending on the number of endpoints or the possible cardinality** of the URIs requested by the users.
+As the handler functions are in the previous step, **Pucora doesn't penalize the performance depending on the number of endpoints or the possible cardinality** of the URIs requested by the users.
 
 ## The important packages
-The Lura Project (Velonetics's engine) is composed of a set of packages designed as building blocks for creating pipes and processors between an exposed endpoint and one or several API resources served by your backends.
+The Lura Project (Pucora's engine) is composed of a set of packages designed as building blocks for creating pipes and processors between an exposed endpoint and one or several API resources served by your backends.
 
 ![Lura packages](/images/documentation/config-router-proxy-packages.png)
 
@@ -59,7 +59,7 @@ The most important packages are:
 
 The rest of the framework packages contain some helpers and adapters for additional tasks, like encoding, logging, or service discovery.
 
-Additionally, Velonetics bundles a lot of middleware and components that are in its scope and package. These packages and others are listed in our [Velonetics Contrib](https://github.com/velonetics/velonetics-contrib) repository.
+Additionally, Pucora bundles a lot of middleware and components that are in its scope and package. These packages and others are listed in our [Pucora Contrib](https://github.com/pucora/velonetics-contrib) repository.
 
 ### The `config` package
 
@@ -71,7 +71,7 @@ The `config` package also defines an interface for a file config parser and a pa
 
 ### The `router` package
 
-The `router` package contains an interface and several implementations for the Velonetics router layer using the `mux` router from the `net/http` and the `httprouter` wrapped in the `gin` framework.
+The `router` package contains an interface and several implementations for the Pucora router layer using the `mux` router from the `net/http` and the `httprouter` wrapped in the `gin` framework.
 
 The router layer is responsible for setting up the HTTP(S) services, binding the endpoints defined at the `ServiceConfig` struct, and transforming the HTTP request into proxy requests before delegating the task to the inner layer (proxy). Once the internal proxy layer returns a proxy response, the router layer converts it into a proper HTTP response and sends it to the user.
 
@@ -79,7 +79,7 @@ This layer can be easily extended to use any HTTP router, framework, or middlewa
 
 ### The `proxy` package
 
-The `proxy` package is where most of the Velonetics components and features are. It defines two necessary interfaces designed to be stacked:
+The `proxy` package is where most of the Pucora components and features are. It defines two necessary interfaces designed to be stacked:
 
 * *Proxy* is a function that converts a given context and request into a response.
 * *Middleware* is a function that accepts one or more proxies and returns a single proxy wrapping them.

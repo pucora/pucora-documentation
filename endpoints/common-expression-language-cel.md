@@ -3,7 +3,7 @@ lastmod: 2025-04-10
 date: 2019-01-24
 linktitle: "Conditional requests and responses"
 title: Conditional requests and responses with CEL
-description: Learn how to utilize the Common Expression Language (CEL) in Velonetics API Gateway for dynamic routing and advanced request handling
+description: Learn how to utilize the Common Expression Language (CEL) in Pucora API Gateway for dynamic routing and advanced request handling
 weight: 180
 images: ["/images/documentation/velonetics-cel.png"]
 dark_header_image: true
@@ -12,7 +12,7 @@ menu:
     parent: "040 Routing and Forwarding"
 meta:
   since: v0.8
-  source: https://github.com/velonetics/velonetics-cel
+  source: https://github.com/pucora/velonetics-cel
   namespace:
   - validation/cel
   scope:
@@ -34,7 +34,7 @@ When the CEL component is enabled, you can set any number of expressions to chec
 ## How CEL works
 In any `endpoint`, `backend`, or `async_agent`, you can define a sequence of expressions you'd like to check using [Google's CEL spec](https://github.com/google/cel-spec) to write the conditions.
 
-During runtime, when an expression returns `false`, Velonetics aborts the execution of that layer and **logs an error** like `request aborted by evaluator #0` (the number of CEL expression that failed). When it fails, it does not return the content or it does not perform the request (depending on the type). Otherwise, Velonetics serves the content if all expressions return `true`.
+During runtime, when an expression returns `false`, Pucora aborts the execution of that layer and **logs an error** like `request aborted by evaluator #0` (the number of CEL expression that failed). When it fails, it does not return the content or it does not perform the request (depending on the type). Otherwise, Pucora serves the content if all expressions return `true`.
 
 The CEL expressions will sound familiar if you are used to languages like javascript, C, C++, or Java to name a few. The expressions need to represent a boolean condition. For instance:
 
@@ -88,7 +88,7 @@ Each object in the array has the following syntax:
 
 See the sections below to use **additional variables**.
 {{< note title="A note on client headers" >}}
-When **client headers** are needed, remember to add them under [`input_headers`](/docs/endpoints/parameter-forwarding/#headers-forwarding) as Velonetics does not forward headers to the backends unless declared in the list.
+When **client headers** are needed, remember to add them under [`input_headers`](/docs/endpoints/parameter-forwarding/#headers-forwarding) as Pucora does not forward headers to the backends unless declared in the list.
 {{< /note >}}
 
 ## Adding logic in the requests and responses.
@@ -159,7 +159,7 @@ This is an example of accessing claims in a `backend` expression, through propag
 
 ```json
 {
-  "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/velonetics.json",
+  "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
   "version": 3,
   "endpoints": [
     {
@@ -253,14 +253,14 @@ This example can be copied/pasted into a new configuration. The CEL validation h
 }
 ```
 
-Also, notice how we are accessing a `github` element in the data, a new attribute added by Velonetics thanks to the `group` functionality (it does not exist in the origin API). The takeaway is that the CEL evaluation is applied **after** Velonetics has processed the backend.
+Also, notice how we are accessing a `github` element in the data, a new attribute added by Pucora thanks to the `group` functionality (it does not exist in the origin API). The takeaway is that the CEL evaluation is applied **after** Pucora has processed the backend.
 
 ### Example: Match a query string parameter with multiple values
 This example validates that an array query string parameter contains a given value. Many APIs describe array query string parameters with a `[]` suffix to denote that it's an array to the backend service. CEL syntax can reference these types of parameters.
 
 In this case, an API operation accepts an array query string parameter named `foo`. The backend service's platform requires this passed to the API as `?foo[]=bar&foo[]=baz` in the query string.
 
-Velonetics intercepts the parameter as the suffixed `foo[]`, so that's what must be allowed in your `input_query_strings` list. Since the parameter name contains the `[]` characters then it must be referred to as a map key instead of dot-notation in CEL syntax.
+Pucora intercepts the parameter as the suffixed `foo[]`, so that's what must be allowed in your `input_query_strings` list. Since the parameter name contains the `[]` characters then it must be referred to as a map key instead of dot-notation in CEL syntax.
 
 The following config uses CEL validation to block requests that do not have `foo[]` defined in the query string or do not have "bar" in the `foo[]` array:
 
@@ -325,7 +325,7 @@ Let's say that the JWT token the user sent contains an attribute named `enabled_
 The expression checks that the JWT token has both the `user_id` and the `enabled_days` and that today is good.
 
 ### Example: Conditional call of sequential backends (a.k.a "skip backends")
-The following example is a bit more complex, as it **combines the sequential proxy with the CEL component**. You can copy and paste this example and start Velonetics with the `velonetics run -d` flag.
+The following example is a bit more complex, as it **combines the sequential proxy with the CEL component**. You can copy and paste this example and start Pucora with the `pucora run -d` flag.
 
 ```json
 {
@@ -402,8 +402,8 @@ The following example is a bit more complex, as it **combines the sequential pro
 Here is what it does:
 
 - The backend 0 (first item in the `backend` list) calls the URL `/__debug/0`. It returns the object `{"message": "pong"}` as per the [debug endpoint](/docs/endpoints/debug-endpoint/) definition.
-- Velonetics will execute the rest of the backends one by one in the order defined, as the proxy is sequential.
-- The next backend 1 will call `/__debug/1?ignore=pong`, as `pong` is the value of `resp0_message`. We are using an `ignore` querystring as if you were unable to modify your backend URL, but it could be part of the URL (e.g: `/__debug/1/{resp0_message}`). You must use at least one `resp_` variable to make Velonetics initialize them properly. In addition, as it has a CEL expression inside, this backend will be called **ONLY** if the backend 0 contains a `message` field. Notice that the backend does not have access to the body of the previous call, but it has access to the parameters in the `url_pattern`. Thus, we can use the `req_params` and access any `{parameter}` as `req_params.Resp0_parameter` (all parameters capitalize the first letter: **R**esp0)
+- Pucora will execute the rest of the backends one by one in the order defined, as the proxy is sequential.
+- The next backend 1 will call `/__debug/1?ignore=pong`, as `pong` is the value of `resp0_message`. We are using an `ignore` querystring as if you were unable to modify your backend URL, but it could be part of the URL (e.g: `/__debug/1/{resp0_message}`). You must use at least one `resp_` variable to make Pucora initialize them properly. In addition, as it has a CEL expression inside, this backend will be called **ONLY** if the backend 0 contains a `message` field. Notice that the backend does not have access to the body of the previous call, but it has access to the parameters in the `url_pattern`. Thus, we can use the `req_params` and access any `{parameter}` as `req_params.Resp0_parameter` (all parameters capitalize the first letter: **R**esp0)
 - The backend 2 will always be triggered but will return the content only when the backend response has a `pong` string in the response. Notice that since we are working with a `group`ed response, the `sequence2` is inside the expression.
 - The backend 3 will be called only if the original request contains a querystring ` foo'
 - The backend 4 will never be called, as the endpoint does not define a `{NEVER_CALLED_BACKEND}` parameter
@@ -413,8 +413,8 @@ The expected response will be incomplete (as 1 or more backends will fail) and l
 curl -iG http://localhost:8080/cel\?foo\=A
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-X-Velonetics: Version {{< product latest_version >}}
-X-Velonetics-Completed: false
+X-Pucora: Version {{< product latest_version >}}
+X-Pucora-Completed: false
 Date: Tue, 22 Feb 2022 17:26:12 GMT
 Content-Length: 114
 

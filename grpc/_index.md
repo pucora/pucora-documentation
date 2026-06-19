@@ -3,14 +3,14 @@ lastmod: 2026-06-18
 date: 2026-06-18
 linktitle: Introduction to gRPC
 title: Introduction to gRPC
-description: gRPC catalog setup, client backends, and server exposure on the Velonetics gateway port
+description: gRPC catalog setup, client backends, and server exposure on the Pucora gateway port
 weight: 210
 menu:
   community_current:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/velonetics/velonetics-grpc
+  source: https://github.com/pucora/velonetics-grpc
   namespace:
   - grpc
   scope:
@@ -18,9 +18,9 @@ meta:
   - backend
 ---
 
-Velonetics exposes **gRPC client** and **gRPC server** integration with unary RPC support. Catalog services use compiled `.pb` descriptor files.
+Pucora exposes **gRPC client** and **gRPC server** integration with unary RPC support. Catalog services use compiled `.pb` descriptor files.
 
-Implemented by [`velonetics-grpc`](https://github.com/velonetics/velonetics-grpc) via:
+Implemented by [`velonetics-grpc`](https://github.com/pucora/velonetics-grpc) via:
 
 - `extra_config.grpc` — service catalog and optional gRPC server
 - `extra_config.backend/grpc` — gRPC upstream backends
@@ -64,11 +64,11 @@ Service-level config:
 
 ## Local examples
 
-From the Velonetics CE repository:
+From the Pucora CE repository:
 
 | Config | Make target | Smoke test |
 |--------|-------------|------------|
-| `velonetics.json` | `grpc-compose-test` | REST `/flights` |
+| `pucora.json` | `grpc-compose-test` | REST `/flights` |
 | `velonetics-server.json` | server variant | `grpcurl` FindFlight |
 | `velonetics-mixed.json` | mixed variant | REST + `grpcurl` |
 | `velonetics-jwt.json` | JWT variant | auth required |
@@ -78,7 +78,7 @@ make test-grpc
 make grpc-compose-test
 ```
 
-See [examples/grpc](https://github.com/velonetics/velonetics-ce/tree/main/examples/grpc).
+See [examples/grpc](https://github.com/pucora/velonetics-ce/tree/main/examples/grpc).
 
 ## Limitations
 
@@ -88,6 +88,6 @@ See [examples/grpc](https://github.com/velonetics/velonetics-ce/tree/main/exampl
 
 ## Related
 
-- [Velonetics Configurator](/docs/configuration/configurator/) — `grpc-client` preset
+- [Pucora Configurator](/docs/configuration/configurator/) — `grpc-client` preset
 - [gRPC client backend](/docs/backends/grpc/)
 - [gRPC server](/docs/grpc/server/)

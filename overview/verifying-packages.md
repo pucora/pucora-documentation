@@ -7,7 +7,7 @@ notoc: true
 How to make sure what you are downloading is legit.
 
 ## PGP
-We will check the detached signature [PGP]({{< product download_repo >}}/bin/velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz.asc) against our package [Velonetics]({{< product download_repo >}}/bin/velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz).
+We will check the detached signature [PGP]({{< product download_repo >}}/bin/velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz.asc) against our package [Pucora]({{< product download_repo >}}/bin/velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz).
 
 {{< terminal title="Term" >}}
 gpg --verify velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz.asc velonetics_{{< product latest_version >}}_amd64_generic-linux.tar.gz

@@ -3,8 +3,8 @@ lastmod: 2023-08-22
 date: 2018-09-21
 linktitle: Flexible Configuration
 title: "Flexible Configuration: A template-based config for API Gateway"
-description: Discover the flexible configuration options offered by Velonetics API Gateway, allowing you to customize and fine-tune your API gateway setup
-source: https://github.com/velonetics/velonetics-flexibleconfig
+description: Discover the flexible configuration options offered by Pucora API Gateway, allowing you to customize and fine-tune your API gateway setup
+source: https://github.com/pucora/velonetics-flexibleconfig
 since: 0.5
 menu:
   community_current:
@@ -16,7 +16,7 @@ weight: 30
 ---
 The **Flexible Configuration** allows you to declare the configuration using **multiple files** and use a **templates system**, opening the door to multi-environment configurations and code reuse.
 
-The Flexible Configuration enables a **template processor** based on [Go templates](https://golang.org/pkg/text/template/) and is enriched with [Sprig functions](http://masterminds.github.io/sprig/) and Velonetics functions.
+The Flexible Configuration enables a **template processor** based on [Go templates](https://golang.org/pkg/text/template/) and is enriched with [Sprig functions](http://masterminds.github.io/sprig/) and Pucora functions.
 
 You can encode your configuration files in any of the [supported formats](/docs/configuration/supported-formats/) (`json`, `yaml`, `toml`, etc.), as the template is agnostic of its contents.
 
@@ -26,13 +26,13 @@ Use the Flexible Configuration when you need to:
 - Inject variables, like environment settings, into the configuration
 - Use placeholders and reusable code blocks to avoid repeating code
 - Organize your code better when multiple developers are modifying the gateway
-- Manage Velonetics using multiple repositories (and merging the files in the CI)
+- Manage Pucora using multiple repositories (and merging the files in the CI)
 - Track changes, avoid conflicts, and review code more easily
 - Have the full power of a template system!
 
 ## How it works
 
-Activating the Flexible Configuration requires injecting at least the **environment variable** `FC_ENABLE=1` when running a velonetics `run` or `check` command and **additional variables** depending on the features you'd like to enable.
+Activating the Flexible Configuration requires injecting at least the **environment variable** `FC_ENABLE=1` when running a pucora `run` or `check` command and **additional variables** depending on the features you'd like to enable.
 
 When you enable through the environment variables this feature, the configuration is loaded internally into a template parser that collects all the involved files and renders the final configuration file.
 
@@ -57,18 +57,18 @@ For instance, let's write a simple template `simple.tmpl` (go template emulating
 If the template system works, the server will start with a value `"version": 3`. We can test it with (Docker example):
 
 {{< terminal title="Execute a simple template" >}}
-docker run --rm -v "$PWD:/etc/velonetics/" -e "FC_ENABLE=1" -e "FC_OUT=result.json" {{< product image >}} check -c simple.tmpl
+docker run --rm -v "$PWD:/etc/pucora/" -e "FC_ENABLE=1" -e "FC_OUT=result.json" {{< product image >}} check -c simple.tmpl
 Parsing configuration file: simple.tmpl
 Syntax OK!
 {{< /terminal >}}
 
-We know that it works because Velonetics will fail with a different `version` value, but we can also check the contents of `result.json` for debugging purposes.
+We know that it works because Pucora will fail with a different `version` value, but we can also check the contents of `result.json` for debugging purposes.
 
 Let's now introduce the rest of the **optional** variables. For instance, let's assume you decided to organize your code as follows:
 
 ```
 .
-├── velonetics.tmpl
+├── pucora.tmpl
 └── config
     ├── partials
     │   └── file.txt
@@ -82,7 +82,7 @@ Let's now introduce the rest of the **optional** variables. For instance, let's 
             └── urls.json
 ```
 
-Then you could run Velonetics from the terminal with this command:
+Then you could run Pucora from the terminal with this command:
 
 {{< terminal title="Enabling flexible configuration with your custom dirs" >}}
 FC_ENABLE=1 \
@@ -90,7 +90,7 @@ FC_SETTINGS="config/settings/prod" \
 FC_PARTIALS="config/partials" \
 FC_TEMPLATES="config/templates" \
 FC_OUT="output.json" \
-velonetics run -c "velonetics.tmpl"
+pucora run -c "pucora.tmpl"
 {{< /terminal >}}
 
 In the example above, notice that the `FC_SETTINGS` includes the path to the `prod`uction folder. This is how you would set a specific environment. You might inject here an env var if you have multiple environments. **The directory structure is completely up to you**.
@@ -100,7 +100,7 @@ Consider using a docker compose in combination with the `:watch` image to speed 
 {{< /note >}}
 
 ## Template syntax
-The configuration file passed with the `-c` flag is treated as a **Go template**, and you can use all the power the template engine brings. In addition, the templating system is overloaded with [Sprig functions](http://masterminds.github.io/sprig/), and Velonetics functions, adding more features.
+The configuration file passed with the `-c` flag is treated as a **Go template**, and you can use all the power the template engine brings. In addition, the templating system is overloaded with [Sprig functions](http://masterminds.github.io/sprig/), and Pucora functions, adding more features.
 
 The data evaluations or control structures are easily recognized as they are surrounded by `{{` and `}}`. Any other text outside these delimiters is unprocessed text copied to the output as it is.
 
@@ -109,25 +109,25 @@ Read the [Flexible Config Templates](/docs/configuration/templates/) documentati
 ## Testing the configuration
 We recommend using a Docker compose file to work faster with flexible configuration.
 
-Save the following `docker-compose.yml` and do a `docker compose up`. This setup with the [`:watch` image](/docs/developer/hot-reload/) will allow you to work locally with the latest version of Velonetics and apply the changes automatically whenever you change a source file.
+Save the following `docker-compose.yml` and do a `docker compose up`. This setup with the [`:watch` image](/docs/developer/hot-reload/) will allow you to work locally with the latest version of Pucora and apply the changes automatically whenever you change a source file.
 
 ```yml
 version: "3"
 services:
-  velonetics:
+  pucora:
     image: {{< product image >}}:watch
     volumes:
-      - "./:/etc/velonetics/"
+      - "./:/etc/pucora/"
     environment:
       - FC_ENABLE=1
-      - FC_OUT=/etc/velonetics/out.json
-      - FC_PARTIALS=/etc/velonetics/config/partials
-      - FC_SETTINGS=/etc/velonetics/config/settings/test
-      - FC_TEMPLATES=/etc/velonetics/config/templates
-    command: ["run","-dc","velonetics.tmpl"]
+      - FC_OUT=/etc/pucora/out.json
+      - FC_PARTIALS=/etc/pucora/config/partials
+      - FC_SETTINGS=/etc/pucora/config/settings/test
+      - FC_TEMPLATES=/etc/pucora/config/templates
+    command: ["run","-dc","pucora.tmpl"]
 ```
 
-As the flexible configuration is composed of several pieces, it's easy to make a mistake at some point. Test the syntax of all the files with the `velonetics check` command and pay attention to the output to verify there aren't any errors. When there are errors, the output contains information to help you resolve it, e.g.:
+As the flexible configuration is composed of several pieces, it's easy to make a mistake at some point. Test the syntax of all the files with the `pucora check` command and pay attention to the output to verify there aren't any errors. When there are errors, the output contains information to help you resolve it, e.g.:
 
 ```
 ERROR parsing the configuration file: loading flexible-config settings:
@@ -144,5 +144,5 @@ FC_SETTINGS="$PWD/config/settings" \
 FC_PARTIALS="$PWD/config/partials" \
 FC_TEMPLATES="$PWD/config/templates" \
 FC_OUT=out.json \
-velonetics check -t -d -c "$PWD/config/velonetics.json"
+pucora check -t -d -c "$PWD/config/pucora.json"
 {{< /terminal >}}

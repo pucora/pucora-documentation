@@ -3,14 +3,14 @@ lastmod: 2025-08-21
 date: 2020-11-16
 linktitle: Azure Monitor
 title: Azure Monitor Telemetry Integration
-description: Integrate Azure Telemetry with Velonetics for effective monitoring and performance analysis of your APIs. Follow our documentation to set up seamless integration with your Azure services.
+description: Integrate Azure Telemetry with Pucora for effective monitoring and performance analysis of your APIs. Follow our documentation to set up seamless integration with your Azure services.
 weight: 140
 menu:
   community_current:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v1.1
-  source: https://github.com/velonetics/velonetics-otel
+  source: https://github.com/pucora/velonetics-otel
   namespace:
   - telemetry/opentelemetry
   scope:
@@ -66,7 +66,7 @@ There are three things you need to do:
 
 1) Create the Application Insights resource on Azure
 2) Start the OpenTelemetry Collector
-3) Add it to Velonetics's configuration
+3) Add it to Pucora's configuration
 
 ### Create an Application Insights resource
 To enable the Azure Monitor integration, you need to add a new resource **Application Insights**, under your Azure account and fill in the information as required (the details provided during the registration form are not relevant to the configuration).
@@ -76,16 +76,16 @@ To enable the Azure Monitor integration, you need to add a new resource **Applic
 When the resource finishes creating, **save the Instrumentation Key** or **Connection String** for later usage.
 
 ### Starting the OpenTelemetry Collector
-You can start the OpenTelemetry Collector with Azure's compatibility using its [Docker image](https://hub.docker.com/r/otel/opentelemetry-collector-contrib). Here there is a `docker-compose.yml` example that includes a Velonetics and a collector:
+You can start the OpenTelemetry Collector with Azure's compatibility using its [Docker image](https://hub.docker.com/r/otel/opentelemetry-collector-contrib). Here there is a `docker-compose.yml` example that includes a Pucora and a collector:
 
 ```yaml
 version: "3"
 services:
-  velonetics:
+  pucora:
     image: {{< product image >}}:{{< product latest_version >}}
-    command: [ "velonetics", "run", "-d", "-c", "/etc/velonetics/velonetics.json"]
+    command: [ "pucora", "run", "-d", "-c", "/etc/pucora/pucora.json"]
     volumes:
-      - ./:/etc/velonetics
+      - ./:/etc/pucora
     ports:
       - 8080:8080
   # Collector
@@ -129,8 +129,8 @@ Enable the logging only if you find problems and want extra information.
 
 Replace the value of the `connection_string` entry with the one you got in your Azure dashboard.
 
-### Configuration for Velonetics
-Lastly, add at the service level of Velonetics the following configuration:
+### Configuration for Pucora
+Lastly, add at the service level of Pucora the following configuration:
 
 ```json
 {
@@ -155,10 +155,10 @@ The configuration above reports a 100% of the activity (`trace_sample_rate = 1`)
 
 The `otel-collector` above is the name of the docker compose service running the collector. You might need to replace it if you are not using this example.
 
-With these three steps, you can start sending data to Velonetics. You should start seeing the graphs populated on Azure Monitor in a couple of minutes.
+With these three steps, you can start sending data to Pucora. You should start seeing the graphs populated on Azure Monitor in a couple of minutes.
 
 {{< note title="Insecure flag" type="warning" >}}
-Most of the times, the communication between Velonetics and the collector happens in the same machine. It is rare that this connection uses SSL, and if it doesn't, the `insecure` flag must be set to `true`. Otherwise, Velonetics will fail silently.
+Most of the times, the communication between Pucora and the collector happens in the same machine. It is rare that this connection uses SSL, and if it doesn't, the `insecure` flag must be set to `true`. Otherwise, Pucora will fail silently.
 {{< /note >}}
 
 ## Other Resources

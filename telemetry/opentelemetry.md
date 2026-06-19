@@ -4,14 +4,14 @@ date: 2024-01-22
 notoc: false
 linktitle: OpenTelemetry
 title: Telemetry and Monitoring through OpenTelemetry
-description: Learn about the telemetry and monitoring capabilities of Velonetics API Gateway using OTEL, enabling real-time visibility and analysis of API performance
+description: Learn about the telemetry and monitoring capabilities of Pucora API Gateway using OTEL, enabling real-time visibility and analysis of API performance
 weight: 20
 images:
 - /images/documentation/diagrams/opentelemetry-otlp.mmd.svg
 skip_header_image: true
 meta:
   since: v2.6
-  source: https://github.com/velonetics/velonetics-otel
+  source: https://github.com/pucora/velonetics-otel
   namespace:
   - telemetry/opentelemetry
   scope:
@@ -29,13 +29,13 @@ OpenTelemetry captures detailed, contextual information about the operation of y
 It supports auto-instrumentation and can be integrated seamlessly into cloud-native deployments, making it easier to monitor these dynamic environments.
 
 {{< note title="Stability note on OpenTelemetry" type="note" >}}
-Velonetics has traditionally offered part of its telemetry integration through the [OpenCensus integration](/docs/telemetry/opencensus/), which has provided a reliable service for over six years. We are transitioning to the more modern and robust OpenTelemetry framework, and the OpenCensus integration does not receive further updates.
+Pucora has traditionally offered part of its telemetry integration through the [OpenCensus integration](/docs/telemetry/opencensus/), which has provided a reliable service for over six years. We are transitioning to the more modern and robust OpenTelemetry framework, and the OpenCensus integration does not receive further updates.
 
-While the underlying protocol specification of OpenTelemetry is stable, you'll find [mixed stability statuses](https://opentelemetry.io/docs/specs/status/) in the components lifecycle. While we cannot predict what changes there will be as the technology evolves, Velonetics will always do its best to maintain compatibility between versions. More information about the underlying exporter can be found [here](https://opentelemetry.io/docs/languages/go/exporters/).
+While the underlying protocol specification of OpenTelemetry is stable, you'll find [mixed stability statuses](https://opentelemetry.io/docs/specs/status/) in the components lifecycle. While we cannot predict what changes there will be as the technology evolves, Pucora will always do its best to maintain compatibility between versions. More information about the underlying exporter can be found [here](https://opentelemetry.io/docs/languages/go/exporters/).
 {{< /note >}}
 
 ## Collecting metrics and traces
-The `telemetry/opentelemetry` component in Velonetics collects the activity generated for the enabled layers and pushes or exposes the data for pulling. There are two ways of publishing metrics:
+The `telemetry/opentelemetry` component in Pucora collects the activity generated for the enabled layers and pushes or exposes the data for pulling. There are two ways of publishing metrics:
 
 - **OpenTelemetry protocol (OTLP)** - push
 - **Prometheus** - pull
@@ -45,25 +45,25 @@ You can use both simultaneously if needed, and even multiple instances of each.
 When you add OpenTelemetry in the configuration, you will have [different metrics available](/docs/telemetry/opentelemetry-layers-metrics/).
 
 ## Prometheus exporter (pull)
-Choose the `prometheus` exporter when you want Velonetics to **expose a new port offering a `/metrics` endpoint**. So, an external Prometheus job can connect to a URL like `http://velonetics:9090/metrics` and retrieve all the data.
+Choose the `prometheus` exporter when you want Pucora to **expose a new port offering a `/metrics` endpoint**. So, an external Prometheus job can connect to a URL like `http://pucora:9090/metrics` and retrieve all the data.
 
-![Prometheus connecting to Velonetics and fetching metrics](/images/documentation/diagrams/opentelemetry-prometheus.mmd.svg)
+![Prometheus connecting to Pucora and fetching metrics](/images/documentation/diagrams/opentelemetry-prometheus.mmd.svg)
 
 [See how to configure Prometheus](/docs/telemetry/prometheus/)
 
 ## OTLP exporter (push)
 Choose the `otlp` exporter when you want to **push the metrics to a local or remote collector** or directly to a SaaS or storage system that supports native OTLP (there is a [large number of supported providers](/docs/telemetry/#opentelemetry-integrations)). The following diagram represents this idea:
 
-![Velonetics to collector, collector to backend](/images/documentation/diagrams/opentelemetry-otlp.mmd.svg)
+![Pucora to collector, collector to backend](/images/documentation/diagrams/opentelemetry-otlp.mmd.svg)
 
-The `host` where your collector lives can also point to an external load balancer between Velonetics and multiple collectors if needed:
-![Velonetics to load balanced collectors, collectors to backend](/images/documentation/diagrams/opentelemetry-otlp-lb.mmd.svg)
+The `host` where your collector lives can also point to an external load balancer between Pucora and multiple collectors if needed:
+![Pucora to load balanced collectors, collectors to backend](/images/documentation/diagrams/opentelemetry-otlp-lb.mmd.svg)
 
  users can push directly to external storage passing auth credentials using the `telemetry/opentelemetry-security` component, so the collector is not needed anymore:
 
 ![opentelemetry-otlp-auth.mmd diagram](/images/documentation/diagrams/opentelemetry-otlp-auth.mmd.svg)
 
-This strategy saves a lot of time during the setup of Velonetics.
+This strategy saves a lot of time during the setup of Pucora.
 
 ## OpenTelemetry Configuration
 To enable OpenTelemetry, you will need a Prometheus or an OTEL Collector (or both) and add the `telemetry/opentelemetry` namespace at the top level of your configuration.
@@ -84,7 +84,7 @@ Here's an example with a Grafana Tempo and a Prometheus.
 ```json
 {
     "version": 3,
-    "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/velonetics.json",
+    "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
     "extra_config": {
         "telemetry/opentelemetry": {
             "service_name": "velonetics_middle_service",

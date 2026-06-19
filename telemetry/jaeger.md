@@ -2,8 +2,8 @@
 lastmod: 2023-02-03
 date: 2019-10-11
 linktitle: Jaeger
-title: Jaeger Telemetry Integration - Velonetics API Gateway
-description: Integrate Jaeger telemetry with Velonetics API Gateway for distributed tracing and monitoring of your microservices architecture
+title: Jaeger Telemetry Integration - Pucora API Gateway
+description: Integrate Jaeger telemetry with Pucora API Gateway for distributed tracing and monitoring of your microservices architecture
 weight: 110
 notoc: false
 aliases: ["/docs/logging-metrics-tracing/jaeger/"]
@@ -12,7 +12,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.5
-  source: https://github.com/velonetics/velonetics-otel
+  source: https://github.com/pucora/velonetics-otel
   namespace:
   - telemetry/opentelemetry
   scope:
@@ -20,9 +20,9 @@ meta:
   log_prefix:
   - "[SERVICE: OpenTelemetry]"
 ---
-The Velonetics exporter to [Jaeger](https://www.jaegertracing.io/) allows you to submit spans to an OpenTelemetry Collector (HTTP or gRPC) automatically.
+The Pucora exporter to [Jaeger](https://www.jaegertracing.io/) allows you to submit spans to an OpenTelemetry Collector (HTTP or gRPC) automatically.
 
-Jaeger is an open-source, end-to-end distributed tracing system that allows you to monitor and troubleshoot transactions in complex distributed systems. Use Jaeger when you want to see the complete flow of a user request through Velonetics and its connected services.
+Jaeger is an open-source, end-to-end distributed tracing system that allows you to monitor and troubleshoot transactions in complex distributed systems. Use Jaeger when you want to see the complete flow of a user request through Pucora and its connected services.
 
 ## Jaeger configuration
 To add Jaeger, configure a new exporter to the [OpenTelemetry settings](/docs/telemetry/opentelemetry/). For instance:
@@ -83,10 +83,10 @@ You can test this setup by running the **All in One** official Jaeger image and 
 ```yaml
 version: "3"
 services:
-  velonetics:
+  pucora:
     image: {{< product image >}}:{{< product latest_version >}}
     volumes:
-      - "./:/etc/velonetics"
+      - "./:/etc/pucora"
     ports:
       - "8080:8080"
   jaeger:

@@ -3,7 +3,7 @@ lastmod: 2023-03-16
 date: 2018-04-05
 linktitle: RabbitMQ Consumer
 title: AMQP Consumer Integration in the API Gateway (RabbitMQ)
-description: Integrate AMQP consumers into Velonetics API Gateway for seamless communication with message queue systems like RabbitMQ
+description: Integrate AMQP consumers into Pucora API Gateway for seamless communication with message queue systems like RabbitMQ
 weight: 100
 aliases: ["/docs/backends/amqp/"]
 menu:
@@ -11,7 +11,7 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v0.9
-  source: https://github.com/velonetics/velonetics-amqp
+  source: https://github.com/pucora/velonetics-amqp
   namespace:
   - backend/amqp/consumer
   scope:
@@ -30,10 +30,10 @@ To create Async agents that consume messages asynchronously and without requirin
 The parameters of this integration follow the AMQP specification. To understand
 what are the implications of a certain parameter, see the **[AMQP Complete Reference Guide](https://www.rabbitmq.com/amqp-0-9-1-reference.html)**.
 
-**Velonetics creates both the exchange and the queue for you**.
+**Pucora creates both the exchange and the queue for you**.
 
 ## Configuration
-The consumer retrieves messages from the queue when a Velonetics endpoint plugs to its AMQP backend. The recommendation is to connect consumers to `GET` endpoints.
+The consumer retrieves messages from the queue when a Pucora endpoint plugs to its AMQP backend. The recommendation is to connect consumers to `GET` endpoints.
 
 A single endpoint can consume messages from N queues, or can consume N messages from the same queue by adding N backends with the proper queue name.
 

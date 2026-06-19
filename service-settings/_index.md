@@ -3,7 +3,7 @@ lastmod: 2023-10-24
 date: 2022-06-07
 linktitle:  Service Settings
 title: Service Settings Configuration
-description: Service settings are optional flags that allow you to change how Velonetics behaves globally for all endpoints across configuration.
+description: Service settings are optional flags that allow you to change how Pucora behaves globally for all endpoints across configuration.
 weight: -1000
 notoc: true
 menu:
@@ -13,7 +13,7 @@ dark_header_image: true
 images:
 - /images/documentation/hero/service-settings.png
 ---
-We call **service settings** (or the service layer) those parameters that allow you to change how Velonetics behaves **globally** (and not to a specific call). They determine how you start the HTTP server, enforce security parameters, or define behavioral options like which reporting activities occur, to name a few examples.
+We call **service settings** (or the service layer) those parameters that allow you to change how Pucora behaves **globally** (and not to a specific call). They determine how you start the HTTP server, enforce security parameters, or define behavioral options like which reporting activities occur, to name a few examples.
 
 Examples of service settings are, the [listening port](/docs/service-settings/http-server-settings/), [disabling keep alives](/docs/service-settings/http-transport-settings/), enabling [metrics and traces](/docs/telemetry/), [listening https](/docs/service-settings/tls/), or enabling [CORS](/docs/service-settings/cors/) to name a few.
 
@@ -43,7 +43,7 @@ All service settings are written directly in the root of the configuration file 
 
 The service accepts **numerous configuration options** that you'll find explained through the rest of the documentation, but here is a preview of the most important ones:
 
-{{< schema data="velonetics.json" filter="version,extra_config,port,listen_ip,endpoints,output_encoding,timeout,host,cache_ttl" title="Preview of important service configuration fields">}}
+{{< schema data="pucora.json" filter="version,extra_config,port,listen_ip,endpoints,output_encoding,timeout,host,cache_ttl" title="Preview of important service configuration fields">}}
 
 Other service-level settings you can add:
 

@@ -1,9 +1,9 @@
 ---
 lastmod: 2025-02-06
 date: 2021-11-25
-linktitle: How to extend Velonetics?
-title: Extending Velonetics with your code
-description: Learn how to extend Velonetics API Gateway by developing custom plugins or scripts to add new functionalities and integrate with external systems
+linktitle: How to extend Pucora?
+title: Extending Pucora with your code
+description: Learn how to extend Pucora API Gateway by developing custom plugins or scripts to add new functionalities and integrate with external systems
 aliases: ["/docs/extending/introduction/"]
 weight: -1
 menu:
@@ -15,7 +15,7 @@ images:
   - /images/documentation/velonetics-plugins.png
 ---
 
-Velonetics is **highly extensible and flexible** and allows developers to extend its functionality through custom code when the built-in features are not enough. Whether you need to add custom logic, integrate specific business rules, or enhance features, Velonetics lets you add extensions coded by you.
+Pucora is **highly extensible and flexible** and allows developers to extend its functionality through custom code when the built-in features are not enough. Whether you need to add custom logic, integrate specific business rules, or enhance features, Pucora lets you add extensions coded by you.
 
 You don't need to fork the source code to add your custom logic, as the plugin and scripting system allow you to add custom functionality that is not offered out of the box.
 
@@ -34,9 +34,9 @@ These are the two major approaches:
 ### Lua advantages
 - Simplicity: Lua is easy to learn and try.
 - No Compilation: Changes are applied by editing the Lua script, making it faster to iterate and test.
-- Runtime Flexibility: Scripts can be dynamically loaded and modified without restarting Velonetics.
+- Runtime Flexibility: Scripts can be dynamically loaded and modified without restarting Pucora.
 - Ideal for Small Tasks: like header manipulation, simple data, transformations, or basic validation rules
-- Portability: Lua scripts do not need modifications on Velonetics upgrades.
+- Portability: Lua scripts do not need modifications on Pucora upgrades.
 
 ### Lua limitations
 - Limited performance: Lua is interpreted, making it slower for CPU-intensive tasks.
@@ -47,7 +47,7 @@ These are the two major approaches:
 See the [Lua documentation](/docs/endpoints/lua/)
 
 ## Extending with Go plugins
-For more **advanced and performance-critical** requirements, Velonetics supports [plugins written in Go](/docs/extending/writing-plugins/). Using Go plugins ensures optimal performance for your extensions, and if you are fluent in Go, they are the best option for extensibility.
+For more **advanced and performance-critical** requirements, Pucora supports [plugins written in Go](/docs/extending/writing-plugins/). Using Go plugins ensures optimal performance for your extensions, and if you are fluent in Go, they are the best option for extensibility.
 
 With Go plugins, you can pretty much do anything you want, including integrating with external services, using databases, and anything you can code.
 
@@ -63,14 +63,14 @@ With Go plugins, you can pretty much do anything you want, including integrating
 
 ### Go plugins limitations
 - Compilation Overhead: Each change requires recompilation, which is not suitable for "quick hacking"
-- Deployment Complexity: Plugins are platform-specific (.so files), requiring recompilation for different OS/architecture setups. When you upgrade the Velonetics version, you need to recompile using the builder.
-- Velonetics Restarts: Reloading the plugin requires restarting Velonetics.
-- Higher Barrier to Entry: Requires Go expertise and familiarity with Velonetics's plugin contract.
+- Deployment Complexity: Plugins are platform-specific (.so files), requiring recompilation for different OS/architecture setups. When you upgrade the Pucora version, you need to recompile using the builder.
+- Pucora Restarts: Reloading the plugin requires restarting Pucora.
+- Higher Barrier to Entry: Requires Go expertise and familiarity with Pucora's plugin contract.
 
 See the [Go plugins documentation](/docs/extending/writing-plugins/)
 
 ## Lua or Go?
-Both Lua and Go plugins allow you to extend Velonetics's capabilities, but their suitability depends on your use case, **team expertise** (this is key), and performance requirements. Summarizing:
+Both Lua and Go plugins allow you to extend Pucora's capabilities, but their suitability depends on your use case, **team expertise** (this is key), and performance requirements. Summarizing:
 
 - Lua is best for quick, simple, runtime modifications
 - Go is best for complex, performance-critical, or testable extensions
@@ -87,4 +87,4 @@ Both Lua and Go plugins allow you to extend Velonetics's capabilities, but their
 {{< /button-group >}}
 
 ## What about forking?
-Open-source users might be tempted to fork the source code to add modifications. Our recommended way to customize Velonetics is always through plugins or scripts, and you **should avoid forking the code** if you want to keep up to date with the product's progress and security vulnerabilities. We have seen over and over forked projects that are left behind because companies don't have the resources to keep up.
+Open-source users might be tempted to fork the source code to add modifications. Our recommended way to customize Pucora is always through plugins or scripts, and you **should avoid forking the code** if you want to keep up to date with the product's progress and security vulnerabilities. We have seen over and over forked projects that are left behind because companies don't have the resources to keep up.

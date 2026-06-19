@@ -3,7 +3,7 @@ lastmod: 2022-01-21
 date: 2022-01-21
 linktitle:  AMQP driver for Async Agent
 title: AMQP driver for the Asynchronous Agent
-description: Leverage Asynchronous AMQP Agents in Velonetics for high-performance messaging and event-driven architectures
+description: Leverage Asynchronous AMQP Agents in Pucora for high-performance messaging and event-driven architectures
 weight: 510
 images:
   - /images/documentation/async-agents.png
@@ -19,7 +19,7 @@ meta:
   log_prefix:
   - "[ASYNC: AgentName][AMQP]"
 ---
-The AMQP driver for **Async agents** allows you to have Velonetics consuming AMQP queues autonomously. Routines listening to AMQP queues will react by themselves to new events and push data to your backends.
+The AMQP driver for **Async agents** allows you to have Pucora consuming AMQP queues autonomously. Routines listening to AMQP queues will react by themselves to new events and push data to your backends.
 
 This driver is different from the [AMQP backend consumer](/docs/backends/amqp-consumer/). As opposed to endpoints, async agents do not require users to request something to trigger an action. Instead, the agents connect to the queue and fire an action when an event is delivered.
 
@@ -30,7 +30,7 @@ The AMQP driver has to be placed inside the `extra_config` of the [async compone
 {
     "async/amqp": {
         "host": "amqp://guest:guest@localhost:5672/",
-        "name": "velonetics",
+        "name": "pucora",
         "exchange": "foo",
         "durable": true,
         "delete": false,

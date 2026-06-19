@@ -3,7 +3,7 @@ lastmod: 2023-10-23
 date: 2020-04-10
 linktitle: Mutual TLS Authentication (mTLS)
 title: Mutual Authentication
-description: Implement mutual authentication in Velonetics API Gateway to establish a secure and trusted communication channel between clients and APIs
+description: Implement mutual authentication in Pucora API Gateway to establish a secure and trusted communication channel between clients and APIs
 weight: 50
 notoc: false
 menu:
@@ -11,28 +11,28 @@ menu:
     parent: "080 Authentication & Authorization"
 ---
 
-**mTLS** is an authentication mechanism used traditionally in business-to-business (B2B) applications where clients provide a certificate that allows to connect to the Velonetics server.
+**mTLS** is an authentication mechanism used traditionally in business-to-business (B2B) applications where clients provide a certificate that allows to connect to the Pucora server.
 
-As Velonetics is a piece of software in the middle of two parts, there are different types of mTLS supported, that can work together or separately.
+As Pucora is a piece of software in the middle of two parts, there are different types of mTLS supported, that can work together or separately.
 
 ![mtls.mmd diagram](/images/documentation/diagrams/mtls.mmd.svg)
 
-1. **Service mTLS**: When you require end-users to provide a certificate to connect to Velonetics.
-2. **Client mTLS**: When you require Velonetics to provide a certificate to connect to your services.
+1. **Service mTLS**: When you require end-users to provide a certificate to connect to Pucora.
+2. **Client mTLS**: When you require Pucora to provide a certificate to connect to your services.
 
 In both cases, the certificates must be recognized by your system's Certification Authority (CA) or be added under the `ca_certs` list.
 
 ## Service mTLS Configuration (End-user to gateway)
 From the configuration file perspective, Mutual TLS Authentication is no more than a flag `enable_mtls` under the `tls` section.
 
-When mTLS is enabled, **all Velonetics endpoints** require clients to provide a known client-side X.509 authentication certificate. Velonetics relies on the system's CA to validate certificates.
+When mTLS is enabled, **all Pucora endpoints** require clients to provide a known client-side X.509 authentication certificate. Pucora relies on the system's CA to validate certificates.
 
 To enable it you need a configuration like this:
 
 ```json
 {
   "version": 3,
-  "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/velonetics.json",
+  "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
   "tls": {
     "enable_mtls": true,
     "ca_certs": [
@@ -51,7 +51,7 @@ To enable it you need a configuration like this:
 And these are the options you can include under `tls`:
 {{< schema data="tls.json" >}}
 
-**Important**: Connections not having a recognized certificate in Velonetics's system CA, will be rejected. For further documentation on TLS, see the [TLS documentation](/docs/service-settings/tls/)
+**Important**: Connections not having a recognized certificate in Pucora's system CA, will be rejected. For further documentation on TLS, see the [TLS documentation](/docs/service-settings/tls/)
 
 ## Client mTLS Configuration (Gateway to service)
 If you want that **all connections to backends** use mTLS, add the following configuration:
@@ -73,7 +73,7 @@ If you want that **all connections to backends** use mTLS, add the following con
 {{< schema data="client_tls.json" filter="client_certs" >}}
 
 ### Per-backend mTLS
-If instead of enabling mTLS against all backends, you can enable mTLS in a specific backend only. This option is available only in the {{< badge >}}Velonetics{{< /badge >}}
+If instead of enabling mTLS against all backends, you can enable mTLS in a specific backend only. This option is available only in the {{< badge >}}Pucora{{< /badge >}}
 
 An example configuration would be:
 
@@ -100,14 +100,14 @@ An example configuration would be:
   ]
 }
 ```
-Configuration needed ({{< badge >}}Velonetics{{< /badge >}} only):
+Configuration needed ({{< badge >}}Pucora{{< /badge >}} only):
 
 {{< schema data="client_tls.json" filter="client_certs" >}}
 
 This is the schema needed for client mTLS, but the HTTP Client settings have many other options not related to mTLS.
 
 ## mTLS example
-To use mTLS you need to generate the client and server certificates. The following script example creates the needed files to enable mTLS. Notice that in the `CN` of the certificates we are adding `localhost` as we want to connect to Velonetics from and to localhost.
+To use mTLS you need to generate the client and server certificates. The following script example creates the needed files to enable mTLS. Notice that in the `CN` of the certificates we are adding `localhost` as we want to connect to Pucora from and to localhost.
 
 ```sh
 # Private key for the certificate authority
@@ -130,12 +130,12 @@ openssl req -new -key server.key -out server.csr -subj "/C=US/ST=California/L=Mo
 openssl x509 -req -in server.csr -extensions server -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 500 -sha256
 ```
 
-The Velonetics configuration needed is as follows (no endpoints used for this demo):
+The Pucora configuration needed is as follows (no endpoints used for this demo):
 
 ```json
 {
   "version": 3,
-  "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/velonetics.json",
+  "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
   "port": 443,
   "tls": {
     "enable_mtls": true,
@@ -153,7 +153,7 @@ The Velonetics configuration needed is as follows (no endpoints used for this de
 }
 ```
 
-At this moment Velonetics accepts only clients passing a valid certificate. Let's connect to the `/__health` endpoint:
+At this moment Pucora accepts only clients passing a valid certificate. Let's connect to the `/__health` endpoint:
 
 {{< terminal title="Connect using mTLS" >}}
 curl \

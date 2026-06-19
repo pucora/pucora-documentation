@@ -3,8 +3,8 @@ lastmod: 2025-04-10
 date: 2021-05-21
 toc: true
 linktitle: HTTP server plugins
-title: HTTP Server Plugins for Velonetics API Gateway
-description: Discover how to write HTTP server plugins for Velonetics API Gateway, enabling you to customize server behaviors and implement custom logic.
+title: HTTP Server Plugins for Pucora API Gateway
+description: Discover how to write HTTP server plugins for Pucora API Gateway, enabling you to customize server behaviors and implement custom logic.
 weight: 100
 notoc: true
 menu:
@@ -20,12 +20,12 @@ images:
 - /images/documentation/http-handler-plugin.png
 
 ---
-The HTTP server plugins (codenamed as *handler plugins*) belong to the **router layer** and let you modify the requests before Velonetics starts processing them or modify the final response back to the user. The HTTP handler plugin lets you write your servers and HTTP middlewares right in Velonetics and enables you to implement anything you can imagine. This plugin type is so powerful that you can use it to implement custom monetization, tracking, tenant control, protocol conversion, and heavy modifications, for example.
+The HTTP server plugins (codenamed as *handler plugins*) belong to the **router layer** and let you modify the requests before Pucora starts processing them or modify the final response back to the user. The HTTP handler plugin lets you write your servers and HTTP middlewares right in Pucora and enables you to implement anything you can imagine. This plugin type is so powerful that you can use it to implement custom monetization, tracking, tenant control, protocol conversion, and heavy modifications, for example.
 
 {{< note title="What is a Handler?" >}}A Handler responds to an HTTP request and is an interface modeling an HTTP processor.
 {{< /note >}}
 
-From Velonetics's perspective, **your handler plugins are black boxes** that expose an `http.Handler`, and you can do anything you want inside them. Each plugin is wrapping the next element in the pipe, meaning that for some operations, **it must deal with an HTTP request and response writer**. If you chain several plugins, you will add **two extra cycles** of decoding and encoding the body. From a performance perspective is better having one plugin doing two things, than two plugins doing one thing:
+From Pucora's perspective, **your handler plugins are black boxes** that expose an `http.Handler`, and you can do anything you want inside them. Each plugin is wrapping the next element in the pipe, meaning that for some operations, **it must deal with an HTTP request and response writer**. If you chain several plugins, you will add **two extra cycles** of decoding and encoding the body. From a performance perspective is better having one plugin doing two things, than two plugins doing one thing:
 
 <img src="/images/documentation/http-handler-plugin.png" class="dark-version-available" title="HTTP handler plugin">
 
@@ -113,7 +113,7 @@ func (r registerer) registerHandlers(_ context.Context, extra map[string]interfa
 
 func main() {}
 
-// This logger is replaced by the RegisterLogger method to load the one from Velonetics
+// This logger is replaced by the RegisterLogger method to load the one from Pucora
 var logger Logger = noopLogger{}
 
 func (registerer) RegisterLogger(v interface{}) {
@@ -165,9 +165,9 @@ docker run -it -v "$PWD:/app" -w /app \
 go build -buildmode=plugin -o velonetics-server-example.so .
 {{< /terminal >}}
 
-There is no output for this command. Now you have a file `velonetics-server-example.so`, the binary that Velonetics has to side load. Remember that you cannot use this binary in a different architecture (e.g., compiling the binary in Mac and loading it in a Docker container).
+There is no output for this command. Now you have a file `velonetics-server-example.so`, the binary that Pucora has to side load. Remember that you cannot use this binary in a different architecture (e.g., compiling the binary in Mac and loading it in a Docker container).
 
-The plugin is ready to use! You can now load your plugin in the configuration. Add the `plugin` and `extra_config` entries in your configuration. Here's an example of `velonetics.json`:
+The plugin is ready to use! You can now load your plugin in the configuration. Add the `plugin` and `extra_config` entries in your configuration. Here's an example of `pucora.json`:
 
 ```json
 {
@@ -200,7 +200,7 @@ The plugin is ready to use! You can now load your plugin in the configuration. A
 }
 ```
 
-Start the server with `velonetics run -dc velonetics.json`. When you run the server, the expected output (with `DEBUG` log level) is:
+Start the server with `pucora run -dc pucora.json`. When you run the server, the expected output (with `DEBUG` log level) is:
 
     yyyy/mm/dd hh:mm:ss VELONETICS ERROR: [SERVICE: Logging] Unable to create the logger: getting the extra config for the velonetics-gologging module
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Plugin Loader] Starting loading process
@@ -209,7 +209,7 @@ Start the server with `velonetics run -dc velonetics.json`. When you run the ser
     yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: Handler Plugin] Total plugins loaded: 1
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Modifier Plugin] plugin #0 (velonetics-server-example/velonetics-server-example.so): plugin: symbol ModifierRegisterer not found in plugin velonetics-server-example
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Plugin Loader] Loading process completed
-    yyyy/mm/dd hh:mm:ss VELONETICS INFO: Starting the Velonetics instance
+    yyyy/mm/dd hh:mm:ss VELONETICS INFO: Starting the Pucora instance
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: /test/:id] Building the proxy pipe
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [BACKEND: /__health] Building the backend pipe
     yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [ENDPOINT: /test/:id] Building the http handler

@@ -3,7 +3,7 @@ lastmod: 2018-11-03
 date: 2018-11-03
 linktitle: JWT overview
 title: JWT Overview - Authorization
-description: Gain an overview of JSON Web Tokens (JWT) and learn how to implement JWT-based authorization with Velonetics API Gateway for secure API access
+description: Gain an overview of JSON Web Tokens (JWT) and learn how to implement JWT-based authorization with Pucora API Gateway for secure API access
 weight: 10
 notoc: true
 menu:
@@ -17,18 +17,18 @@ When JWT shields a specific set of endpoints, requests to the API gateway must p
 
 Only in the case that the token is valid and passes all the checks, **the user is authorized to access the endpoint** and continue with the request.
 
-## Velonetics JWT implementations
-Velonetics implements both [JWT signing](/docs/authorization/jwt-signing/) and [JWT validation](/docs/authorization/jwt-validation/) models to protect endpoints from undesired users that are not entitled to use the information, reinforcing security.
+## Pucora JWT implementations
+Pucora implements both [JWT signing](/docs/authorization/jwt-signing/) and [JWT validation](/docs/authorization/jwt-validation/) models to protect endpoints from undesired users that are not entitled to use the information, reinforcing security.
 
-- [Sign tokens](/docs/authorization/jwt-signing/) when you have no identity server yet (like a classic monolithic application with a `/login` endpoint) and let Velonetics take care of the token signing with the private key.
+- [Sign tokens](/docs/authorization/jwt-signing/) when you have no identity server yet (like a classic monolithic application with a `/login` endpoint) and let Pucora take care of the token signing with the private key.
 - [Validate tokens](/docs/authorization/jwt-validation/) issued by a third party or the [JWT signing middleware](/docs/authorization/jwt-signing/), ensuring their integrity and proper claims.
 
-A stateless system like Velonetics **does not issue tokens**, this is the responsibility of your backend or identity server.
+A stateless system like Pucora **does not issue tokens**, this is the responsibility of your backend or identity server.
 
 ## Key concepts
 The **JSON Web Token** carries the information your end-users pass to the system to be recognized as legitimate users with other metadata.
 
-Velonetics uses **standard JWT tokens** to protect endpoints, using JSON Web Signature (**JWS**), to check the tokens' digital signature integrity of the contained claims and defending against attacks using tampered tokens.
+Pucora uses **standard JWT tokens** to protect endpoints, using JSON Web Signature (**JWS**), to check the tokens' digital signature integrity of the contained claims and defending against attacks using tampered tokens.
 
 A JWT token is a `base64` encoded string with the structure `header.payload.signature`.
 
@@ -36,15 +36,15 @@ A typical request to an endpoint requiring JWT validation includes a `Bearer` in
 
 {{< terminal >}}
 GET /resource HTTP/1.1
-Host: velonetics.example.com
+Host: pucora.example.com
 Authorization: Bearer eyJhbGciOiJIUzI1NiIXVCJ9.(truncated).ktIOfzak2ekD7IrCa9-UiO4QA
 {{< /terminal >}}
 
 Or instead, you can send the token **inside a cookie** (see [`cookie_key`](/docs/authorization/jwt-validation/#jwt-validation-settings)).
 
-All tokens transmitted between users and Velonetics have to be signed using **JWS** to ensure they are legitimate and not forged by an attacker. JWS represents digitally signed content using JSON data structures that are base64url encoded using the format `header.payload.signature`.
+All tokens transmitted between users and Pucora have to be signed using **JWS** to ensure they are legitimate and not forged by an attacker. JWS represents digitally signed content using JSON data structures that are base64url encoded using the format `header.payload.signature`.
 
-Finally, Velonetics needs to retrieve the keys from the trusted authority (your Identity Provider) that let the system validate the signature. These keys transmit between Velonetics and the IdP using the **JWK** format, a JSON object representing a set of cryptographic keys. Objects will use one or another algorithm depending on the system and implementation in your IdP. **JWA** represents the set of algorithms you can use to sign your tokens.
+Finally, Pucora needs to retrieve the keys from the trusted authority (your Identity Provider) that let the system validate the signature. These keys transmit between Pucora and the IdP using the **JWK** format, a JSON object representing a set of cryptographic keys. Objects will use one or another algorithm depending on the system and implementation in your IdP. **JWA** represents the set of algorithms you can use to sign your tokens.
 
 The introduction above is very superficial; the recommended read is the RFC:
 
@@ -52,7 +52,7 @@ The introduction above is very superficial; the recommended read is the RFC:
 - **JWS** [Signature](https://tools.ietf.org/html/rfc7515)
 - **JWK** [Key transmission](https://tools.ietf.org/html/rfc7517)
 - **JWA** [Definition of cyphering and signing algorithms](https://tools.ietf.org/html/rfc7518)
-- **JWE** is not supported by Velonetics (Premise: Sensitive data should not be transmitted using tokens).
+- **JWE** is not supported by Pucora (Premise: Sensitive data should not be transmitted using tokens).
 
 {{< note title="New to JWT?" >}}
 If you are not familiar with JWT yet, read the "[Introduction to JSON Web Tokens](https://jwt.io/introduction/)"

@@ -4,13 +4,13 @@ date: 2018-07-20
 aliases: ["/docs/features/parameter-forwarding/"]
 title: Parameter Forwarding
 linktitle: Forwarding query strings and headers
-description: Learn how to forward and manipulate parameters effectively using Velonetics API Gateway, ensuring seamless communication between clients and microservices
+description: Learn how to forward and manipulate parameters effectively using Pucora API Gateway, ensuring seamless communication between clients and microservices
 weight: 30
 menu:
   community_current:
     parent: "040 Routing and Forwarding"
 ---
-Velonetics is an API Gateway with a **[zero-trust security policy](/docs/design/zero-trust/)**. You need to define what is allowed because Velonetics **does not forward** any unexpected [query string](#query-string-forwarding), [headers](#headers-forwarding), or [cookies](#cookies-forwarding). See below for instructions on how to set the forwarding rules.
+Pucora is an API Gateway with a **[zero-trust security policy](/docs/design/zero-trust/)**. You need to define what is allowed because Pucora **does not forward** any unexpected [query string](#query-string-forwarding), [headers](#headers-forwarding), or [cookies](#cookies-forwarding). See below for instructions on how to set the forwarding rules.
 
 ![Diagram about parameters don't passing to backend](/images/documentation/diagrams/parameter-forwarding-1.mmd.svg)
 
@@ -25,7 +25,7 @@ You can change the default behavior according to your needs and define which ele
 - The `input_headers` is **case-insensitive**, as per its RFC specification. It allows the passing of user headers in uppercase, lowercase, or mixed. Nevertheless, when the header is forwarded to the backend or used in other components, they receive it normalized in the **canonical format of the MIME header**, so users can mix capitalization and yet receive a consistent format.
 
 {{< note title="Canonical Headers" type="info" >}}
-While the `input_headers` declaration does not care about how you write the header (upper/lowercase), and Velonetics will access either way, when accessing or checking a header name through any components in Velonetics, you must write its canonical form regardless of what's being provided by the user.
+While the `input_headers` declaration does not care about how you write the header (upper/lowercase), and Pucora will access either way, when accessing or checking a header name through any components in Pucora, you must write its canonical form regardless of what's being provided by the user.
 
 The canonicalization **converts the first letter and any letter following a hyphen to uppercase**; the rest are converted to lowercase. For example, the canonical key for `accept-encoding`, `ACCEPT-ENCODING`, or `ACCept-enCODING` is `Accept-Encoding`. MIME header keys are assumed to be ASCII only. If the header contains a space or invalid header field bytes, it is returned without modifications.
 
@@ -66,7 +66,7 @@ Send the query strings `items` and `page` to the backend, as well as `User-Agent
 Read below for further details and examples.
 
 ## Query string forwarding
-The zero-trust policy implies that, for instance, if a Velonetics endpoint `/foo` receives the request `/foo?items=10&page=2`, all its declared backends are not going to see either `items` or `page`, **unless otherwise configured**.
+The zero-trust policy implies that, for instance, if a Pucora endpoint `/foo` receives the request `/foo?items=10&page=2`, all its declared backends are not going to see either `items` or `page`, **unless otherwise configured**.
 
 Add the **list** `input_query_strings` in your `endpoint` definition to enable the transition of query strings to your backend. For instance, let's forward `?items=10&page=2` to the backends now:
 
@@ -99,9 +99,9 @@ The `input_query_strings` list has the following behavior:
 - **Additional query strings not in the list** are removed from the final call
 - **Writing a single *star* element** (`"input_query_strings":["*"]`) instead of individual strings, forwards **everything** to the backend
 
-With this configuration, given a request like `http://velonetics:8080/v1/foo?items=10&page=2&evil=here`, the backend receives `items` and `page`, but `evil` is missing.
+With this configuration, given a request like `http://pucora:8080/v1/foo?items=10&page=2&evil=here`, the backend receives `items` and `page`, but `evil` is missing.
 
-Also, if a request like `http://velonetics:8080/v1/foo?items=10` does not include `page`, this parameter is simply missing in the backend request.
+Also, if a request like `http://pucora:8080/v1/foo?items=10` does not include `page`, this parameter is simply missing in the backend request.
 
 By definition, query string parameters are always optional, and the user can pass a subset of them, all or none. Suppose you want to enforce that the user provides a query string parameter. In that case, you must validate it with the [Common Expression Language](/docs/endpoints/common-expression-language-cel/) (faster) or with a [Lua script](/docs/endpoints/lua/) (slower).
 
@@ -120,7 +120,7 @@ While the default policy prevents sending unrecognized query string parameters, 
 **Enabling the wildcard pollutes your backends**, as any query string sent by end-users or malicious attackers gets through the gateway and impacts the backends behind. We recommend letting the gateway know which query strings are in the API contract and specify them in the list, even when it is long, and not use the wildcard. If you decide to go with the wildcard, ensure your backends can handle client abuse attempts.
 
 ### Mandatory query string parameters
-When your backend requires mandatory **query string** parameters and you want to make them **mandatory** in Velonetics, the only way to enforce this with the open source edition (without scripting) is using the `{variable}` placeholders in the endpoints definition. Mandatory means that the endpoint won't exist unless the parameter is passed. For instance:
+When your backend requires mandatory **query string** parameters and you want to make them **mandatory** in Pucora, the only way to enforce this with the open source edition (without scripting) is using the `{variable}` placeholders in the endpoints definition. Mandatory means that the endpoint won't exist unless the parameter is passed. For instance:
 
 ```json
 {
@@ -136,7 +136,7 @@ When your backend requires mandatory **query string** parameters and you want to
 
 The parameter is compulsory; if a value for `channel` is not provided, the server replies with a `404`.
 
-With the configuration above, a request to the Velonetics endpoint such as `http://velonetics/v3/iOS/foo?limit=10&evil=here` makes a call to the backend with only the `channel` query string:
+With the configuration above, a request to the Pucora endpoint such as `http://pucora/v3/iOS/foo?limit=10&evil=here` makes a call to the backend with only the `channel` query string:
 
     /foo?channel=iOS
 
@@ -160,13 +160,13 @@ Nevertheless, the `input_query_strings` could also be added in this configuratio
 }
 ```
 
-With `http://velonetics/v3/iOS/foo?limit=10&evil=here` the backend receives:
+With `http://pucora/v3/iOS/foo?limit=10&evil=here` the backend receives:
 
     /foo?limit=10
 
 No mandatory `channel` here! Because the optional parameter `limit` has been declared.
 
-On the other hand, `http://velonetics/v3/iOS/foo?evil=here` produces:
+On the other hand, `http://pucora/v3/iOS/foo?evil=here` produces:
 
     /foo?channel=iOS
 
@@ -175,12 +175,12 @@ No optional parameter has been passed, so the mandatory one is used.
 Read the [`/__debug/` endpoint](/docs/endpoints/debug-endpoint/) to understand how to test query string parameters.
 
 ## Headers forwarding
-Velonetics **does not send client headers to the backend** except for the `Content-Type` unless they are under the `input_headers` list. The headers sent by the client that you want to let pass to the backend must be written explicitly in the `input_headers`. See below how to forward [all client headers](/docs/endpoints/parameter-forwarding/#sending-all-client-headers-to-the-backends) (and why it is a bad idea).
+Pucora **does not send client headers to the backend** except for the `Content-Type` unless they are under the `input_headers` list. The headers sent by the client that you want to let pass to the backend must be written explicitly in the `input_headers`. See below how to forward [all client headers](/docs/endpoints/parameter-forwarding/#sending-all-client-headers-to-the-backends) (and why it is a bad idea).
 
-**A client request from a browser or a mobile client contains a lot of headers**, including cookies. Typical examples of the variety of headers clients send are `Host`, `Connection`, `Content-Type`, `Accept`, `Cache-Control`, `Cookie`... and a long etcetera. Remember that unless explicitly defined, Velonetics will only allow the `Content-Type`. This security policy will save you from a lot of trouble.
+**A client request from a browser or a mobile client contains a lot of headers**, including cookies. Typical examples of the variety of headers clients send are `Host`, `Connection`, `Content-Type`, `Accept`, `Cache-Control`, `Cookie`... and a long etcetera. Remember that unless explicitly defined, Pucora will only allow the `Content-Type`. This security policy will save you from a lot of trouble.
 
-### Default headers sent from Velonetics to Backends
-Velonetics will act as an independent client connecting to your backends and sending headers to them. Some are customizable, and others aren't.
+### Default headers sent from Pucora to Backends
+Pucora will act as an independent client connecting to your backends and sending headers to them. Some are customizable, and others aren't.
 
 #### Non-customizable headers
 You cannot override the values of these headers (unless you have a plugin or a Lua script):
@@ -193,17 +193,17 @@ You cannot override the values of these headers (unless you have a plugin or a L
 The `X-Forwarded`-like headers are controlled by [`forwarded_by_client_ip`](/docs/service-settings/router-options/#forwarded_by_client_ip). All these headers **are always sent, regardless of whether you define them or not** under `input_headers`. You can override their values.
 
 #### Customizable headers
-The following headers are sent to the backends with default values, but if you add them under `input_headers`, you allow the client to send their own values. If the headers are under `input_headers`, but the client does not send them, Velonetics sets its values. The headers are:
+The following headers are sent to the backends with default values, but if you add them under `input_headers`, you allow the client to send their own values. If the headers are under `input_headers`, but the client does not send them, Pucora sets its values. The headers are:
 
 - `Content-Type`, the one passed in the request (if passed)
-- `Accept-Encoding`, set by Velonetics to `gzip`, unless you add it to the `input_headers`
-- `User-Agent` Contains the value `Velonetics Version {{< product latest_version >}}`, unless you add it to the `input_headers`
+- `Accept-Encoding`, set by Pucora to `gzip`, unless you add it to the `input_headers`
+- `User-Agent` Contains the value `Pucora Version {{< product latest_version >}}`, unless you add it to the `input_headers`
 
-Needless to say that you can add any other header that is not listed in this page under `input_headers` and Velonetics will forward it to the backend.
+Needless to say that you can add any other header that is not listed in this page under `input_headers` and Pucora will forward it to the backend.
 
-In addition, there are a few Velonetics components that support **setting attributes in headers**, like for instance [`propagate_claims` in JWT](/docs/authorization/jwt-validation/#propagate_claims). These components will send the additional headers you configure to the backend automatically.
+In addition, there are a few Pucora components that support **setting attributes in headers**, like for instance [`propagate_claims` in JWT](/docs/authorization/jwt-validation/#propagate_claims). These components will send the additional headers you configure to the backend automatically.
 
-### Overriding headers sent from Velonetics to Backends
+### Overriding headers sent from Pucora to Backends
 When you use the `input_headers`, consider that any headers listed above are replaced with the ones you declare.
 
 An example of passing the `User-Agent` to the backend:
@@ -239,7 +239,7 @@ User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (
 X-Forwarded-For: ::1
 ```
 
-The `User-Agent` is no longer a Velonetics user agent but a Mozilla one.
+The `User-Agent` is no longer a Pucora user agent but a Mozilla one.
 
 Read the [`/__debug/` endpoint](/docs/endpoints/debug-endpoint/) to understand how to test headers.
 
@@ -258,7 +258,7 @@ While the default policy prevents forwarding unrecognized headers, setting an as
 Enabling the wildcard **pollutes your backends**, as any header sent by end-users or malicious attackers gets through the gateway and impacts the backends behind (a famous exploit is the Log4J vulnerability). Let the gateway know which headers are in the API contract and specify them in the list. Even when the list is long, try not to use the wildcard. If the decision is to go with the wildcard, make sure your backends can handle client abuse attempts, and do not discard adding a second `input_headers` list in the backend (not all backends in aggregation might need every header).
 
 {{< note title="Exception for X-Forwarded-like headers" type="warning" >}}
-Even though you allow to pass all headers with `"input_headers": ["*"]`, you cannot override the headers `X-Forwarded-For`, `X-Forwarded-Host`, and `X-Forwarded-Via` which are automatically calculated by Velonetics.
+Even though you allow to pass all headers with `"input_headers": ["*"]`, you cannot override the headers `X-Forwarded-For`, `X-Forwarded-Host`, and `X-Forwarded-Via` which are automatically calculated by Pucora.
 
 If you'd like to take those headers into account, use the flag [`forwarded_by_client_ip` under the router section](/docs/service-settings/router-options/#forwarded_by_client_ip)
 {{< /note >}}

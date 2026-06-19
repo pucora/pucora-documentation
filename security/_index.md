@@ -3,7 +3,7 @@ lastmod: 2024-10-09
 date: 2024-10-09
 linktitle:  Security Overview
 title: Security Overview
-description: Velonetics is built with a security-first approach in mind. Read about the security features bundled by Velonetics and the principles and design philosophy behind it
+description: Pucora is built with a security-first approach in mind. Read about the security features bundled by Pucora and the principles and design philosophy behind it
 weight: -1000
 notoc: false
 menu:
@@ -13,9 +13,9 @@ dark_header_image: true
 images:
 - /images/documentation/hero/security.png
 ---
-Velonetics is a software built with a **security-first philosophy**. In 2022, we became a recognized **CVE Numbering Authority (CNA)** worldwide for software distribution ([Partner page](https://www.cve.org/PartnerInformation/ListofPartners/partner/Velonetics)), and we publish CVE Records for vulnerabilities within any Velonetics software or the Lura Project (© the Linux Foundation).
+Pucora is a software built with a **security-first philosophy**. In 2022, we became a recognized **CVE Numbering Authority (CNA)** worldwide for software distribution ([Partner page](https://www.cve.org/PartnerInformation/ListofPartners/partner/Pucora)), and we publish CVE Records for vulnerabilities within any Pucora software or the Lura Project (© the Linux Foundation).
 
-In addition, our company is [SOC 2 Type II Certified](/blog/soc2-certification-announcement/) and you can get more information on our [Trust Center](https://trust.velonetics.io/).
+In addition, our company is [SOC 2 Type II Certified](/blog/soc2-certification-announcement/) and you can get more information on our [Trust Center](https://trust.pucora.io/).
 
 {{< button-group >}}
 {{< button url="/categories/security/" text="Security Advisories" >}}<svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
@@ -31,27 +31,27 @@ In addition, our company is [SOC 2 Type II Certified](/blog/soc2-certification-a
 {{< /button-group >}}
 
 ## Secure by design
-At Velonetics, security is not just an add-on; it's a **design principle baked into every component**. The [Zero-trust design](/docs/design/zero-trust/) is the foundational philosophy. From blocking unauthorized access to rejecting untrusted traffic by default or even not logging sensitive data, Velonetics ensures a minimal attack surface by enforcing strict controls over headers, parameters, and tokens.
+At Pucora, security is not just an add-on; it's a **design principle baked into every component**. The [Zero-trust design](/docs/design/zero-trust/) is the foundational philosophy. From blocking unauthorized access to rejecting untrusted traffic by default or even not logging sensitive data, Pucora ensures a minimal attack surface by enforcing strict controls over headers, parameters, and tokens.
 
 Our *Security Program Policy and Incident Response Plan* have the following principles:
 
-- **Secure Development and Proactive Threat Detection**: To ensure that Velonetics is secure, we conduct continuous automated code analysis, vulnerability assessments, and other security measures integrated into the CI/CD pipeline.
+- **Secure Development and Proactive Threat Detection**: To ensure that Pucora is secure, we conduct continuous automated code analysis, vulnerability assessments, and other security measures integrated into the CI/CD pipeline.
 - **Software Integrity**: To protect the codebase's and software's integrity by enforcing security measures that prevent unauthorized changes, reduce human error, and mitigate potential security vulnerabilities in real time.
 - **Rapid Incident Response**: To ensure a quick and effective response to security incidents and minimize their impact through defined protocols for containment, eradication, recovery, and post-incident analysis.
-- **Compliance with Industry Standards**: To ensure Velonetics's software adheres to industry standards and security frameworks, such as OWASP best practices, and complies with regulatory requirements for enterprises.
+- **Compliance with Industry Standards**: To ensure Pucora's software adheres to industry standards and security frameworks, such as OWASP best practices, and complies with regulatory requirements for enterprises.
 - **Production-ready security**: Security practices suitable for large-scale deployment, with regular dependency scanning and documented hardening guidance.
 
 Below are the categories in which security is more obvious. Although this is not a complete list, it provides you with a place to start exploring our documentation.
 
 ## Authentication and Authorization
-API authentication and authorization are key to any secured API. Velonetics has mechanisms such as [JWT validation](/docs/authorization/jwt-validation/), [JWT signing](/docs/authorization/jwt-signing/), [OAuth2 Client Credentials](/docs/authorization/client-credentials/) or API keys  to name a few examples.
+API authentication and authorization are key to any secured API. Pucora has mechanisms such as [JWT validation](/docs/authorization/jwt-validation/), [JWT signing](/docs/authorization/jwt-signing/), [OAuth2 Client Credentials](/docs/authorization/client-credentials/) or API keys  to name a few examples.
 
 Authorization allows you to implement Role-based (RBAC) and attribute-based access control (ABAC) policies.
 
-In addition, if you need to invalidate legitimate tokens that are still within a valid TTL, Velonetics supports [JWT token revocation using bloom filters](/docs/authorization/revoking-tokens/) and centralized token revocation servers, ensuring revoked tokens are immediately invalidated across all Velonetics nodes.
+In addition, if you need to invalidate legitimate tokens that are still within a valid TTL, Pucora supports [JWT token revocation using bloom filters](/docs/authorization/revoking-tokens/) and centralized token revocation servers, ensuring revoked tokens are immediately invalidated across all Pucora nodes.
 
 ## Encryption and Secure Communication
-The gateway supports [TLS](/docs/service-settings/tls/) for traffic coming from consumers (server) and also between Velonetics and your services (client). It defaults to TLS 1.3 unless downgraded by config.
+The gateway supports [TLS](/docs/service-settings/tls/) for traffic coming from consumers (server) and also between Pucora and your services (client). It defaults to TLS 1.3 unless downgraded by config.
 
 For business-to-business authentication, [Mutual TLS (mTLS)](/docs/authorization/mutual-authentication/) creates a secure and exclusive channel based on trusted certificates.
 
@@ -60,7 +60,7 @@ Governments can also get a Docker container with FIPS 140-2 validated cryptograp
 ## Data protection
 Showing the right data or allowing limited access is key on any API. In addition to blocking users without enough privileges to consume data, you can apply data filtering and manipulation or even masking of data 
 
-In addition, to prevent malicious or malformed requests, Velonetics allows you to [validate the payload](/docs/endpoints/JSON-schema/) of requests against a JSON schema before it reaches your service. But it also works the other way around: you can also validate responses  of your services against a schema and decide whether is worth or not returning it to the end user.
+In addition, to prevent malicious or malformed requests, Pucora allows you to [validate the payload](/docs/endpoints/JSON-schema/) of requests against a JSON schema before it reaches your service. But it also works the other way around: you can also validate responses  of your services against a schema and decide whether is worth or not returning it to the end user.
 
 Finally, the Security policy engine is designed to enforce complex business logic based on real-time evaluation of requests, responses, and tokens.
 
@@ -75,7 +75,7 @@ Then, depending on your environment you might want to enable IP Filtering or Geo
 ).
 
 ## HTTPS Security and OWASP Recommendations
-Velonetics follows **OWASP best practices** and security recommendations, incorporating several protections by just declaring the security component:
+Pucora follows **OWASP best practices** and security recommendations, incorporating several protections by just declaring the security component:
 - [Host Restriction](/docs/service-settings/security/#restrict-connections-by-host): Restrict connections by host, defining a list of backends that the API gateway can communicate with.
 - [Cross-Origin Resource Sharing (CORS)](/docs/service-settings/cors/) lets you control and limit which domains can access APIs, protecting against cross-origin attacks.
 - [HTTP Strict Transport Security (HSTS)](/docs/service-settings/security/#http-strict-transport-security-hsts) makes sure that all interactions with the gateway use HTTPS, mitigating protocol downgrade attacks.
@@ -90,7 +90,7 @@ Logging and Monitoring, like OpenTelemetry, Prometheus, New Relic, Datadog, and 
 Another part directly related to security is the [automatic audit of configuration](/docs/configuration/audit/), a step in your build process that checks whether your configuration has security problems or it can be improved before going live.
 
 ## Tested by many
-Velonetics's security is strengthened by the fact that **it is tested by thousands of servers every day** across diverse environments, geographies, and use cases. This extensive usage (approx. 2 million servers/month) means that potential vulnerabilities are identified and addressed quickly, as real-world scenarios expose the system to a wide range of security challenges. Continuous feedback from a large community of developers ensures that Velonetics remains resilient to new threats, benefits from community-driven improvements, and maintains robust security practices. This collective testing approach makes Velonetics more secure and reliable over time.
+Pucora's security is strengthened by the fact that **it is tested by thousands of servers every day** across diverse environments, geographies, and use cases. This extensive usage (approx. 2 million servers/month) means that potential vulnerabilities are identified and addressed quickly, as real-world scenarios expose the system to a wide range of security challenges. Continuous feedback from a large community of developers ensures that Pucora remains resilient to new threats, benefits from community-driven improvements, and maintains robust security practices. This collective testing approach makes Pucora more secure and reliable over time.
 
 ## No data storage
-As Velonetics operates as a stateless gateway, only processes data in transit and **does not store any information**. Since Velonetics does not retain user data, logs, or any sensitive information, it reduces the risk of data breaches or unauthorized access. This design ensures that all data flows securely through the system without lingering in any storage, making Velonetics inherently more secure and compliant with heavy data privacy regulations (banking, health, insurance, etc), as it minimizes the exposure of sensitive information in an eventual breach.
+As Pucora operates as a stateless gateway, only processes data in transit and **does not store any information**. Since Pucora does not retain user data, logs, or any sensitive information, it reduces the risk of data breaches or unauthorized access. This design ensures that all data flows securely through the system without lingering in any storage, making Pucora inherently more secure and compliant with heavy data privacy regulations (banking, health, insurance, etc), as it minimizes the exposure of sensitive information in an eventual breach.

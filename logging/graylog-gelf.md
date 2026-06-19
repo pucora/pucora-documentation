@@ -4,7 +4,7 @@ date: 2019-09-15
 notoc: true
 linktitle: Logging to Graylog - GELF
 title: Graylog GELF Logging Integration
-description: Integrate Graylog GELF logging with Velonetics API Gateway for centralized log management and analysis of API logs
+description: Integrate Graylog GELF logging with Pucora API Gateway for centralized log management and analysis of API logs
 weight: 320
 aliases: ["/docs/logging-metrics-tracing/graylog-gelf/"]
 menu:
@@ -12,7 +12,7 @@ menu:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
   since: v0.7
-  source: https://github.com/velonetics/velonetics-gelf
+  source: https://github.com/pucora/velonetics-gelf
   namespace:
   - telemetry/gelf
   scope:
@@ -20,7 +20,7 @@ meta:
 log_prefix:
   - "[SERVICE: Logging][GELF]"
 ---
-Velonetics supports sending structured events in GELF format to your Graylog Cluster thanks to the [velonetics-gelf](https://github.com/velonetics/velonetics-gelf) integration.
+Pucora supports sending structured events in GELF format to your Graylog Cluster thanks to the [velonetics-gelf](https://github.com/pucora/velonetics-gelf) integration.
 
 The setup of GELF is straightforward and requires to add **two components** in the configuration:
 
@@ -38,7 +38,7 @@ The configuration you need to add is this, and explained below:
       },
       "telemetry/logging": {
           "level": "INFO",
-          "prefix": "[VELONETICS]",
+          "prefix": "[PUCORA]",
           "syslog": false,
           "stdout": false
       }

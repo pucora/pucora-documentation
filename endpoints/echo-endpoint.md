@@ -3,25 +3,25 @@ lastmod: 2023-03-21
 date: 2018-11-27
 linktitle: Echo endpoint
 title: Echo Endpoint Configuration
-description: Learn how to configure the Echo endpoint in Velonetics. A straightforward way to test your API Gateway setup containing the details of a request.
+description: Learn how to configure the Echo endpoint in Pucora. A straightforward way to test your API Gateway setup containing the details of a request.
 menu:
   community_current:
     parent: "170 API Documentation and Dev Tools"
 weight: 30
 notoc: true
 ---
-The `/__echo/` endpoint is a developer tool to help you debug configurations. It works similarly to the [`/__debug/` endpoint](/docs/endpoints/debug-endpoint/), but instead of printing the requests in the log and returning a `{"message": "pong"}`, they are printed in the response. It replies with an object containing all the request details, and you can use it as an endpoint or backend. As Velonetics has a [zero-trust](/docs/design/zero-trust/) approach, you will find out the exact information that passes through in this endpoint.
+The `/__echo/` endpoint is a developer tool to help you debug configurations. It works similarly to the [`/__debug/` endpoint](/docs/endpoints/debug-endpoint/), but instead of printing the requests in the log and returning a `{"message": "pong"}`, they are printed in the response. It replies with an object containing all the request details, and you can use it as an endpoint or backend. As Pucora has a [zero-trust](/docs/design/zero-trust/) approach, you will find out the exact information that passes through in this endpoint.
 
 {{< note title="Ends in slash!" type="info" >}}
 Notice that the `/__echo/` endpoint has two slashes in its definition.
 {{< /note >}}
 
 ## Configuration
-To enable the `/__echo/` endpoint, you should add in the configuration (service level) the flag `echo_endpoint`, and then use it directly by calling `http://velonetics:8080/__echo/` or by adding it as a `backend` in any endpoint.
+To enable the `/__echo/` endpoint, you should add in the configuration (service level) the flag `echo_endpoint`, and then use it directly by calling `http://pucora:8080/__echo/` or by adding it as a `backend` in any endpoint.
 
-{{< schema data="velonetics.json" filter="echo_endpoint" title="Echo endpoint">}}
+{{< schema data="pucora.json" filter="echo_endpoint" title="Echo endpoint">}}
 
-When used as a backend, you have a **fake backend** that is very useful for seeing the interaction between the gateway and the backends and testing all sorts of Velonetics components.
+When used as a backend, you have a **fake backend** that is very useful for seeing the interaction between the gateway and the backends and testing all sorts of Pucora components.
 
 ### Response fields
 Given a request following the format `[scheme:][//[userinfo@]host][/]path[?query][#fragment]`, the `/__echo/` endpoint will answer with the following structure:
@@ -31,7 +31,7 @@ Given a request following the format `[scheme:][//[userinfo@]host][/]path[?query
   "req_uri": "/__echo/foo/bar/vaz?q=foo#fragment",
   "req_uri_details": {
     "user": "userinfo",
-    "host": "velonetics:8080",
+    "host": "pucora:8080",
     "path": "/__echo/foo/bar/vaz",
     "query": "?q=foo",
     "fragment": "fragment"
@@ -50,9 +50,9 @@ Given a request following the format `[scheme:][//[userinfo@]host][/]path[?query
 ```
 
 ## Echo endpoint example
-The most beneficial case is when you add Velonetics itself as another backend using the `/__echo/` endpoint. Then, you can see exactly what headers and query string parameters your backends receive in the responses.
+The most beneficial case is when you add Pucora itself as another backend using the `/__echo/` endpoint. Then, you can see exactly what headers and query string parameters your backends receive in the responses.
 
-To test it, save the content of this file in a `velonetics.json` and start the server:
+To test it, save the content of this file in a `pucora.json` and start the server:
 
 ```json
 {
@@ -79,6 +79,6 @@ To test it, save the content of this file in a `velonetics.json` and start the s
 curl -i -H'Test: foo' 'http://localhost:8080/test/one?a=1&b=2&c=3'
 {{< /terminal >}}
 
-In the response, you will see that `a`, `b`, and `c` do not appear, neither the sent headers. The `curl` command automatically sends the `Accept` and `User-Agent` headers, but they are not in the backend call either. Instead, you see the Velonetics User-Agent as set by the gateway.
+In the response, you will see that `a`, `b`, and `c` do not appear, neither the sent headers. The `curl` command automatically sends the `Accept` and `User-Agent` headers, but they are not in the backend call either. Instead, you see the Pucora User-Agent as set by the gateway.
 
 Play now with the [parameter forwarding](/docs/endpoints/parameter-forwarding/), such as the `input_headers` and `input_query_strings`, and repeat the test.

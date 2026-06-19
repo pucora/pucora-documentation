@@ -9,9 +9,9 @@ menu:
   community_current:
     parent: "160 Monitoring, Logs, and Analytics"
 ---
-The health endpoint (or the **ping endpoint**) allows you to query Velonetics to find out if it is ready to accept connections or not.
+The health endpoint (or the **ping endpoint**) allows you to query Pucora to find out if it is ready to accept connections or not.
 
-When Velonetics is up and running correctly, it exposes a `/__health` endpoint returning a `200` HTTP status code. It works automatically and without adding any specific configuration block. Nevertheless you can do customizations to it.
+When Pucora is up and running correctly, it exposes a `/__health` endpoint returning a `200` HTTP status code. It works automatically and without adding any specific configuration block. Nevertheless you can do customizations to it.
 
 ## Health check response
 When you query the `/__health` endpoint, you should expect a `200` response code **or no response at all**. There are no other status codes that you can receive from the health, as it reflects a binary answer: it's working, or it's not. So make sure to check for a `200` when you monitor the health of the service.
@@ -32,7 +32,7 @@ curl http://localhost:8080/__health
 There are three keys inside the response:
 
 - `status` with an `ok` value simply tells you that the API is processing HTTP requests correctly. There is no other possible state if the server is up.
-- `agents` is a map of all [Async Agents](/docs/async/) you have running on Velonetics. The map will be empty if you don't use them. When agents are running, the value shows the time of the last working ping.
+- `agents` is a map of all [Async Agents](/docs/async/) you have running on Pucora. The map will be empty if you don't use them. When agents are running, the value shows the time of the last working ping.
 - `now` is the current time in the server.
 
 ## Customizing the health endpoint
@@ -83,7 +83,7 @@ You might want to disable the `/__health` endpoint, rename it, or disable its ac
 If you'd like to have a health endpoint with a custom response, the simplest solution is to use [stub data](/docs/endpoints/static-proxy/) to alter the existing response.
 
 {{< note title="Avoid adding dependencies in your health check" >}}
-When setting custom health checks, try not to use external backends connected to databases to determine if Velonetics has to be reloaded or not.
+When setting custom health checks, try not to use external backends connected to databases to determine if Pucora has to be reloaded or not.
 {{< /note >}}
 
 A custom health configuration could look like this:
@@ -119,7 +119,7 @@ A custom health configuration could look like this:
     }
 ```
 
-In this configuration, Velonetics connects to itself, but instead of returning the content of the internal health endpoint, it sets the `data` defined in the static structure. Notice that the listening `port` in the configuration and the `host` match your deployed Velonetics.
+In this configuration, Pucora connects to itself, but instead of returning the content of the internal health endpoint, it sets the `data` defined in the static structure. Notice that the listening `port` in the configuration and the `host` match your deployed Pucora.
 
 The response content of this custom `/health` endpoint is:
 

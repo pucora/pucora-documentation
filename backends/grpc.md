@@ -10,14 +10,14 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/velonetics/velonetics-grpc
+  source: https://github.com/pucora/velonetics-grpc
   namespace:
   - backend/grpc
   scope:
   - backend
 ---
 
-The **gRPC client** backend lets REST clients call upstream gRPC services. Velonetics maps HTTP query parameters, headers, and body fields to protobuf messages using the service catalog.
+The **gRPC client** backend lets REST clients call upstream gRPC services. Pucora maps HTTP query parameters, headers, and body fields to protobuf messages using the service catalog.
 
 Requires a service-level `grpc.catalog` — see [Introduction to gRPC](/docs/grpc/).
 

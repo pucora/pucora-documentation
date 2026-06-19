@@ -3,7 +3,7 @@ lastmod: 2024-06-14
 date: 2016-07-01
 linktitle: Endpoint Rate Limit
 title: Rate Limiting API Gateway Endpoints
-description: Implement rate-limiting strategies in Velonetics API Gateway to control the number of requests and prevent API abuse or overloading
+description: Implement rate-limiting strategies in Pucora API Gateway to control the number of requests and prevent API abuse or overloading
 weight: 950
 scope:
 - endpoint
@@ -12,14 +12,14 @@ menu:
     parent: "090 Traffic Management"
 meta:
   since: v0.4
-  source: https://github.com/velonetics/velonetics-ratelimit
+  source: https://github.com/pucora/velonetics-ratelimit
   namespace:
   - qos/ratelimit/router
   scope:
   - endpoint
 ---
 
-The router rate limit feature allows you to set the **maximum requests** a Velonetics endpoint (a route) will accept in a **given time window**. There are two different strategies to set limits that you can use separately or together:
+The router rate limit feature allows you to set the **maximum requests** a Pucora endpoint (a route) will accept in a **given time window**. There are two different strategies to set limits that you can use separately or together:
 
 - **Endpoint rate-limiting** (`max_rate`): applies simultaneously to all clients using the endpoint, sharing a unique counter.
 - **User rate-limiting** (`client_max_rate`): sets a counter to each individual user.
@@ -97,7 +97,7 @@ The endpoint rate limit acts on the number of simultaneous transactions an endpo
 
 It consumes low memory as it only needs one counter per endpoint.
 
-When the users connected to an endpoint together exceed the `max_rate`, Velonetics starts to reject connections with a status code `503 Service Unavailable` and enables a [Spike Arrest](/docs/throttling/spike-arrest/) policy.
+When the users connected to an endpoint together exceed the `max_rate`, Pucora starts to reject connections with a status code `503 Service Unavailable` and enables a [Spike Arrest](/docs/throttling/spike-arrest/) policy.
 
 Example:
 
@@ -120,12 +120,12 @@ Example:
 The client or user rate limit applies one counter to each individual user and endpoint. Each endpoint can have different limit rates, but all users are subject to the same rate.
 
 {{< note title="A note on performance" >}}
-Limiting endpoints per user makes Velonetics keep in-memory counters for the two dimensions: *endpoints x clients*.
+Limiting endpoints per user makes Pucora keep in-memory counters for the two dimensions: *endpoints x clients*.
 
 The `client_max_rate` is more resource-consuming than the `max_rate` as every incoming client needs individual tracking. Even though counters are space-efficient and very small in data, many endpoints with many concurrent users will lead to higher memory consumption.
 {{< /note >}}
 
-When a single user connected to an endpoint exceeds their `client_max_rate,` Velonetics starts rejecting connections with a status code `429 Too Many Requests` and enables a [Spike Arrest](/docs/throttling/spike-arrest/) policy.
+When a single user connected to an endpoint exceeds their `client_max_rate,` Pucora starts rejecting connections with a status code `429 Too Many Requests` and enables a [Spike Arrest](/docs/throttling/spike-arrest/) policy.
 
 Each client's counter is stored in memory only for the time needed to deliver the traffic restriction properly. The needed time is calculated automatically based on your configuration, and we call this time the **TTL**. A specific routine (or more) deletes outdated counters during runtime. See micro-optimizations below for more details.
 

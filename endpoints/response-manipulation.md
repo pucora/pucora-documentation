@@ -4,7 +4,7 @@ date: 2016-09-30
 toc: true
 linktitle: API Composition and aggregation
 title: API Composition and aggregation
-description: Explore the response manipulation capabilities in Velonetics API Gateway, allowing you to modify and enhance API responses for a better user experience
+description: Explore the response manipulation capabilities in Pucora API Gateway, allowing you to modify and enhance API responses for a better user experience
 weight: 10
 menu:
   community_current:
@@ -16,22 +16,22 @@ meta:
   noop_incompatible: true
 ---
 
-Velonetics allows you to perform several manipulations of the responses out of the box by adding them to the configuration file. You can also add your own or 3rd parties middleware to extend this behavior.
+Pucora allows you to perform several manipulations of the responses out of the box by adding them to the configuration file. You can also add your own or 3rd parties middleware to extend this behavior.
 
-Velonetics performance tests measure the operations in `nanoseconds`, and you can find the benchmark for every response manipulation in the [benchmarks section](https://github.com/luraproject/lura/blob/master/docs/BENCHMARKS.md#response-manipulation)
+Pucora performance tests measure the operations in `nanoseconds`, and you can find the benchmark for every response manipulation in the [benchmarks section](https://github.com/luraproject/lura/blob/master/docs/BENCHMARKS.md#response-manipulation)
 
 The following manipulations are available by default:
 
 ## Aggregation and merging
 When you have more than one `backend` connected to an `endpoint` that **is not** using the `no-op` encoding, the gateway **aggregates and merges** the responses from all backends automatically in the final response.
 
-For instance, imagine you have three different API services exposing the resources `/a`,`/b`, and `/c`, and you want to disclose them all together in the Velonetics endpoint `/abc`. This is what you would get:
+For instance, imagine you have three different API services exposing the resources `/a`,`/b`, and `/c`, and you want to disclose them all together in the Pucora endpoint `/abc`. This is what you would get:
 
 <img title="REST to Graphql" src="/images/documentation/velonetics-merge.png" class="dark-version-available">
 
 The merge operation chooses user experience and responsiveness first. It makes its *best effort* to get all the necessary parts from the involved backends and return the composed object as soon as possible.
 
-Velonetics marks the result of the merging operation with the `X-Velonetics-Completed` header, being `true` if all backends succeeded or `false` if some failed. When none succeeded, the gateway returns a `500` status code to the user.
+Pucora marks the result of the merging operation with the `X-Pucora-Completed` header, being `true` if all backends succeeded or `false` if some failed. When none succeeded, the gateway returns a `500` status code to the user.
 
 The configuration for the image above could be like this:
 
@@ -71,16 +71,16 @@ The configuration for the image above could be like this:
 ```
 
 ### Merging timeouts
-Keep in mind that to avoid any degraded user experience, Velonetics won't be stuck forever until all the backends decide to respond. In a gateway **failing fast is better than succeeding slowly**, and Velonetics will make sure this happens as it will **apply the timeout policy**. It will protect your users during high load peaks, network errors, or other problems that stress your backends.
+Keep in mind that to avoid any degraded user experience, Pucora won't be stuck forever until all the backends decide to respond. In a gateway **failing fast is better than succeeding slowly**, and Pucora will make sure this happens as it will **apply the timeout policy**. It will protect your users during high load peaks, network errors, or other problems that stress your backends.
 
 The `timeout` value can be introduced inside each endpoint or globally, placing `timeout` at the root of the configuration file. The most specific definition always overwrites the generic one.
 
 #### What happens when the timeout is triggered, or some backend fails?
-If Velonetics waits for the backends to respond and the timeout is reached, the response will be incomplete and missing any data it couldn't fetch before the timeout happened. On the other hand, all the parts that the gateway could effectively retrieve before the timeout occurred will appear in the response.
+If Pucora waits for the backends to respond and the timeout is reached, the response will be incomplete and missing any data it couldn't fetch before the timeout happened. On the other hand, all the parts that the gateway could effectively retrieve before the timeout occurred will appear in the response.
 
 If the response has missing parts, the cache header won't exist, as we don't want clients to cache incomplete responses.
 
-At all times, the `X-Velonetics-Completed` header contains a boolean telling you if all backends returned their content (`x-velonetics-completed: true`) or it's a partial response (`x-velonetics-completed: false`).
+At all times, the `X-Pucora-Completed` header contains a boolean telling you if all backends returned their content (`x-velonetics-completed: true`) or it's a partial response (`x-velonetics-completed: false`).
 
 ### Merge example
 
@@ -112,7 +112,7 @@ Imagine an endpoint with the following configuration:
 }
 ```
 
-When a user calls the endpoint `/users/1`, Velonetics will send two requests and, in the happy scenario, it will receive these responses:
+When a user calls the endpoint `/users/1`, Pucora will send two requests and, in the happy scenario, it will receive these responses:
 
 ```json
 {
@@ -151,7 +151,7 @@ and
 }
 ```
 
-With these 'partial responses' and the given configuration, Velonetics will return the following response:
+With these 'partial responses' and the given configuration, Pucora will return the following response:
 
 ```json
 {
@@ -195,7 +195,7 @@ There are two different strategies you can use to filter content:
 See [filtering documentation](/docs/backends/data-manipulation/#filtering)
 
 ## Grouping
-You can group (or encapsulate or wrap) your backend responses inside different objects. In other words, when you set a `group` attribute for a backend, instead of placing all the response attributes in the root of the response, Velonetics creates a new key and places the response inside.
+You can group (or encapsulate or wrap) your backend responses inside different objects. In other words, when you set a `group` attribute for a backend, instead of placing all the response attributes in the root of the response, Pucora creates a new key and places the response inside.
 
 Encapsulating backend responses inside each group is interesting when different backend responses can have colliding key names (e.g: all responses contain an `id` with different values).
 
@@ -205,7 +205,7 @@ See [grouping documentation](/docs/backends/data-manipulation/#grouping)
 
 ## Mapping (renaming)
 
-Velonetics can also manipulate the name of the fields of the generated responses, so your composing response would be as close to your use case as possible without changing a line on any backend.
+Pucora can also manipulate the name of the fields of the generated responses, so your composing response would be as close to your use case as possible without changing a line on any backend.
 
 In the `mapping` section, map the original field name with the desired name.
 
@@ -219,7 +219,7 @@ When setting a `target` in your backend, these generic containers (the target) d
 See [target documentation](/docs/backends/data-manipulation/#target)
 
 ## Collection -or Array- manipulation
-Velonetics expects all backends to return objects in the response. There are times when the whole response of the backend comes inside an array, and other times when you need to do operations over fields that are arrays themselves.
+Pucora expects all backends to return objects in the response. There are times when the whole response of the backend comes inside an array, and other times when you need to do operations over fields that are arrays themselves.
 
 In any case, manipulations over arrays work differently than the objects.
 

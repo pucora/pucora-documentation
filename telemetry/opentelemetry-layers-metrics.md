@@ -4,7 +4,7 @@ date: 2024-01-22
 notoc: false
 linktitle: OpenTelemetry - Layers and Metrics
 title: Understanding OpenTelemetry layers and metrics
-description: Learn about the metrics available when activating OpenTelemetry on Velonetics API Gateway, enabling real-time visibility and analysis of API performance
+description: Learn about the metrics available when activating OpenTelemetry on Pucora API Gateway, enabling real-time visibility and analysis of API performance
 weight: 21
 #images:
 #- /images/documentation/available-exporters.png
@@ -12,30 +12,30 @@ menu:
   community_current:
     parent: "160 Monitoring, Logs, and Analytics"
 ---
-You can add several `exporters` to your [OpenTelemetry configuration](/docs/telemetry/opentelemetry/#opentelemetry-configuration) (the more, the hungrier the gateway will be), and Velonetics will send data to all the declared exporters and layers by default.
+You can add several `exporters` to your [OpenTelemetry configuration](/docs/telemetry/opentelemetry/#opentelemetry-configuration) (the more, the hungrier the gateway will be), and Pucora will send data to all the declared exporters and layers by default.
 
 While `exporters` define **where** you will have the metrics, the `layers` define **which** metrics you want to have. The layers contain the traces and metrics for a subset of the execution flow. These are the layers you can use:
 
 ![Diagram showing global, proxy, and backend sequence](/images/documentation/diagrams/opentelemetry-layers.mmd.svg)
 
-- `global`: The global layer contains everything that Velonetics saw in and out. It includes the total timings for a request hitting the service until it is delivered to the client.
+- `global`: The global layer contains everything that Pucora saw in and out. It includes the total timings for a request hitting the service until it is delivered to the client.
 - `proxy`: The proxy layer starts acting after processing the HTTP request and comprehends the internal work of dealing with the endpoint, including spawning multiple requests to the backends, aggregating their results, and manipulating the final response.
-- `backend`: The backend layer monitors the activity of a single backend request and response with any additional components in its level. It contains mainly the timings between Velonetics and your service. It is the richest layer of all.
+- `backend`: The backend layer monitors the activity of a single backend request and response with any additional components in its level. It contains mainly the timings between Pucora and your service. It is the richest layer of all.
 
 **It is vital to see that `backend` is a subset of `proxy`, and `proxy` is a subset of `global`**. Do not generate metrics for the layers you will not use.
 
 {{< note title="CPU and memory consumption" type="warning" >}}
-As you will see below, the amount of telemetry data you can send for each request is massive. The more layers and details you add, the more resources Velonetics will consume and the more storage you will need to save metrics and traces. Choose carefully a balance between observability power and resource consumption to save money!
+As you will see below, the amount of telemetry data you can send for each request is massive. The more layers and details you add, the more resources Pucora will consume and the more storage you will need to save metrics and traces. Choose carefully a balance between observability power and resource consumption to save money!
 
 In production, **you should only enable a small sample rate of the traces** (e.g., 5%). The data generated in telemetry is usually more extensive than the responses of the services you expose.
 {{< /note >}}
 
-Once you configure the OpenTelemetry component, Velonetics will start reporting metrics when there is activity. The section below describes different metrics in each layer, briefly explaining their meaning.
+Once you configure the OpenTelemetry component, Pucora will start reporting metrics when there is activity. The section below describes different metrics in each layer, briefly explaining their meaning.
 
 **The presence of the metrics and the traces described below depend on the [OpenTelemetry configuration](/docs/telemetry/opentelemetry/#opentelemetry-configuration).**
 
 ## How to access telemetry data
-Once the OpenTelemetry configuration is in place, Velonetics will start to push metrics and traces as specified to the providers of your choice. The telemetry data is treated differently by each of the providers, and you might find slight differences depending on what you use. For instance, most OTEL integrations will use a dot in the metric name as a separator, while Prometheus will use an underscore instead.
+Once the OpenTelemetry configuration is in place, Pucora will start to push metrics and traces as specified to the providers of your choice. The telemetry data is treated differently by each of the providers, and you might find slight differences depending on what you use. For instance, most OTEL integrations will use a dot in the metric name as a separator, while Prometheus will use an underscore instead.
 
 In addition, for metrics that are an histogram, providers will add a suffix to the metric. For instance, on Prometheus you will find a metric documented as `http_server_duration` but in Prometheus **will add automatic suffixes** as follow:
 
@@ -55,9 +55,9 @@ Below you'll find all possible metrics and traces
 A common metric developers like to measure is the gateway's added latency and other similar metrics. In order to get coherent results you must take into account that:
 
 * Having more than one backend in a single endpoint will produce more than one record for the `http.client.duration` metric.
-* Requests handled by Velonetics might not reach backends.
+* Requests handled by Pucora might not reach backends.
 
-So, to find the time spent in Velonetics, subtract the **sum** of `http.client.duration` from the **sum** of `http.server.duration` **only for successful responses** (200 OK) on **endpoints with a single backend**, and divide by the number of received requests. This yields an average per-request added latency attributable to Velonetics.
+So, to find the time spent in Pucora, subtract the **sum** of `http.client.duration` from the **sum** of `http.server.duration` **only for successful responses** (200 OK) on **endpoints with a single backend**, and divide by the number of received requests. This yields an average per-request added latency attributable to Pucora.
 
 This is a restrictive scenario, so unless you want to continuously monitor that metric, you should enable traces (with sampling) and inspect a few requests to get a better idea of added latency per endpoint. Traces provide a tree view showing how much time is spent in each “stage” of the request and give more actionable insight than aggregated metrics alone.
 
@@ -67,7 +67,7 @@ Incoming requests are handled at the global layer first. There are many factors 
 
 In other words, **there is never a 1:1 relationship between the global and proxy layers**, because some requests will not pass through the global layer. Those requests are handled very quickly (under a millisecond), which will skew averages if mixed with normal proxy/backend timings.
 
-Another aspect to have into account is that Velonetics is not a simple proxy, so an endpoint might have more than one backend request.
+Another aspect to have into account is that Pucora is not a simple proxy, so an endpoint might have more than one backend request.
 
 The interpretation of metrics can also be misleading when an endpoint spawns multiple parallel backend requests. For example, if you have two backend requests and one takes `10 ms` and the other `100 ms`, the naive average of those two backend durations is `55 ms`, but the proxy layer will report a single duration that is higher than `100 ms` (because it waits for all backends and aggregates). That could lead you to incorrectly assume the proxy layer is adding more latency than it actually is.
 

@@ -4,7 +4,7 @@ date: 2019-04-05
 toc: true
 linktitle: Response manipulation on arrays
 title: Array manipulation
-description: Integrate the FlatMap backend into Velonetics API Gateway for array data transformation and mapping operations in your API ecosystem
+description: Integrate the FlatMap backend into Pucora API Gateway for array data transformation and mapping operations in your API ecosystem
 weight: 110
 menu:
   community_current:
@@ -12,7 +12,7 @@ menu:
 meta:
   noop_incompatible: true
   since: v0.9
-  source: https://github.com/velonetics/flatmap
+  source: https://github.com/pucora/flatmap
   namespace:
   - proxy
   scope:
@@ -28,7 +28,7 @@ While the [basic manipulation operations](/docs/backends/data-manipulation/) all
 
 {{< /note >}}
 
-When working with lists, Velonetics needs to flatten and expand array structures to objects to operate with them and vice versa. This process is automatically done by the flatmap component, letting you concentrate only on the type of operation you want to execute.
+When working with lists, Pucora needs to flatten and expand array structures to objects to operate with them and vice versa. This process is automatically done by the flatmap component, letting you concentrate only on the type of operation you want to execute.
 
 ## When to manipulate arrays
 You can manipulate collections at two different stages:
@@ -304,7 +304,7 @@ There is a sequence of three operations:
 - Rename all `title` attributes of `schools` to `name`.
 - Append all the `kindergarten` content to `schools`.
 
-For more examples, [see this test file](https://github.com/velonetics/flatmap/blob/master/tree/tree_example_test.go).
+For more examples, [see this test file](https://github.com/pucora/flatmap/blob/master/tree/tree_example_test.go).
 
 ## Mixing flatmap with other manipulation operations
 

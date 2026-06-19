@@ -13,7 +13,7 @@ menu:
     parent: "090 Traffic Management"
 meta:
   since: v1.0
-  source: https://github.com/velonetics/velonetics-botdetector
+  source: https://github.com/pucora/velonetics-botdetector
   namespace:
   - security/bot-detector
   scope:
@@ -28,13 +28,13 @@ The **bot detector** module checks incoming connections to the gateway to determ
 
 Bots are detected by inspecting the `User-Agent` and comparing its value with a set of configuration rules provided by you. The bot detector module **does not set any initial rules**, meaning that is up to you to decide the best rules for your use case, and choose how restrictive or permissive you are with bots.
 
-As the bot detector module is flexible in its configuration, you can use it for other purposes than just discarding bots. For instance, you could set an allow rule for your mobile application `User-Agent` which would be allowed to interact with Velonetics and discard the rest of the traffic.
+As the bot detector module is flexible in its configuration, you can use it for other purposes than just discarding bots. For instance, you could set an allow rule for your mobile application `User-Agent` which would be allowed to interact with Pucora and discard the rest of the traffic.
 
 Discarded traffic receives a `403 Forbidden` status code.
 
 ## Configuring bot rules
 
-The configuration rules of the bot detector have to be included inside the `extra_config`'s namespace `security/bot-detector` at the root level of your `velonetics.json` file, or inside an endpoint.
+The configuration rules of the bot detector have to be included inside the `extra_config`'s namespace `security/bot-detector` at the root level of your `pucora.json` file, or inside an endpoint.
 
 For instance:
 

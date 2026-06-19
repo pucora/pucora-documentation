@@ -3,7 +3,7 @@ lastmod: 2022-01-21
 date: 2022-01-21
 linktitle: Event-Driven Async Agents
 title: "Event-Driven API Gateway: Async Agents"
-description: Learn how to leverage asynchronous processing in Velonetics API Gateway to implement an event based pattern
+description: Learn how to leverage asynchronous processing in Pucora API Gateway to implement an event based pattern
 weight: 500
 aliases: ["/docs/async/agent/"]
 dark_header_image: true
@@ -26,7 +26,7 @@ As opposed to endpoints, async agents do not require users to request something 
 
 **An async agent can do everything an endpoint can do**. You can use plugins, apply transformations and manipulations, scripting, stub data, parallel or sequential calls to multiple backends, jsonschema, OAuth2 client credentials, rate limiting, circuit breaking, validations, lambda, and a long long etcetera.
 
-The obvious limitation is that you cannot use HTTP request functionality (e.g: CORS or JWT validation) as you don't have any user doing an HTTP request, but an automatic trigger from Velonetics when an event pops in.
+The obvious limitation is that you cannot use HTTP request functionality (e.g: CORS or JWT validation) as you don't have any user doing an HTTP request, but an automatic trigger from Pucora when an event pops in.
 
 ## When do you need Async Agents
 You are trying to implement an event based pattern, such as:
@@ -35,9 +35,9 @@ You are trying to implement an event based pattern, such as:
 - Event sourcing
 
 ## How Async agents work
-When Velonetics starts, it reads the `async_agent` list in the configuration and creates the declared agents. An agent is an application thread that can use one or multiple workers connecting to a queue or PubSub system (consumers). Velonetics contacts the defined backend(s) list passing the event data when a new message kicks in. You might decide to add manipulations, validations, filtering, or any other backend functionality supported by Velonetics.
+When Pucora starts, it reads the `async_agent` list in the configuration and creates the declared agents. An agent is an application thread that can use one or multiple workers connecting to a queue or PubSub system (consumers). Pucora contacts the defined backend(s) list passing the event data when a new message kicks in. You might decide to add manipulations, validations, filtering, or any other backend functionality supported by Pucora.
 
-The backend(s) receive the event from the agent as part of the body. Depending on the driver and configuration, when a backend fails to process the request, you can tell Velonetics to reinject the message (`Nack`) to retry the message later by any other worker. Notice that when working with Nack, if Velonetics is the only consumer and your backend fails to process the message continuously, Velonetics will reinsert the message into the queue over and over, and could lead to an infinite loop of messages if no consumer empties these messages. To avoid this, set `nack_discard` to `true`.
+The backend(s) receive the event from the agent as part of the body. Depending on the driver and configuration, when a backend fails to process the request, you can tell Pucora to reinject the message (`Nack`) to retry the message later by any other worker. Notice that when working with Nack, if Pucora is the only consumer and your backend fails to process the message continuously, Pucora will reinsert the message into the queue over and over, and could lead to an infinite loop of messages if no consumer empties these messages. To avoid this, set `nack_discard` to `true`.
 
 Notice that as it happens with the endpoints, the messages you consume can be sent in parallel or sequentially to multiple services.
 
@@ -73,7 +73,7 @@ The `async_agent` entry is **an array** with all the different agents you want t
             "extra_config": {
                 "async/amqp": {
                     "host": "amqp://guest:guest@localhost:5672/",
-                    "name": "velonetics",
+                    "name": "pucora",
                     "exchange": "foo",
                     "durable": true,
                     "delete": false,

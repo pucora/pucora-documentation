@@ -3,14 +3,14 @@ lastmod: 2022-10-21
 date: 2019-09-15
 linktitle:  Lua scripts
 title: Lua Scripting
-description: Explore the power of Lua scripting in Velonetics API Gateway, allowing you to customize and extend the behavior of your API gateway
+description: Explore the power of Lua scripting in Pucora API Gateway, allowing you to customize and extend the behavior of your API gateway
 weight: 200
 menu:
   community_current:
     parent: "180 Extending with custom code"
 meta:
   since: v1.0
-  source: https://github.com/velonetics/velonetics-lua
+  source: https://github.com/pucora/velonetics-lua
   namespace:
   - "modifier/lua-proxy"
   - "modifier/lua-endpoint"
@@ -27,10 +27,10 @@ meta:
 
 Scripting with Lua allows you to extend your business logic and make **transformations on requests and responses**. The Lua module is compatible with the rest of components such as [CEL](/docs/endpoints/common-expression-language-cel/), [Martian](/docs/backends/martian/), or other [Go plugins](/docs/extending/) and middlewares.
 
-The introduction of Lua scripts in your Gateway does not require recompiling Velonetics, but unlike Go, Lua scripts are interpreted in real-time. If you are new to Lua, see [Lua Documentation](https://www.lua.org/).
+The introduction of Lua scripts in your Gateway does not require recompiling Pucora, but unlike Go, Lua scripts are interpreted in real-time. If you are new to Lua, see [Lua Documentation](https://www.lua.org/).
 
 {{< note title="Lua vs Go Plugins" type="note" >}}
-A [Go plugin](/docs/extending/) delivers much more speed and power than a Lua script for performance-first seeking users, but requires a little bit more work as you need to compile your plugins and side-load them on Velonetics.
+A [Go plugin](/docs/extending/) delivers much more speed and power than a Lua script for performance-first seeking users, but requires a little bit more work as you need to compile your plugins and side-load them on Pucora.
 {{< /note >}}
 
 ## Configuration
@@ -50,7 +50,7 @@ The configuration options are:
             "sources": [
                 "file1.lua",
                 "./relative/path/file2.lua",
-                "/etc/velonetics/absolute/path.lua"
+                "/etc/pucora/absolute/path.lua"
             ],
             "md5": {
                 "file1.lua": "49ae50f58e35f4821ad4550e1a4d1de0"
@@ -74,11 +74,11 @@ When running Lua scripts, you can place them at the `proxy` level, or the `route
 
 These two places have the following considerations:
 
-- **Router** (at `endpoint`'s `extra_config` or service level): Communication between the end-user and Velonetics. You can inspect and modify the **request** of the user.
-  - With `"modifier/lua-endpoint"`you can modify the **HTTP request context** early in the transport layer. However, Velonetics has not converted the request into an internal request just yet.
-  - With `"modifier/lua-proxy"`you can modify the internal Velonetics request before reaching all backends in the endpoint and modify the response **AFTER the merge** of all backends.
-- **Proxy** (at `backend`'s `extra_config`): Communication between Velonetics and your services. For both the **request** and the **response**.
-  - With `"modifier/lua-backend"`you can modify the internal Velonetics request before reaching a particular backend and change its response **BEFORE is passed for the merge** of backends at the endpoint level.
+- **Router** (at `endpoint`'s `extra_config` or service level): Communication between the end-user and Pucora. You can inspect and modify the **request** of the user.
+  - With `"modifier/lua-endpoint"`you can modify the **HTTP request context** early in the transport layer. However, Pucora has not converted the request into an internal request just yet.
+  - With `"modifier/lua-proxy"`you can modify the internal Pucora request before reaching all backends in the endpoint and modify the response **AFTER the merge** of all backends.
+- **Proxy** (at `backend`'s `extra_config`): Communication between Pucora and your services. For both the **request** and the **response**.
+  - With `"modifier/lua-backend"`you can modify the internal Pucora request before reaching a particular backend and change its response **BEFORE is passed for the merge** of backends at the endpoint level.
 
 In a request/response execution, this is how the different namespaces for Lua placement work:
 
@@ -89,7 +89,7 @@ In a request/response execution, this is how the different namespaces for Lua pl
 You can use the following Lua functions to access and manipulate requests and responses in `"modifier/lua-proxy"` and `"modifier/lua-backend"` namespaces.
 
 ### Request functions (`request`)
-If you have a script that needs access to the request, use the `request` object in Lua. The request is set when Velonetics is about to do a call to the backend services.
+If you have a script that needs access to the request, use the `request` object in Lua. The request is set when Pucora is about to do a call to the backend services.
 
 {{< note title="Using client headers and querystrings" >}}
 When **client headers** or **query strings** are needed in a script, remember to add them under [`input_headers`](/docs/endpoints/parameter-forwarding/#headers-forwarding) or [`input_query_strings`](/docs/endpoints/parameter-forwarding/#query-string-forwarding) accordingly.
@@ -105,7 +105,7 @@ The `request` functions are:
 *   `query()` (_Dynamic_): Getter that retrieves the query string of the request, URL encoded. E.g.: `r:query()` could return a string `?foo=var&vaz=42`.
 *   `query(value)` (_Dynamic_): Setter that changes the query of the request. E.g.: `r:query('?foo=var&vaz=42')`. It does not have any effect when you use `modifier/lua-backend`, but you can still set the `url()` without query strings.
 *   `url()` (_Dynamic_): Getter that retrieves the full URL string of the request, including the host and path. E.g.: `r:url()` could return a string `http://domain.com/api/test`. The URL might be empty depending on the step where this information is requested, as the URL is a calculated field just before performing the request to the backend.
-*   `url(value)` (_Dynamic_): Setter that changes the URL of the request. E.g.: `r:url('http://domain.com/api/test')`. Changing the value before the `url` is calculated will result in Velonetics overwriting its value. Although available, it does not have any effect when you use it `modifier/lua-proxy`.
+*   `url(value)` (_Dynamic_): Setter that changes the URL of the request. E.g.: `r:url('http://domain.com/api/test')`. Changing the value before the `url` is calculated will result in Pucora overwriting its value. Although available, it does not have any effect when you use it `modifier/lua-proxy`.
 *   `params()` (_Dynamic_) : Getter returning a `luaTable` type with all the parameters defined in the endpoint. For instance `c:params():get('Foo')` when you have a `{foo}` in the endpoint. Notice that the parameters capitalize the first letter.
 *   `params(param)` (_Dynamic_): Getter that retrieves the `{params}` of the request as defined in the endpoint. E.g.: For an endpoint `/users/{user}` the function `r:params('User')` could return a string `alice`. **The parameters must have the first letter capitalized**.
 *   `params(param,value)` (_Dynamic_): Setter that changes the params of the request. It does not have any effect when you use `modifier/lua-backend`. E.g.: `r:params('User','bob')`. **The parameters must have the first letter capitalized**.
@@ -119,11 +119,11 @@ The `request` functions are:
 
 ### Response functions (`response`)
 
-Scripts that need to modify a request that Velonetics that just got from the backend service.
+Scripts that need to modify a request that Pucora that just got from the backend service.
 
 *   `load()` (_Static_): The constructor to view and manipulate responses. E.g.: `local r = response.load()`. **Notice that the rest of the functions rely on this one**.
 *   `isComplete()` (_Dynamic_): Getter that returns a boolean if the response from the backend (or a merge of backends) succeeded with a `20x` code, and completed successfully before the timeout. E.g.: `r:isComplete()` returns `true` or `false`.
-*   `isComplete(bool)` (_Dynamic_): Setter that allows you to mark a response as completed. It will change the internal `X-Velonetics-Complete: true` header. E.g.: `r:isComplete(true)` tells Velonetics everything went OK (even not true).
+*   `isComplete(bool)` (_Dynamic_): Setter that allows you to mark a response as completed. It will change the internal `X-Pucora-Complete: true` header. E.g.: `r:isComplete(true)` tells Pucora everything went OK (even not true).
 *   `statusCode()` (_Dynamic_): Getter that retrieves the response status code when you use `no-op` encoding. You will always get a `0` in the other cases. E.g.: `r:statusCode()` returns an integer `200`.
 *   `statusCode(integer)` (_Dynamic_): Setter that allows you to set a new status for the response. E.g.: `r:statusCode(301)`. It only works in `no-op` endpoints.
 *   `data()` (_Dynamic_): Getter that returns a Lua table with all the parsed data from the response. It only works if you don't use `no-op` encoding.
@@ -138,7 +138,7 @@ Scripts that need to modify a request that Velonetics that just got from the bac
 
 ## Functions for Router
 
-Use this type when you need to script the router layer, traffic between end-users, and Velonetics with the `"modifier/lua-endpoint"` namespace.
+Use this type when you need to script the router layer, traffic between end-users, and Pucora with the `"modifier/lua-endpoint"` namespace.
 
 ### Context functions (`ctx`)
 
@@ -148,7 +148,7 @@ Use this type when you need to script the router layer, traffic between end-user
 *   `query(key)` (_Dynamic_): Getter that retrieves the query string of the request, URL encoded. E.g.: `c:query('foo')` could return a string `var` for `?foo=var&vaz=42`.
 *   `query(key,value)` (_Dynamic_): Setter that changes the query of the request. E.g.: `c:query('foo','var')`.
 *   `url()` (_Dynamic_): Getter that retrieves the URL string of the request (path and parameters). E.g.: `c:url()` could return a string `/api/test?foo=bar`. The URL might be empty depending on the step where this information is requested, as the URL is a calculated field just before performing the request to the backend.
-*   `url(value)` (_Dynamic_): Setter that changes the url of the request. E.g.: `c:url('/api/test?foo=bar')`. Changing the value before the `url` is calculated will result in Velonetics overwriting its value.
+*   `url(value)` (_Dynamic_): Setter that changes the url of the request. E.g.: `c:url('/api/test?foo=bar')`. Changing the value before the `url` is calculated will result in Pucora overwriting its value.
 *   `params()` (_Dynamic_) : Getter returning a `luaTable` type with all the parameters defined in the endpoint. For instance `c:params():get('foo')` when you have a `{foo}` in the endpoint. Only available on EE v2.10, CE v2.11 will have it too.
 *   `params(param)` (_Dynamic_): Getter that retrieves the `{params}` of the request as defined in the endpoint. E.g.: For an endpoint `/users/{user}` the function `c:params('User')` could return a string `alice`. **The parameters must have the first letter capitalized**.
 *   `params(param,value)` (_Dynamic_): Setter that changes the params of the request. E.g.: `c:params('User','bob')`. **The parameters must have the first letter capitalized**.
@@ -163,7 +163,7 @@ Use this type when you need to script the router layer, traffic between end-user
 *   `host(value)` (_Dynamic_): Setter that changes the host header of the request. E.g.: `c:host('api.domain.com')`.
 
 ## Lua helpers
-Now you know where to put the Lua code according to what you want to do, and how to access and modify the requests and responses. In addition, the following helper functions are brought by Velonetics to extend the possibilities of your scripts without using third parties:
+Now you know where to put the Lua code according to what you want to do, and how to access and modify the requests and responses. In addition, the following helper functions are brought by Pucora to extend the possibilities of your scripts without using third parties:
 
 ### Nil helper
 The `nil` in Lua is destructive in tables, because it is used to **remove elements**. For instance, if you have a table with an index `foo`, and you set it to `nil`, the element from the table is destroyed. When you want to preserve this `foo` index but emptying it's value you must use the Go `nil` value instead.
@@ -290,7 +290,7 @@ The functions you can use for this helper are:
 *   `headers(header)` (_Dynamic_) : Getter for a specific header of the response. E.g.: `r:headers('Content-Type')` could return `application/json`
 *   `headerList(header)` (_Dynamic_): Getter that returns a `luaList` with the multiple values of a header. E.g.: `r:headerList("X-Added")`.
 *   `body()` (_Dynamic_): Getter for the full response body.
-*   `close()` (_Dynamic_): Closes the HTTP connection to free resources. Although it will be done automatically later by Velonetics, a better approach is to close the resource as soon as you don't need it anymore.
+*   `close()` (_Dynamic_): Closes the HTTP connection to free resources. Although it will be done automatically later by Pucora, a better approach is to close the resource as soon as you don't need it anymore.
 
 ```lua
 local url = 'http://api.domain.com/test'
@@ -355,7 +355,7 @@ The ending `(bad-code.lua:5)` tells you that this error was initiated at the scr
 ## Language limitations
 Because Lua runs sandboxed in a **virtual machine**, there is certain stuff you cannot do. When you include files, you should limit your logic to creating functions and referencing them in different places.
 
-In addition to that, the usage of modules would require Velonetics to push them in advance to the virtual machine, so user-created modules are not possible. **Package managers like LuaRocks are not supported** either, because they inject modules globally in the system, not in the virtual machine.
+In addition to that, the usage of modules would require Pucora to push them in advance to the virtual machine, so user-created modules are not possible. **Package managers like LuaRocks are not supported** either, because they inject modules globally in the system, not in the virtual machine.
 
 {{< note title="Modules not supported" type="error" >}}
 You **cannot create your modules** neither use `require` to import them.

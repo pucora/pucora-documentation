@@ -2,30 +2,30 @@
 lastmod: 2016-10-28
 date: 2016-10-28
 linktitle: On Amazon Web Services
-title: Benchmarking Velonetics API Gateway on AWS
-description: Explore the benchmarking results of Velonetics API Gateway running on Amazon Web Services (AWS), showcasing its performance and scalability
+title: Benchmarking Pucora API Gateway on AWS
+description: Explore the benchmarking results of Pucora API Gateway running on Amazon Web Services (AWS), showcasing its performance and scalability
 weight: 10
 menu:
   community_current:
     parent: "300 Benchmarks"
 ---
 
-The following numbers show the execution results for the Velonetics benchmarks on [Amazon EC2](https://aws.amazon.com/ec2/) machines.
+The following numbers show the execution results for the Pucora benchmarks on [Amazon EC2](https://aws.amazon.com/ec2/) machines.
 
 ## Benchmark Setup
 This set of benchmarks have been running on different AWS EC2 instances. Each individual test consists of spinning up 3 different machines, being:
 
-- **A web server**: A [LWAN](https://lwan.ws/) web server using an instance `c4.xlarge`. This is the "fake API" where Velonetics will take the data
+- **A web server**: A [LWAN](https://lwan.ws/) web server using an instance `c4.xlarge`. This is the "fake API" where Pucora will take the data
 - **The HTTP load generator**: The machine actually running the load test. Uses **[hey](https://github.com/rakyll/hey)**, and runs in a `t2.medium`.
-- **Velonetics**: Each different test uses a different instance type in Amazon:
+- **Pucora**: Each different test uses a different instance type in Amazon:
 
-The test consists in running `hey` against a Velonetics endpoint. The Velonetics endpoint uses as the backend an URL in (`LWAN`).
-After running the test, the `hey` output is [parsed and converted to CSV](https://github.com/velonetics/hey-to-csv) in order to generate the graphs.
+The test consists in running `hey` against a Pucora endpoint. The Pucora endpoint uses as the backend an URL in (`LWAN`).
+After running the test, the `hey` output is [parsed and converted to CSV](https://github.com/pucora/hey-to-csv) in order to generate the graphs.
 
 For each instance type there are 2 different tests:
 
-- **Proxy**: When the Velonetics is just used as a gateway and calls to a single endpoint to the web server (`/foo` endpoint in the configuration).
-- **Aggregate**: When the Velonetics calls to 3 different endpoints in the web server and aggregates the results (`/social` endpoint in the configuration).
+- **Proxy**: When the Pucora is just used as a gateway and calls to a single endpoint to the web server (`/foo` endpoint in the configuration).
+- **Aggregate**: When the Pucora calls to 3 different endpoints in the web server and aggregates the results (`/social` endpoint in the configuration).
 
 The instance types we tested are:
 
@@ -37,9 +37,9 @@ The instance types we tested are:
 | c4.xlarge | 4 | 7.5 GB|
 | c4.2xlarge | 8 | 15 GB|
 
-## Velonetics Configuration for all tests
+## Pucora Configuration for all tests
 
-The configuration for the load test was stored in the `velonetics.json` file, as follows:
+The configuration for the load test was stored in the `pucora.json` file, as follows:
 
     {
       "version": 1,
@@ -90,9 +90,9 @@ The configuration for the load test was stored in the `velonetics.json` file, as
 
 Notice that `Lwan` is the backend running at `lwan:8080`.
 
-And we started the Velonetics with this cmd (debug mode):
+And we started the Pucora with this cmd (debug mode):
 {{< terminal >}}
-velonetics run --config velonetics.json -d > /dev/null
+pucora run --config pucora.json -d > /dev/null
 {{< /terminal >}}
 
 ## Results

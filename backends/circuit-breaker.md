@@ -3,7 +3,7 @@ lastmod: 2024-11-27
 date: 2016-07-01
 linktitle: Circuit Breaker
 title: Circuit Breaker
-description: Implement the circuit breaker pattern in Velonetics API Gateway to enhance the resilience and stability of your API ecosystem
+description: Implement the circuit breaker pattern in Pucora API Gateway to enhance the resilience and stability of your API ecosystem
 weight: 930
 menu:
   community_current:
@@ -15,7 +15,7 @@ images:
 - /images/documentation/circuit-breaker-states.png
 meta:
   since: false
-  source: https://github.com/velonetics/velonetics-circuitbreaker
+  source: https://github.com/pucora/velonetics-circuitbreaker
   namespace:
   - qos/circuit-breaker
   scope:
@@ -25,7 +25,7 @@ meta:
 ---
 The **Circuit Breaker** is a straightforward **state machine** in the middle of the request and response that monitors all your backend failures. In the image above you can see a simplified version of its behavior. When backends fail to succeed for a number of consecutive times, the circuit breaker will prevent sending more traffic to a failing backend alleviating its pressure under challenging conditions.
 
-When Velonetics demands more throughput than your API stack can deliver properly, the Circuit Breaker mechanism will detect the failures and prevent stressing your servers by not sending requests that are likely to fail. It is also helpful for dealing with network and other communication problems by preventing too many requests from dying due to timeouts, etc.
+When Pucora demands more throughput than your API stack can deliver properly, the Circuit Breaker mechanism will detect the failures and prevent stressing your servers by not sending requests that are likely to fail. It is also helpful for dealing with network and other communication problems by preventing too many requests from dying due to timeouts, etc.
 
 It is important to remark that the number of maximum errors are **consecutive errors**, and **not the total** of errors in the period. This approach works better when your traffic is variable, as it's based on a **probabilistic pattern** and it's not affected by the volume of traffic you might have.
 

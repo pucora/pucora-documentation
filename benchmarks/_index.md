@@ -2,8 +2,8 @@
 lastmod: 2016-10-28
 date: 2016-10-28
 linktitle: Benchmarks Overview
-title: API Gateway Performance Benchmarks with Velonetics
-description: Explore the performance benchmarks conducted with Velonetics API Gateway to ensure optimal performance and scalability for your APIs.
+title: API Gateway Performance Benchmarks with Pucora
+description: Explore the performance benchmarks conducted with Pucora API Gateway to ensure optimal performance and scalability for your APIs.
 aliases: ["/docs/benchmarks/overview/"]
 weight: 1
 dark_header_image: true
@@ -13,8 +13,8 @@ menu:
   community_current:
     parent: "300 Benchmarks"
 ---
-## Velonetics, the **ultra performer** API Gateway
-An API Gateway is a component that needs to deliver really fast, as it is an added layer in the infrastructure. Velonetics
+## Pucora, the **ultra performer** API Gateway
+An API Gateway is a component that needs to deliver really fast, as it is an added layer in the infrastructure. Pucora
 was built with performance in mind. In this page and inner pages, you'll find several tests we did to measure the performance.
 We also invite you to do them for yourself!
 
@@ -95,4 +95,4 @@ Check the [varnish/api-gateway-benchmarks](https://github.com/varnish/api-gatewa
 
 ### Lwan
 
-[LWAN](https://lwan.ws/) is a high performance web server used to build the backends REST APIs for Velonetics to load the data during the benchmarks.
+[LWAN](https://lwan.ws/) is a high performance web server used to build the backends REST APIs for Pucora to load the data during the benchmarks.

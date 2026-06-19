@@ -4,7 +4,7 @@ date: 2019-09-15
 notoc: true
 linktitle: Prometheus
 title: Prometheus' metrics endpoint
-description: Learn how to integrate Prometheus telemetry with Velonetics API Gateway for efficient monitoring and performance analysis of your APIs
+description: Learn how to integrate Prometheus telemetry with Pucora API Gateway for efficient monitoring and performance analysis of your APIs
 weight: 30
 aliases: ["/docs/logging-metrics-tracing/prometheus/"]
 menu:
@@ -14,7 +14,7 @@ images:
   - /images/documentation/screenshots/grafana-prometheus-otel.png
 meta:
   since: v0.5
-  source: https://github.com/velonetics/velonetics-otel
+  source: https://github.com/pucora/velonetics-otel
   namespace:
   - telemetry/opentelemetry
   log_prefix:
@@ -22,16 +22,16 @@ meta:
   scope:
   - service
 ---
-[Prometheus](https://prometheus.io/) is an open-source system monitoring and alerting toolkit that you can use to scrape a `/metrics` endpoint on Velonetics in the selected port. For instance, you could have an endpoint like `http://localhost:9091/metrics`.
+[Prometheus](https://prometheus.io/) is an open-source system monitoring and alerting toolkit that you can use to scrape a `/metrics` endpoint on Pucora in the selected port. For instance, you could have an endpoint like `http://localhost:9091/metrics`.
 
 When using Prometheus with OpenTelemetry, you can use a [ready-to-use Grafana dashboard](/docs/telemetry/grafana/) to visualize metrics, as shown in the image above.
 
-The mechanics are simple: you add the `telemetry/opentelemetry` integration with a `prometheus` exporter, and then you add a Prometheus job to scrape from your Velonetics instances the metrics.
+The mechanics are simple: you add the `telemetry/opentelemetry` integration with a `prometheus` exporter, and then you add a Prometheus job to scrape from your Pucora instances the metrics.
 
-![Prometheus scrapping from Velonetics image](/images/documentation/diagrams/opentelemetry-prometheus.mmd.svg)
+![Prometheus scrapping from Pucora image](/images/documentation/diagrams/opentelemetry-prometheus.mmd.svg)
 
 ## Prometheus Configuration
-To enable scrapeable Prometheus metrics on Velonetics, add the [OpenTelemetry integration](/docs/telemetry/opentelemetry/) with a `prometheus` exporter. The following configuration is an example of how to do it:
+To enable scrapeable Prometheus metrics on Pucora, add the [OpenTelemetry integration](/docs/telemetry/opentelemetry/) with a `prometheus` exporter. The following configuration is an example of how to do it:
 
 ```json
 {
@@ -63,8 +63,8 @@ In addition, you can do a **granular configuration** of the metrics you want to 
 ### Demonstration setup
 The following configuration allows you to test a complete metrics experience, from generation and collection to visualization. The first code snippet is a `docker-compose.yaml` that declares three different services:
 
-- The `velonetics` service exposing port 8080
-- The `prometheus` service that will scrape the metrics from Velonetics
+- The `pucora` service exposing port 8080
+- The `prometheus` service that will scrape the metrics from Pucora
 - A `grafana` dashboard to display them (it uses our [Grafana dashboard](/docs/telemetry/grafana/))
 
 Notice that the three services declare volumes to pick the configuration.
@@ -72,12 +72,12 @@ Notice that the three services declare volumes to pick the configuration.
 ```yaml
 version: "3"
 services:
-  velonetics:
+  pucora:
     image: "{{< product image >}}:{{< product latest_version >}}"
     ports:
       - "8080:8080"
     volumes:
-      - "./velonetics:/etc/velonetics/"
+      - "./pucora:/etc/pucora/"
   prometheus:
     image: prom/prometheus:latest
     ports:
@@ -89,8 +89,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      GF_SECURITY_ADMIN_USER: velonetics
-      GF_SECURITY_ADMIN_PASSWORD: velonetics
+      GF_SECURITY_ADMIN_USER: pucora
+      GF_SECURITY_ADMIN_PASSWORD: pucora
       GF_AUT_ANONYMOUS_ENABLED: "true"
     volumes:
       - "./conf/provisioning/datasources:/etc/grafana/provisioning/datasources"
@@ -98,10 +98,10 @@ services:
       - "./conf/data/dashboards:/var/lib/grafana/dashboards"
 ```
 
-The following YAML configuration is a simple example of pulling data from the `/metrics` endpoint in Velonetics integration from three different instances:
+The following YAML configuration is a simple example of pulling data from the `/metrics` endpoint in Pucora integration from three different instances:
 
 {{< note title="Make sure ports are accessible" type="warning" >}}
-To let the scrapper access the metrics endpoint, make sure that the path and the port are the ones you configured, that the listen address allows you to access the data, and that if you use containers, the port is exposed in Velonetics. Also, remember that you cannot use `localhost` as a target because the Prometheus container does not run inside the Velonetics container; use the service name instead.
+To let the scrapper access the metrics endpoint, make sure that the path and the port are the ones you configured, that the listen address allows you to access the data, and that if you use containers, the port is exposed in Pucora. Also, remember that you cannot use `localhost` as a target because the Prometheus container does not run inside the Pucora container; use the service name instead.
 {{< /note >}}
 
 ```yaml
@@ -125,16 +125,16 @@ scrape_configs:
           app: kotel_example
 ```
 ## Visualizing metrics in a dashboard
-When the Prometheus configuration is added into Velonetics, and your Prometheus is scrapping it, you can visualize the data using our [Grafana dashboard](/docs/telemetry/grafana/) or make your own.
+When the Prometheus configuration is added into Pucora, and your Prometheus is scrapping it, you can visualize the data using our [Grafana dashboard](/docs/telemetry/grafana/) or make your own.
 
 {{< note title="Which layers do you need?" type="tip" >}}
 Our Grafana dashboard contains a lot of options, and **not all are enabled by default**. Because generating low-detail metrics is an expensive operation, some options in the `layers` are disabled by default. Enable the options that matter to you, knowing that the more detail you add, the more resources the gateway will need to run.
 {{< /note >}}
 
-![Screenshot of a grafana dashboard with Velonetics metrics](/images/documentation/screenshots/grafana-prometheus-otel.png)
+![Screenshot of a grafana dashboard with Pucora metrics](/images/documentation/screenshots/grafana-prometheus-otel.png)
 
 ## Migrating from an old OpenCensus configuration (legacy)
-Prior to Velonetics v2.6, you had to configure the Prometheus endpoint using the opencensus component. The OpenTelemetry integration is much more powerful and delivers more data while simultaneously giving you more configuration options.
+Prior to Pucora v2.6, you had to configure the Prometheus endpoint using the opencensus component. The OpenTelemetry integration is much more powerful and delivers more data while simultaneously giving you more configuration options.
 
 If you had an OpenCensus configuration with a `prometheus` exporter like the following:
 ```json
@@ -147,7 +147,7 @@ If you had an OpenCensus configuration with a `prometheus` exporter like the fol
         "exporters": {
           "prometheus": {
               "port": 9091,
-              "namespace": "velonetics",
+              "namespace": "pucora",
               "tag_host": false,
               "tag_path": true,
               "tag_method": true,

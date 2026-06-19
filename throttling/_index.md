@@ -4,7 +4,7 @@ aliases: ["/docs/throttling/"]
 date: 2016-07-01
 linktitle: Traffic Management Overview
 title: "Traffic Management Overview"
-description: Learn how Velonetics's traffic management features help optimize your API's performance, prevent abuse, and ensure a seamless user experience.
+description: Learn how Pucora's traffic management features help optimize your API's performance, prevent abuse, and ensure a seamless user experience.
 notoc: true
 weight: 910
 menu:
@@ -16,12 +16,12 @@ dark_header_image: true
 ---
 Traffic management refers to the practice of **monitoring, controlling, and optimizing the flow of requests** to and from an API. It aims to prevent abuse by limiting the volume of requests from individual clients or groups, regulate the flow of traffic, ensure fair usage, and provide predictable API performance.
 
-Velonetics offers several traffic management features, ranging from rate-limiting to advanced techniques like circuit breakers and bot detection. These features can be configured independently or combined for a holistic traffic management strategy.
+Pucora offers several traffic management features, ranging from rate-limiting to advanced techniques like circuit breakers and bot detection. These features can be configured independently or combined for a holistic traffic management strategy.
 
 You can **combine multiple traffic management features** to address complex use cases. You don't have to choose one or the other, but implement those that complete your needs
 
 ## Rate-Limiting
-Rate-limiting controls the number of requests users or systems can send. Velonetics allows you to throttle both the traffic of end-users and the traffic of Velonetics against your services. The rate limits mainly cover the following purposes:
+Rate-limiting controls the number of requests users or systems can send. Pucora allows you to throttle both the traffic of end-users and the traffic of Pucora against your services. The rate limits mainly cover the following purposes:
 
 - Avoid stressing or flooding your backend services with massive requests (proxy rate limit)
 - Establish a quota of usage for your exposed API (router rate limit)
@@ -31,7 +31,7 @@ Our approach to rate-limiting has many variants:
 
   - [Endpoint Rate Limiting](/docs/endpoints/rate-limit/): Sets the maximum throughput all connected users can have against specific endpoints (stateless).
   - [Client Rate Limiting](/docs/endpoints/rate-limit/): Sets the maximum throughput each end-user has to specific endpoints (stateless).
-  - [Proxy Rate Limiting](/docs/backends/rate-limit/): Sets the maximum throughput Velonetics can have between an endpoint and your backend services (stateless).
+  - [Proxy Rate Limiting](/docs/backends/rate-limit/): Sets the maximum throughput Pucora can have between an endpoint and your backend services (stateless).
 
 Rate-Limiting features implement the [Spike Arrest](/docs/throttling/spike-arrest/), a mechanism triggered after exhausting the burst capacity of the rate-limit, ensuring that a minimum time interval occurs between consecutive requests, helping prevent sudden traffic spikes that could destabilize the system.
 

@@ -10,14 +10,14 @@ menu:
     parent: "040 Routing and Forwarding"
 meta:
   since: v2.0
-  source: https://github.com/velonetics/lura
+  source: https://github.com/pucora/lura
   namespace: false
   scope:
   - endpoint
   - backend
 ---
 
-Velonetics supports transparent HTTP streaming and Server-Sent Events (SSE) using the **no-op proxy** model. The gateway forwards response chunks as they arrive without buffering or transforming the payload.
+Pucora supports transparent HTTP streaming and Server-Sent Events (SSE) using the **no-op proxy** model. The gateway forwards response chunks as they arrive without buffering or transforming the payload.
 
 No separate module or `extra_config` namespace is required — streaming is enabled through endpoint and backend encoding settings.
 
@@ -107,7 +107,7 @@ Three requirements:
 | `write_timeout` | Service | **Required `"0s"`** when streaming endpoints exist |
 | `response_header_timeout` | Service | Use `"0s"` or at least `"30s"` when streaming |
 
-**Important:** Keep the root service `timeout` short. Set long timeouts only on streaming endpoints. Velonetics **rejects invalid streaming configs at startup** (`velonetics check` / `velonetics run`).
+**Important:** Keep the root service `timeout` short. Set long timeouts only on streaming endpoints. Pucora **rejects invalid streaming configs at startup** (`pucora check` / `pucora run`).
 
 ## Compatible middleware
 
@@ -126,18 +126,18 @@ Three requirements:
 |---------|--------------|-----|
 | Events arrive all at once at end | Proxy or LB buffering | Ensure `no-op` encoding; set `write_timeout: "0s"` |
 | Connection drops early | Timeout too short | Increase endpoint `timeout` |
-| Config fails `velonetics check` | Incompatible middleware | Remove response Lua, schema, or multi-backend |
+| Config fails `pucora check` | Incompatible middleware | Remove response Lua, schema, or multi-backend |
 
 ## Requirements
 
-- `github.com/velonetics/lura/v2` **v2.0.3+** (flush-aware streaming proxy and startup validation)
+- `github.com/pucora/lura/v2` **v2.0.3+** (flush-aware streaming proxy and startup validation)
 
 ## Local example
 
-See [examples/streaming](https://github.com/velonetics/velonetics-ce/tree/main/examples/streaming).
+See [examples/streaming](https://github.com/pucora/velonetics-ce/tree/main/examples/streaming).
 
 ## Related
 
 - [No-op proxy](/docs/endpoints/no-op/) — encoding fundamentals
 - [WebSockets](/docs/websockets/) — bidirectional real-time
-- [Velonetics Configurator](/docs/configuration/configurator/) — `streaming-sse` preset
+- [Pucora Configurator](/docs/configuration/configurator/) — `streaming-sse` preset

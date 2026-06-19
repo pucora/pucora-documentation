@@ -1,21 +1,21 @@
 ---
 lastmod: 2026-06-18
 date: 2026-06-18
-linktitle: Velonetics Configurator
-title: Velonetics Configurator
-description: Generate velonetics.json from YAML profiles and built-in presets for REST, gRPC, WebSockets, pub/sub, and more
+linktitle: Pucora Configurator
+title: Pucora Configurator
+description: Generate pucora.json from YAML profiles and built-in presets for REST, gRPC, WebSockets, pub/sub, and more
 weight: -900
 menu:
   community_current:
     parent: "010 Configuration files"
 meta:
   since: v2.0
-  source: https://github.com/velonetics/velonetics-configurator
+  source: https://github.com/pucora/velonetics-configurator
   scope:
   - service
 ---
 
-The **Velonetics Configurator** turns a simple YAML profile into a complete gateway setup — routes, CORS, allowed headers, JWT auth, pub/sub, gRPC, WebSockets, and more.
+The **Pucora Configurator** turns a simple YAML profile into a complete gateway setup — routes, CORS, allowed headers, JWT auth, pub/sub, gRPC, WebSockets, and more.
 
 No more hand-writing `extra_config` namespaces or remembering `disable_host_sanitize` rules.
 
@@ -42,13 +42,13 @@ make build
 Run the gateway:
 
 ```bash
-velonetics check -c ./output/velonetics.json
-velonetics run -c ./output/velonetics.json
+pucora check -c ./output/pucora.json
+pucora run -c ./output/pucora.json
 ```
 
 ## Why this exists
 
-Configuring Velonetics directly requires knowing:
+Configuring Pucora directly requires knowing:
 
 - Which `extra_config` namespace to use (`security/cors`, `backend/pubsub/publisher`, `backend/grpc`, …)
 - That headers are **deny-by-default** — you must set `input_headers` per route
@@ -61,7 +61,7 @@ The configurator hides that complexity behind a **simple profile format** and **
 ## Profile format
 
 ```yaml
-apiVersion: configurator.velonetics.io/v1
+apiVersion: configurator.pucora.io/v1
 kind: GatewayProfile
 metadata:
   name: My API Gateway
@@ -114,7 +114,7 @@ velonetics-config presets apply kafka-pubsub -g ./output
 | Command | Description |
 |---------|-------------|
 | `init` | Interactive wizard — choose pattern, answer prompts, get a profile |
-| `generate -f profile.yaml -o ./output` | Produce `velonetics.json` and `.env` |
+| `generate -f profile.yaml -o ./output` | Produce `pucora.json` and `.env` |
 | `validate -f profile.yaml` | Check profile without generating |
 | `presets list` | Show built-in presets |
 | `presets apply <name>` | Copy preset and/or generate config |
@@ -123,7 +123,7 @@ velonetics-config presets apply kafka-pubsub -g ./output
 
 | Output | Contents |
 |--------|----------|
-| `velonetics.json` | Full gateway config with correct namespaces |
+| `pucora.json` | Full gateway config with correct namespaces |
 | `.env` | Broker connection strings (`KAFKA_BROKERS`, `NATS_SERVER_URL`, …) |
 
 The generator automatically sets:

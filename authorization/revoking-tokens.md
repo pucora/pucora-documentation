@@ -3,9 +3,9 @@ lastmod: 2021-10-18
 date: 2018-11-05
 linktitle: Revoking tokens
 title: Token Revocation
-description: Learn how to implement token revocation mechanisms in Velonetics API Gateway to manage and invalidate access tokens when needed
+description: Learn how to implement token revocation mechanisms in Pucora API Gateway to manage and invalidate access tokens when needed
 weight: 40
-source: https://github.com/velonetics/bloomfilter
+source: https://github.com/pucora/bloomfilter
 menu:
   community_current:
     parent: "080 Authentication & Authorization"
@@ -17,7 +17,7 @@ meta:
 ---
 The API Gateway authorizes users that provide valid tokens according to your criteria, but at some point, you might want to change your mind and decide to **revoke JWT tokens that are still valid**.
 
-When you need to revoke perfectly valid tokens, build a bloom filter client that talks to the Velonetics revoker RPC interface. The [bloomfilter client](https://github.com/velonetics/bloomfilter/tree/master/cmd/client) and the [playground JWT revoker sample](https://github.com/velonetics/playground-community/tree/master/images/jwt-revoker) show how to push revoked token keys.
+When you need to revoke perfectly valid tokens, build a bloom filter client that talks to the Pucora revoker RPC interface. The [bloomfilter client](https://github.com/pucora/bloomfilter/tree/master/cmd/client) and the [playground JWT revoker sample](https://github.com/pucora/playground-community/tree/master/images/jwt-revoker) show how to push revoked token keys.
 
 Examples:
 
@@ -26,7 +26,7 @@ Examples:
 - A software release needs all sessions renegotiated again, or users of a specific app (Android, iOS, Web app, etc.) have to be invalidated.
 
 ## Storing blocked tokens using the bloom filter
-Velonetics integrates the [bloom filter](https://github.com/velonetics/bloomfilter) component that allows you to store in an optimized way tokens to revoke on subsequent requests.
+Pucora integrates the [bloom filter](https://github.com/pucora/bloomfilter) component that allows you to store in an optimized way tokens to revoke on subsequent requests.
 
 When you enable the bloom filter, it inspects the payload of incoming JWT tokens to check if any configured fields in `token_keys` contain a blocked value. And if a block is found, access is not permitted.
 
@@ -39,9 +39,9 @@ The bloom filter component brings the following functionalities:
 ### Bloom filter client
 The communication with the bloom filter is RPC-based. The component exposes a listening port of your choice to receive updates of the bloom filter (single or batch), but **a client is needed to communicate with the component**.
 
-You need to build a bloom filter client. Look at the bloom filter library, which includes a [client](https://github.com/velonetics/bloomfilter/tree/master/cmd/client). In addition, the Velonetics Playground project consists of a sample [web page with a form and an RPC client](https://github.com/velonetics/playground-community/tree/master/images/jwt-revoker) that sends commands to the bloom filter and updates it.
+You need to build a bloom filter client. Look at the bloom filter library, which includes a [client](https://github.com/pucora/bloomfilter/tree/master/cmd/client). In addition, the Pucora Playground project consists of a sample [web page with a form and an RPC client](https://github.com/pucora/playground-community/tree/master/images/jwt-revoker) that sends commands to the bloom filter and updates it.
 
-Note that this low-level bloom filter client requires elements added to the bloom filter to conform to a special format: a key, representing a field in the token, separated by a hypen (`-`); and the value of that field that will be used to revoke requests. [In the example below](#applied-example), you could expire the token for an individual user by adding `jti-mnb23vcsrt756yuiomnbvcx98ertyuiop` to the bloom filter. This can also be seen in the sample [web page with a form and an RPC client](https://github.com/velonetics/playground-community/tree/master/images/jwt-revoker) in the Velonetics Playground project.
+Note that this low-level bloom filter client requires elements added to the bloom filter to conform to a special format: a key, representing a field in the token, separated by a hypen (`-`); and the value of that field that will be used to revoke requests. [In the example below](#applied-example), you could expire the token for an individual user by adding `jti-mnb23vcsrt756yuiomnbvcx98ertyuiop` to the bloom filter. This can also be seen in the sample [web page with a form and an RPC client](https://github.com/pucora/playground-community/tree/master/images/jwt-revoker) in the Pucora Playground project.
 
 ### Bloom filter performance
 The Bloom filter is ideal for supporting a massive rejection of tokens with very little memory consumption. For instance, **100 million tokens** of any size consume around 0.5GB RAM (with a rate of false positives of 1 in 999,925,224 tokens), and lookups resolve in constant time (*k*-number of hashes). These numbers are impossible to get with a key value or a relational database.
@@ -83,8 +83,8 @@ Our sample JWT payload has the following characteristics:
 
 ```json
 {
-    "aud": "https://www.velonetics.io",
-    "iss": "https://api.velonetics.io",
+    "aud": "https://www.pucora.io",
+    "iss": "https://api.pucora.io",
     "sub": "john@domain.com",
     "jti": "mnb23vcsrt756yuiomnbvcx98ertyuiop",
     "roles": ["user", "premium"],
@@ -103,9 +103,9 @@ The following list shows the possible functionalities with an example`"token_key
 Options are endless; these are some random examples, but it's up to you to decide which JWT elements you want to watch and apply revocations. If, for instance, you only want to revoke access to a particular user or session, you only need to look at the `jti` (the unique identifier of a user) and `sub`.
 
 ## Expiring tokens in a cluster
-All Velonetics nodes are stateless and act individually; they don't synchronize. Every node must receive the RPC notification about any tokens that need insertion in every local bloom filter.
+All Pucora nodes are stateless and act individually; they don't synchronize. Every node must receive the RPC notification about any tokens that need insertion in every local bloom filter.
 
-The bloom filter gets updated while the service is running, but the level of synchronization between the nodes depends on your push strategy to the different cluster members. Velonetics uses conflict-free replicated data types (CRDT), so you can replicate the data across multiple computers in a network without coordination between the replicas, and where it is always mathematically possible to resolve inconsistencies that might result.
+The bloom filter gets updated while the service is running, but the level of synchronization between the nodes depends on your push strategy to the different cluster members. Pucora uses conflict-free replicated data types (CRDT), so you can replicate the data across multiple computers in a network without coordination between the replicas, and where it is always mathematically possible to resolve inconsistencies that might result.
 
 The resulting system is **eventually consistent**.
 

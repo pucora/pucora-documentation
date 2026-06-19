@@ -10,14 +10,14 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/velonetics/velonetics-pubsub
+  source: https://github.com/pucora/velonetics-pubsub
   namespace:
   - async/kafka
   scope:
   - async_agent
 ---
 
-The **Kafka async driver** connects a background Velonetics agent to Kafka topics for autonomous event consumption. Unlike endpoint Kafka subscribers, no HTTP client triggers processing.
+The **Kafka async driver** connects a background Pucora agent to Kafka topics for autonomous event consumption. Unlike endpoint Kafka subscribers, no HTTP client triggers processing.
 
 Namespace: `async/kafka` inside `async_agent[].extra_config`.
 
@@ -95,7 +95,7 @@ The topic name comes from `async_agent[].consumer.topic`. The driver uses a **la
 | Field | Default | Description |
 |-------|---------|-------------|
 | `brokers` | — | Kafka broker addresses (required) |
-| `client_id` | Velonetics version string | Client identifier |
+| `client_id` | Pucora version string | Client identifier |
 | `client_tls` | — | mTLS settings |
 | `sasl` | — | `{ mechanism, user, password, azure_event_hub, auth_identity }` |
 | `metadata_retry_max` | `3` | Reconnect attempts |
@@ -118,7 +118,7 @@ Partition offsets are committed after each message is read, even when the backen
 make pubsub-async-kafka-compose-test
 ```
 
-See [examples/pubsub/async-kafka](https://github.com/velonetics/velonetics-ce/tree/main/examples/pubsub/async-kafka).
+See [examples/pubsub/async-kafka](https://github.com/pucora/velonetics-ce/tree/main/examples/pubsub/async-kafka).
 
 ## Related
 

@@ -4,31 +4,31 @@ date: 2020-10-19
 notoc: true
 linktitle: Status Codes
 title: API Gateway Status Codes
-description: Learn how to interpret HTTP status codes in Velonetics API Gateway, ensuring accurate and meaningful responses to API consumers
+description: Learn how to interpret HTTP status codes in Pucora API Gateway, ensuring accurate and meaningful responses to API consumers
 weight: 420
 menu:
   community_current:
     parent: "060 Request and Response Manipulation"
 ---
 
-When consuming content through Velonetics, the status code returned to the client depends on the chosen configuration. Three different approaches impact status codes:
+When consuming content through Pucora, the status code returned to the client depends on the chosen configuration. Three different approaches impact status codes:
 
-- Use Velonetics regular endpoints to get the status codes as designed by Velonetics
+- Use Pucora regular endpoints to get the status codes as designed by Pucora
 - Return the status code as provided by your backend server (see the [`no-op` encoding](/docs/endpoints/no-op/))
 - Use custom logic to set specific status codes
 
-## Default status codes of Velonetics endpoints
-The following status codes are the ones returned by the gateway. When you use `no-op` in the `output_encoding`, the user can receive any status code from your backend. These are the status codes that Velonetics can use to reply. **If you see a different one in the list, then the status code is not generated on Velonetics** :
+## Default status codes of Pucora endpoints
+The following status codes are the ones returned by the gateway. When you use `no-op` in the `output_encoding`, the user can receive any status code from your backend. These are the status codes that Pucora can use to reply. **If you see a different one in the list, then the status code is not generated on Pucora** :
 
 | Status Code                 | When                               |
 |-----------------------------|-------------------------------------------|
 | `100 Continue` | Used when establishing a WebSockets connection |
-| `200 OK` | **At least** one backend returned a 200 or 201 status code on time. Completeness information provided by the `X-Velonetics-Completed` header |
+| `200 OK` | **At least** one backend returned a 200 or 201 status code on time. Completeness information provided by the `X-Pucora-Completed` header |
 | `301 Redirect` | When the router [adds a missing slash](/docs/service-settings/router-options/) to the endpoint and similar cases. |
 | `400 Bad Request` | Client made a malformed request, i.e. [json-schema](/docs/endpoints/json-schema/) validation failed, or problems when [signing a token](/docs/authorization/jwt-signing/) |
 | `401 Unauthorized` | Client sent an invalid JWT token or its claims |
 | `403 Forbidden` | The user is allowed to use the API, but not the resource, e.g.: Insufficient JWT [role](/docs/authorization/jwt-validation/), [bot detector](/docs/throttling/botdetector/) banned it, IP rejected, etc. |
-| `404 Not Found` | The requested endpoint is not configured on Velonetics |
+| `404 Not Found` | The requested endpoint is not configured on Pucora |
 | `405 Method Not Allowed` | You have requested an endpoint that exists but not for the requested method (e.g.: you declared a GET but the request had a POST) |
 | `429 Too Many Requests` | The client reached the rate limit for the endpoint |
 | `503 Service Unavailable` | All clients together reached the configured global rate limit for the endpoint |
@@ -42,17 +42,17 @@ There are two things you can do:
 
 If your endpoints get data from a single backend and you'd like to couple the response between the client and the server (not recommended), you can use the `no-op` encoding, or use an [alternative strategy](/docs/backends/detailed-errors/).
 
-If you use regular endpoints (e.g., `json` encoding), the status code is "calculated" by Velonetics and returns a `200` or a `500` in most cases. Nevertheless, the backend status belonging to an error gets logged. Like this:
+If you use regular endpoints (e.g., `json` encoding), the status code is "calculated" by Pucora and returns a `200` or a `500` in most cases. Nevertheless, the backend status belonging to an error gets logged. Like this:
 
 ```
 WARNING [BACKEND: GET /endpoint/foo -> POST /backend/bar][Client] Status: 403
 ```
 
-### Why does Velonetics treat errors like a `500 Internal Server Error` by default?
+### Why does Pucora treat errors like a `500 Internal Server Error` by default?
 
-In most cases, when there isn't a happy path, you'll see Velonetics returning a `500 Internal Server Error`. When Velonetics needs to combine in the final gateway response, there is no way to properly distinguish the status code from the backend and the one from the gateway itself. That's why all errors external to Velonetics are translated into a `500 Internal Server Error`.
+In most cases, when there isn't a happy path, you'll see Pucora returning a `500 Internal Server Error`. When Pucora needs to combine in the final gateway response, there is no way to properly distinguish the status code from the backend and the one from the gateway itself. That's why all errors external to Pucora are translated into a `500 Internal Server Error`.
 
-To offer a gracefully degraded service when some backends fail, we leave the decision to the client on what to do by adding the header `X-Velonetics-Completed: false` (some backends succeeded, others don't) and also by adding the [detailed errors](/docs/backends/detailed-errors/) feature.
+To offer a gracefully degraded service when some backends fail, we leave the decision to the client on what to do by adding the header `X-Pucora-Completed: false` (some backends succeeded, others don't) and also by adding the [detailed errors](/docs/backends/detailed-errors/) feature.
 
 ## Returning the status codes of the backend
 

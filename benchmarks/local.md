@@ -2,8 +2,8 @@
 lastmod: 2016-10-28
 date: 2016-10-28
 linktitle: Local machine
-title: Benchmarking Velonetics API Gateway on a local machine
-description: Performance tests of Velonetics running on a local machine (laptop) with measurements of different concurrency levels.
+title: Benchmarking Pucora API Gateway on a local machine
+description: Performance tests of Pucora running on a local machine (laptop) with measurements of different concurrency levels.
 weight: 15
 menu:
   community_current:
@@ -17,7 +17,7 @@ menu:
 
 ## Setup
 
-For this test, we stored this configuration at `velonetics.json`
+For this test, we stored this configuration at `pucora.json`
 
     {
       "version": 1,
@@ -44,9 +44,9 @@ For this test, we stored this configuration at `velonetics.json`
       "timeout": "5s"
     }
 
-And we started the Velonetics with this cmd:
+And we started the Pucora with this cmd:
 
-    $ ./velonetics run --config velonetics.json -d > /dev/null
+    $ ./pucora run --config pucora.json -d > /dev/null
 
 Response from the 'debug backend':
 
@@ -58,13 +58,13 @@ Response from the 'debug backend':
 
     {"message":"pong"}
 
-Response from the Velonetics:
+Response from the Pucora:
 
     $ curl -i http://127.0.0.1:8080/foo
     HTTP/1.1 200 OK
     Cache-Control: public, max-age=300
     Content-Type: application/json; charset=utf-8
-    X-Velonetics: Version 0.3.8
+    X-Pucora: Version 0.3.8
     Date: Mon, 28 Nov 2016 15:42:20 GMT
     Content-Length: 19
 

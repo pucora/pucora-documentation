@@ -10,28 +10,28 @@ menu:
     parent: "040 Routing and Forwarding"
 meta:
   since: v1.2
-  source: https://github.com/velonetics/velonetics-ce
+  source: https://github.com/pucora/velonetics-ce
   namespace: false
   scope:
   - endpoint
 ---
-Velonetics `no-op` (**no-operation**), is a special type of **encoding** that behaves as a **proxy** by passing the client's request to the backend and returning the response to the client ***as it is*** (some additional operations are permitted). Essentially without any manipulation or operation.
+Pucora `no-op` (**no-operation**), is a special type of **encoding** that behaves as a **proxy** by passing the client's request to the backend and returning the response to the client ***as it is*** (some additional operations are permitted). Essentially without any manipulation or operation.
 
 ## Using `no-op` to proxy requests
-When setting `no-op`, Velonetics does not inspect the request `body` or manipulates it in any way. Instead, when a request to a `no-op` endpoint is received, Velonetics directly forwards it to the backend without doing any operation with it.
+When setting `no-op`, Pucora does not inspect the request `body` or manipulates it in any way. Instead, when a request to a `no-op` endpoint is received, Pucora directly forwards it to the backend without doing any operation with it.
 
-The *proxy pipe* (this is from Velonetics to backend) is marked to do no-operation, meaning that Velonetics does not aggregate content, filter, manipulate or any of the other functionalities performed during this pipe. It's also important to notice that only a **single backend** is accepted, as the merge operation happens during the *proxy pipe*.
+The *proxy pipe* (this is from Pucora to backend) is marked to do no-operation, meaning that Pucora does not aggregate content, filter, manipulate or any of the other functionalities performed during this pipe. It's also important to notice that only a **single backend** is accepted, as the merge operation happens during the *proxy pipe*.
 
 Employing the same principle, when the backend produces the response, it's passed back to the client *as is*, preserving its form: body, headers, status codes and such.
 
 For **long-lived HTTP streams and Server-Sent Events (SSE)**, `no-op` is the required encoding. See [HTTP Streaming & SSE](/docs/endpoints/streaming/) for configuration, timeouts, and compatible middleware.
 
-On the other hand, the *router pipe*'s features (from client to Velonetics) remain unaltered, meaning that for instance you can still rate-limit your end-users or require JWT authorization to name a few examples.
+On the other hand, the *router pipe*'s features (from client to Pucora) remain unaltered, meaning that for instance you can still rate-limit your end-users or require JWT authorization to name a few examples.
 
 ## Key concepts
 The **key concepts** of `no-op` are:
 
-- The Velonetics endpoint works just like a regular proxy
+- The Pucora endpoint works just like a regular proxy
 - The *router pipe* functionalities are available (e.g., rate limiting the endpoint)
 - The *proxy pipe* functionalities are disabled (aggregate/merge, filter, manipulations, body inspection, concurrency...)
 - Headers passing to the backend still need to be declared under `input_headers`, as they hit the router layer first.
@@ -39,10 +39,10 @@ The **key concepts** of `no-op` are:
 - Backend response and headers remain unchanged (including status codes)
 - The body cannot be changed and is set solely by the backend
 - `1:1` relationship between endpoint-backend (one backend per endpoint).
-- `X-Velonetics-Completed` will be false and `X-Velonetics` with current version will be added in response headers
+- `X-Pucora-Completed` will be false and `X-Pucora` with current version will be added in response headers
 
 ## When to use `no-op`
-Use `no-op` when you need to **couple the client with a specific backend without any Velonetics manipulation**.
+Use `no-op` when you need to **couple the client with a specific backend without any Pucora manipulation**.
 
 Examples:
 
@@ -50,12 +50,12 @@ Examples:
 - You need to keep the headers of the backend as is.
 
 ## How to use `no-op`
-To declare endpoints that return the backend response as it is you need to define `"output_encoding": "no-op"`. Velonetics will set the `"encoding": "no-op"` in the `backend` section automatically, ignoring any different value you might have set.
+To declare endpoints that return the backend response as it is you need to define `"output_encoding": "no-op"`. Pucora will set the `"encoding": "no-op"` in the `backend` section automatically, ignoring any different value you might have set.
 
-When using the no-op encoding remember that the endpoint can only have **one backend** as Velonetics is not going to inspect or manipulate the response (no merging happens). Also, other pipe options like the concurrent requests, or manipulation options are not available: you will find them flagged across the documentation as not compatible with no-op.
+When using the no-op encoding remember that the endpoint can only have **one backend** as Pucora is not going to inspect or manipulate the response (no merging happens). Also, other pipe options like the concurrent requests, or manipulation options are not available: you will find them flagged across the documentation as not compatible with no-op.
 
 ## Example
-The following snippet shows an endpoint that is passed to the backend as is. Notice that both the endpoint and the backend have a `no-op` encoding. The backend is using Velonetics's debug endpoint to capture the request in the console:
+The following snippet shows an endpoint that is passed to the backend as is. Notice that both the endpoint and the backend have a `no-op` encoding. The backend is using Pucora's debug endpoint to capture the request in the console:
 
 {{< highlight json "hl_lines=3 6" >}}
 {

@@ -3,13 +3,13 @@ lastmod: 2023-01-31
 date: 2018-09-21
 linktitle: The configuration file
 title: Configuration Structure
-description: Learn about the configuration structure and organization in Velonetics API Gateway to effectively define the behavior of your API gateway
+description: Learn about the configuration structure and organization in Pucora API Gateway to effectively define the behavior of your API gateway
 menu:
   community_current:
     parent: "010 Configuration files"
 weight: 10
 ---
-All Velonetics behavior depends on its configuration file(s). You'll find it referenced through all this documentation and for simplicity as the `velonetics.json`, although the configuration [supports formats other than JSON](/docs/configuration/supported-formats/) and it can be described [using multiple files and templates](/docs/configuration/flexible-config/). Being familiar with its structure it's essential.
+All Pucora behavior depends on its configuration file(s). You'll find it referenced through all this documentation and for simplicity as the `pucora.json`, although the configuration [supports formats other than JSON](/docs/configuration/supported-formats/) and it can be described [using multiple files and templates](/docs/configuration/flexible-config/). Being familiar with its structure it's essential.
 
 The correctness of a configuration file is determined by the [check](/docs/configuration/check/) and [audit](/docs/configuration/audit/) commands using different perspectives.
 
@@ -17,15 +17,15 @@ The correctness of a configuration file is determined by the [check](/docs/confi
 There are a large number of options you can put in this file. Let's focus now only on the main structure:
 ```json
 {
-    "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/velonetics.json",
+    "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
     "version": 3,
     "endpoints": [],
     "extra_config": {}
 }
 ```
 
-- `$schema`: *Optional* but recommended. When added, enables [IDE integration](/docs/developer/ide-integration/) with autocompletion and documentation. Defines the JSON schema to validate your configuration. The Velonetics linting process (` velonetics check --lint`) does not read this property as it knows which version must use on runtime.
-- `version` (*mandatory*): The version of the configuration file format (not the version of Velonetics).
+- `$schema`: *Optional* but recommended. When added, enables [IDE integration](/docs/developer/ide-integration/) with autocompletion and documentation. Defines the JSON schema to validate your configuration. The Pucora linting process (` pucora check --lint`) does not read this property as it knows which version must use on runtime.
+- `version` (*mandatory*): The version of the configuration file format (not the version of Pucora).
   - Format version `3`: **Current** (since `v2.0`)
   - Format version `2`: Deprecated in 2022, for versions between `v0.4` and `v1.4.1`
   - Format version `1`: Deprecated in 2016, for versions `v0.3.9` and older.
@@ -66,9 +66,9 @@ The configuration above declares an endpoint `/v1/foo-bar`, which returns the re
 That's the basic structure of endpoints; for more information see [how to create endpoints](/docs/endpoints/).
 
 ### The `extra_config` structure
-Velonetics is very modular and comes bundled with many components that extend the core functionality of the [Lura Project](https://luraproject.org). The `extra_config` stores each component configuration that is not handled by Lura itself.
+Pucora is very modular and comes bundled with many components that extend the core functionality of the [Lura Project](https://luraproject.org). The `extra_config` stores each component configuration that is not handled by Lura itself.
 
-Components declare in their source code a **unique namespace**. Velonetics registers the component during the startup, and it passes to the component the configuration found under a key matching the **namespace** inside the `extra_config` object.
+Components declare in their source code a **unique namespace**. Pucora registers the component during the startup, and it passes to the component the configuration found under a key matching the **namespace** inside the `extra_config` object.
 
 ```json
     {
@@ -90,7 +90,7 @@ For instance, the [extended logging component](/docs/logging/) uses the **namesp
     "extra_config": {
         "telemetry/logging": {
           "level": "WARNING",
-          "prefix": "[VELONETICS]",
+          "prefix": "[PUCORA]",
           "stdout": true
         }
     }
@@ -108,7 +108,7 @@ All components will seek the `extra_config` in its defined scope. The possible p
 - `endpoint`
 - `backend`
 
-For instance, you might want to set a [rate limit](/docs/throttling/) between a user and a `/my-rate-limited` endpoint in Velonetics. And for that, you would place the `extra_config` inside that `endpoint` scope. Or you might want to limit the connections between a Velonetics endpoint against your services; then you would place the `extra_config` in the `backend` scope.
+For instance, you might want to set a [rate limit](/docs/throttling/) between a user and a `/my-rate-limited` endpoint in Pucora. And for that, you would place the `extra_config` inside that `endpoint` scope. Or you might want to limit the connections between a Pucora endpoint against your services; then you would place the `extra_config` in the `backend` scope.
 
 **You don't have to guess where to put the `extra_config`**. Each component has in the documentation what is the scope(s) is built for.
 
@@ -153,4 +153,4 @@ Notice how `extra_config` is present in the endpoints and backend scopes.
 }
 ```
 
-For larger sample files with more options you can have a look a the [Velonetics Playground](/docs/overview/playground/).
+For larger sample files with more options you can have a look a the [Pucora Playground](/docs/overview/playground/).

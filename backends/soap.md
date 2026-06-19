@@ -10,16 +10,16 @@ menu:
     parent: "050 Non-REST Connectivity"
 meta:
   since: v2.0
-  source: https://github.com/velonetics/velonetics-soap
+  source: https://github.com/pucora/velonetics-soap
   namespace:
   - backend/soap
   scope:
   - backend
 ---
 
-Velonetics connects legacy SOAP/XML services to modern REST clients. The gateway crafts SOAP request bodies from Go templates, optionally applies WS-Security, and transforms XML responses to JSON.
+Pucora connects legacy SOAP/XML services to modern REST clients. The gateway crafts SOAP request bodies from Go templates, optionally applies WS-Security, and transforms XML responses to JSON.
 
-Implemented by [`velonetics-soap`](https://github.com/velonetics/velonetics-soap) via `extra_config.backend/soap` on a backend.
+Implemented by [`velonetics-soap`](https://github.com/pucora/velonetics-soap) via `extra_config.backend/soap` on a backend.
 
 ## Quick start
 
@@ -77,7 +77,7 @@ Minimal config:
 |-------|-------------|
 | `soap_action` | Sets HTTP `SOAPAction` header (SOAP 1.1, quoted automatically) |
 
-If omitted, Velonetics can derive the action from WSDL when `wsdl` is configured.
+If omitted, Pucora can derive the action from WSDL when `wsdl` is configured.
 
 ### WSDL (parse-only)
 
@@ -124,12 +124,12 @@ Use standard backend fields:
 
 | Example | Config | Description |
 |---------|--------|-------------|
-| Basic SOAP | `velonetics.json` | Template-based request |
+| Basic SOAP | `pucora.json` | Template-based request |
 | WSDL | `velonetics-wsdl.json` | WSDL-driven SOAPAction |
 | WS-Security | `velonetics-wssec.json` | Username token |
 
-See [examples/soap](https://github.com/velonetics/velonetics-ce/tree/main/examples/soap).
+See [examples/soap](https://github.com/pucora/velonetics-ce/tree/main/examples/soap).
 
 ## Related
 
-- [Velonetics Configurator](/docs/configuration/configurator/) — `soap` backend type in profiles
+- [Pucora Configurator](/docs/configuration/configurator/) — `soap` backend type in profiles

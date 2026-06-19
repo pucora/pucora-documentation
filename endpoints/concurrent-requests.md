@@ -4,7 +4,7 @@ date: 2016-09-30
 toc: true
 linktitle: Concurrent Requests
 title: Handling Concurrent Requests
-description: Learn how Velonetics API Gateway efficiently handles concurrent requests to ensure scalability, performance, and optimal resource utilization
+description: Learn how Pucora API Gateway efficiently handles concurrent requests to ensure scalability, performance, and optimal resource utilization
 weight: 150
 aliases: ["/docs/backends/concurrent-requests/"]
 skip_header_image: true
@@ -49,9 +49,9 @@ When using concurrent requests, the backend services **must be able to handle an
 }
 ```
 
-In the example above, when a user calls the `/products` endpoint, Velonetics opens three different connections to the backends and returns the first fastest successful response.
+In the example above, when a user calls the `/products` endpoint, Pucora opens three different connections to the backends and returns the first fastest successful response.
 
-Notice that despite this backend has only two servers to handle the load, the `concurrent_calls` is set to three. The two settings are not related, and Velonetics is going to open three connections against these two servers nevertheless. Which server receives 1,2 or all three depends on the internal load balancer decision.
+Notice that despite this backend has only two servers to handle the load, the `concurrent_calls` is set to three. The two settings are not related, and Pucora is going to open three connections against these two servers nevertheless. Which server receives 1,2 or all three depends on the internal load balancer decision.
 
 ## What is the ideal number for `concurrent_calls`?
 There isn't a recommended number, as this ultimately depends on how your services behave and the number of resources you have for every service.
@@ -65,7 +65,7 @@ Concurrent calls works better with encodings different than `no-op`. Endpoints r
 {{< /note >}}
 
 ## How does `concurrent_calls` work?
-Velonetics sends up to N `concurrent_calls` to your backends for the **same request** to an endpoint. When the first successful response is received, Velonetics cancels the remaining requests and ignores any previous failures. Only in the case that all `concurrent_calls` fail, the endpoint receives the failure as well.
+Pucora sends up to N `concurrent_calls` to your backends for the **same request** to an endpoint. When the first successful response is received, Pucora cancels the remaining requests and ignores any previous failures. Only in the case that all `concurrent_calls` fail, the endpoint receives the failure as well.
 
 The apparent trade-off of this strategy is the increment of the load in the backend services, so make sure your infrastructure is ready for it. However, your users love it: Fewer errors and faster responses!
 

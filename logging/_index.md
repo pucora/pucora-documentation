@@ -4,14 +4,14 @@ date: 2018-10-30
 toc: true
 linktitle: Logging overview
 title: Logging
-description: Learn how to implement Syslog and Stdout logging in Velonetics API Gateway, enabling effective monitoring and troubleshooting of your API gateway and microservices
+description: Learn how to implement Syslog and Stdout logging in Pucora API Gateway, enabling effective monitoring and troubleshooting of your API gateway and microservices
 weight: 300
 aliases: ["/docs/logging-metrics-tracing/logging/", "/docs/logging/extended-logging/"]
 menu:
   community_current:
     parent: "160 Monitoring, Logs, and Analytics"
 meta:
-  source: https://github.com/velonetics/velonetics-gologging
+  source: https://github.com/pucora/velonetics-gologging
   namespace:
   - telemetry/logging
   scope:
@@ -19,7 +19,7 @@ meta:
 ---
 The logging component is an essential configuration block for any installation that lets you choose **where** and **how** to log the gateway activity. It also opens the door to integrating other components for more advanced usage.
 
-When you add the logging component, you can customize the format of the logs and send them both to the *stdout* and the *syslog*. However, if you don't use this component, then Velonetics uses the basic capabilities of [Lura](https://luraproject.org) (standard output only and a `DEBUG` level).
+When you add the logging component, you can customize the format of the logs and send them both to the *stdout* and the *syslog*. However, if you don't use this component, then Pucora uses the basic capabilities of [Lura](https://luraproject.org) (standard output only and a `DEBUG` level).
 
 The `telemetry/logging` has the following logging capabilities:
 
@@ -31,7 +31,7 @@ The `telemetry/logging` has the following logging capabilities:
 - Use custom layouts and define logged fields ( version)
 
 ## Types of log messages
-The content that Velonetics writes in its log represents two types of logging:
+The content that Pucora writes in its log represents two types of logging:
 
 - **Access log**
 - **Application log**
@@ -64,7 +64,7 @@ Application logs might look different on each application, but this is an exampl
 
 ```
 yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: Gin] Debug enabled
-yyyy/mm/dd hh:mm:ss VELONETICS INFO: Starting the Velonetics instance
+yyyy/mm/dd hh:mm:ss VELONETICS INFO: Starting the Pucora instance
 yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: Gin] Building the router
 yyyy/mm/dd hh:mm:ss VELONETICS INFO: [SERVICE: Gin] Listening on port: 8080
 yyyy/mm/dd hh:mm:ss VELONETICS DEBUG: [SERVICE: AsyncAgent][mkt-event] Starting the async agent
@@ -75,7 +75,7 @@ yyyy/mm/dd hh:mm:ss VELONETICS ERROR: [SERVICE: Asyncagent][mkt-event] building 
 ```
 
 ## Logging Configuration
-To add ample logging capabilities, you need to add the component at the service level of your `velonetics.json` configuration under the `extra_config` key:
+To add ample logging capabilities, you need to add the component at the service level of your `pucora.json` configuration under the `extra_config` key:
 
 ```json
 {
@@ -83,7 +83,7 @@ To add ample logging capabilities, you need to add the component at the service 
   "extra_config": {
     "telemetry/logging": {
       "level": "INFO",
-      "prefix": "[VELONETICS]",
+      "prefix": "[PUCORA]",
       "syslog": false,
       "stdout": true
     }
@@ -121,7 +121,7 @@ For example, you can customize your pattern like this:
   "extra_config": {
     "telemetry/logging": {
       "level": "INFO",
-      "prefix": "[VELONETICS]",
+      "prefix": "[PUCORA]",
       "syslog": false,
       "stdout": true,
       "format": "custom",
@@ -168,7 +168,7 @@ For instance, you could **print the access log in JSON format** as follows:
   "extra_config": {
     "telemetry/logging": {
       "level": "INFO",
-      "prefix": "[VELONETICS]",
+      "prefix": "[PUCORA]",
       "syslog": false,
       "stdout": true,
       "access_log_format": "json"
@@ -184,7 +184,7 @@ Or you could have a log that includes the JWT subject, the authorization header 
   "extra_config": {
     "telemetry/logging": {
       "level": "INFO",
-      "prefix": "[VELONETICS]",
+      "prefix": "[PUCORA]",
       "syslog": false,
       "stdout": true,
       "access_log_format": "custom",
@@ -197,12 +197,12 @@ Or you could have a log that includes the JWT subject, the authorization header 
 ## Writing the log on a file
 Although logging on disk might impact software performance and is discouraged in high-throughput systems, you can still store the logs in a file.
 
-**Avoid redirecting the output** (e.g.: `velonetics run > velonetics.log`) and **use the *syslog* of your machine instead**.
+**Avoid redirecting the output** (e.g.: `pucora run > pucora.log`) and **use the *syslog* of your machine instead**.
 
 To setup logs on disk, you should consider the following steps:
 
-1) Add the syslog configuration to yor `velonetics.json`
-2) Add a specific entry for velonetics under `/etc/rsyslog.d/`
+1) Add the syslog configuration to yor `pucora.json`
+2) Add a specific entry for pucora under `/etc/rsyslog.d/`
 3) Optionally add log rotation
 
 ### 1. Syslog configuration
@@ -222,17 +222,17 @@ To setup logs on disk, you should consider the following steps:
 You might set the `stdout` to `false` if you don't want to check on the console but only on the logs.
 
 ### 2. Add an entry to `rsyslog`
-The folder `/etc/rsyslog.d/` shows the different configurations of the system. We will create a new file `/etc/rsyslog.d/velonetics.conf` and place this content inside:
+The folder `/etc/rsyslog.d/` shows the different configurations of the system. We will create a new file `/etc/rsyslog.d/pucora.conf` and place this content inside:
 
-    local3.*    -/var/log/velonetics.log
+    local3.*    -/var/log/pucora.log
 
 If you are familiar with *syslog*, you change the `syslog_facility` to any other (local) value and adjust it in the file above.
 
-### 3. Velonetics log rotation
-The syslog will take care of populating the log and can be used conveniently with the default system tools like **rotating the logs** with `logrotate`. Add a new configuration file `/logrotate.d/velonetics` and add the content below:
+### 3. Pucora log rotation
+The syslog will take care of populating the log and can be used conveniently with the default system tools like **rotating the logs** with `logrotate`. Add a new configuration file `/logrotate.d/pucora` and add the content below:
 
 ```
-/var/log/velonetics.log {
+/var/log/pucora.log {
   rotate 7
   daily
   missingok

@@ -18,10 +18,10 @@ meta:
   log_prefix:
   - "[BACKEND: /foo][backend/http/client]"
 ---
-The HTTP client namespace allows you to set the behavior of the HTTP connections between Velonetics and your backend service.
+The HTTP client namespace allows you to set the behavior of the HTTP connections between Pucora and your backend service.
 
 ### Send the payload on 307 and 308 redirects
-Velonetics does not duplicate the body of the request when following a redirection because automatically doing it would affect the performance of all requests. In the unusual cases where your backend responds with a `307 Temporary Redirect` or a `308 Permanent Redirect`, enable the following flag to resend the original payload to the final redirected service:
+Pucora does not duplicate the body of the request when following a redirection because automatically doing it would affect the performance of all requests. In the unusual cases where your backend responds with a `307 Temporary Redirect` or a `308 Permanent Redirect`, enable the following flag to resend the original payload to the final redirected service:
 
 {{< schema data="backend/http_client.json" filter="send_body_on_redirect" >}}
 
@@ -30,7 +30,7 @@ Here is a configuration example:
 ```json
 {
   "version": 3,
-  "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/velonetics.json",
+  "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
   "endpoints": [
     {
       "endpoint": "/foo",
@@ -51,4 +51,4 @@ Here is a configuration example:
 ```
 
 ## Avoid HTTP redirection and other options
-To prevent Velonetics from following redirects, use specific TLS options, and utilize intermediate proxies and other options, refer to the HTTP Client options in the Velonetics.
+To prevent Pucora from following redirects, use specific TLS options, and utilize intermediate proxies and other options, refer to the HTTP Client options in the Pucora.

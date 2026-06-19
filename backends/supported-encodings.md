@@ -4,16 +4,16 @@ date: 2016-04-14
 toc: true
 linktitle: Origin response formats
 title: Supported Encodings for Backend Integration
-description: Explore the supported encodings for seamless integration with backend systems in Velonetics. Learn how to optimize data exchange and ensure compatibility between Velonetics and your backend services.
+description: Explore the supported encodings for seamless integration with backend systems in Pucora. Learn how to optimize data exchange and ensure compatibility between Pucora and your backend services.
 weight: 400
 notoc: true
 menu:
   community_current:
     parent: "060 Request and Response Manipulation"
 ---
-Setting the `encoding` is an important part of the backend definition, as it informs Velonetics how to parse the responses of your services.
+Setting the `encoding` is an important part of the backend definition, as it informs Pucora how to parse the responses of your services.
 
-Each backend can reply with a different encoding and Velonetics does not have any problem working with mixed encodings at the same time. You can use the following `encoding` in each `backend` section:
+Each backend can reply with a different encoding and Pucora does not have any problem working with mixed encodings at the same time. You can use the following `encoding` in each `backend` section:
 
 - `json`
 - `safejson`
@@ -24,7 +24,7 @@ Each backend can reply with a different encoding and Velonetics does not have an
 
 Notice that all values are in **lower case**. Unknown values for `encoding` or no value at all, is treated as `json`.
 
-Each backend declaration can set a different encoder to process the responses, and still, Velonetics can transparently work with the mixed content returning a unified encoding in the endpoint.
+Each backend declaration can set a different encoder to process the responses, and still, Pucora can transparently work with the mixed content returning a unified encoding in the endpoint.
 
 ## How to choose the backend encoding?
 Follow this table to determine how to treat your backend content:
@@ -51,9 +51,9 @@ When the content returned by your service is wrapped inside an array instead of 
 
 When the content returned by your service is a string, a float, integer, etc. but a type that is not an object or a collection, then the response is wrapped inside a `content` object. This scenario is possible with when the `safejson` finds a non-array or non-object type, or when you use a `string` encoding.
 
-For instance, if your backend returns a simple `Hello World!`, the response of Velonetics (`output_encoding=json`) would be `{ "content": "Hello World!" }`.
+For instance, if your backend returns a simple `Hello World!`, the response of Pucora (`output_encoding=json`) would be `{ "content": "Hello World!" }`.
 
-Similarly, if your backend returns `[{"item": 1},{"item": 2}]` then the response of Velonetics (`output_encoding=json`) would be `{ "collection": [{"item": 1},{"item": 2}] }`.
+Similarly, if your backend returns `[{"item": 1},{"item": 2}]` then the response of Pucora (`output_encoding=json`) would be `{ "collection": [{"item": 1},{"item": 2}] }`.
 
 Some `output_encodings` will revert this wrapping before returning the content to the user to match the exact value provided by the backend, but this gives you the opportunity to manipulate the content and work with it at the endpoint level. The `output_encoding` of `string` will remove the `content` wrapping, while the `json-collection` while remove the `collection` wrapping.
 

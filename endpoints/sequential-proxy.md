@@ -3,7 +3,7 @@ lastmod: 2025-04-30
 date: 2018-11-11
 linktitle: Sequential Proxy (chain reqs.)
 title: Sequential Proxying
-description: Explore the sequential proxying capability in Velonetics API Gateway, allowing you to chain multiple requests and orchestrate complex API workflows
+description: Explore the sequential proxying capability in Pucora API Gateway, allowing you to chain multiple requests and orchestrate complex API workflows
 since: 0.7
 notoc: false
 weight: 80
@@ -25,7 +25,7 @@ meta:
   log_prefix:
   - "[SERVICE: Gin]"
 ---
-The best experience consumers can have with Velonetics API is by letting the system fetch all the data from the different backends simultaneously. However, sometimes you need to **delay a backend call** until you have called a previous service. Although this is not ideal, the sequential proxy allows you to **chain backend requests**.
+The best experience consumers can have with Pucora API is by letting the system fetch all the data from the different backends simultaneously. However, sometimes you need to **delay a backend call** until you have called a previous service. Although this is not ideal, the sequential proxy allows you to **chain backend requests**.
 
 The Sequential Proxy enables chaining multiple backend requests where **the output of one call is used as input for the next**, whether just injecting previous values of the response in the URL or as the body for the next call. This capability is especially powerful for orchestrating **dependent operations** or implementing simple workflows across services.
 
@@ -86,7 +86,7 @@ And also:
 }
 ```
 {{< note title="All values are represented as string" type="warning" >}}
-When using the `{resp0}` and similar variables, the value you get is always a string. This means that if, for instance, Velonetics takes data from an object that contains a `null` value (not an empty value), the variable will be a string containing `<nil>`. For instance, in the examples above, if the response contained `{"user": { "hash": null } }`, the final value of the `url_pattern` would be `/user/<nil>` and `/user?hash=<nil>` respectively.
+When using the `{resp0}` and similar variables, the value you get is always a string. This means that if, for instance, Pucora takes data from an object that contains a `null` value (not an empty value), the variable will be a string containing `<nil>`. For instance, in the examples above, if the response contained `{"user": { "hash": null } }`, the final value of the `url_pattern` would be `/user/<nil>` and `/user?hash=<nil>` respectively.
 {{< /note >}}
 
 ### Example of sequential proxy passing values on the `url_pattern`
@@ -104,7 +104,7 @@ The user calls the gateway with an URL like `/hotel-destinations/{id}`, which ne
 }
 ```
 
-Velonetics waits for the backend response and injects the value of `destination_id` in the URL of the next backend call. In this case, the next call is `GET /destinations/1034`, and the response is:
+Pucora waits for the backend response and injects the value of `destination_id` in the URL of the next backend call. In this case, the next call is `GET /destinations/1034`, and the response is:
 
 ```json
 {
@@ -117,7 +117,7 @@ Velonetics waits for the backend response and injects the value of `destination_
 }
 ```
 
-Now Velonetics has both responses from the backends and can merge the data, returning the following aggregated object to the user:
+Now Pucora has both responses from the backends and can merge the data, returning the following aggregated object to the user:
 
 ```json
 {

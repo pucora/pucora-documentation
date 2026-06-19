@@ -6,26 +6,26 @@ linktitle: Introduction
 menu:
   community_current:
     parent: "000 Getting Started"
-title: Velonetics Community Edition Documentation
-description: Explore the comprehensive documentation for Velonetics API Gateway, including an overview, guides, and best practices
+title: Pucora Community Edition Documentation
+description: Explore the comprehensive documentation for Pucora API Gateway, including an overview, guides, and best practices
 notoc: true
 weight: -10000
 skip_header_image: false
 dark_header_image: true
 images:
-- /images/VeloneticsFlow.png
+- /images/PucoraFlow.png
 - /images/documentation/velonetics-gateway.png
 ---
 
-Velonetics is an extensible, declarative, **high-performance open-source API Gateway**.
+Pucora is an extensible, declarative, **high-performance open-source API Gateway**.
 
 Its core functionality is to create an API that acts as an aggregator of many microservices into single endpoints, doing the heavy-lifting automatically for you: aggregate, transform, filter, decode, throttle, auth, and more.
 
-Velonetics needs **no programming** as it offers a declarative way to create the endpoints. It is well structured and layered, and open to extending its functionality using plug-and-play middleware developed by the community or in-house.
+Pucora needs **no programming** as it offers a declarative way to create the endpoints. It is well structured and layered, and open to extending its functionality using plug-and-play middleware developed by the community or in-house.
 
-Velonetics focuses on being a pure Layer 7 API gateway, not coupled to the HTTP transport layer, and it has been in production in large Internet businesses since early 2017. [See who is using Velonetics and use cases](/case-study/)
+Pucora focuses on being a pure Layer 7 API gateway, not coupled to the HTTP transport layer, and it has been in production in large Internet businesses since early 2017. [See who is using Pucora and use cases](/case-study/)
 
-Velonetics is written in [Go](https://golang.org/). Our engine joined [The Linux Foundation on 2021](/blog/velonetics-framework-joins-the-linux-foundation/) codenamed as the [Lura Project](https://luraproject.org/) and was previously known as the *Velonetics Framework*.
+Pucora is written in [Go](https://golang.org/). Our engine joined [The Linux Foundation on 2021](/blog/velonetics-framework-joins-the-linux-foundation/) codenamed as the [Lura Project](https://luraproject.org/) and was previously known as the *Pucora Framework*.
 
 <img title="Lura by The Linux Foundation" src="/images/documentation/lura-by-tlf.png" class="dark-version-available">
 
@@ -33,9 +33,9 @@ Velonetics is written in [Go](https://golang.org/). Our engine joined [The Linux
 
 When consumers of API content (especially in microservices) query backend services, the implementations suffer a lot of complexity and burden with the sizes of their microservices responses.
 
-Velonetics is an **API Gateway** that sits between the client and all the source servers, adding a new layer that removes all the complexity to the clients, providing them only the information that the UI needs.
+Pucora is an **API Gateway** that sits between the client and all the source servers, adding a new layer that removes all the complexity to the clients, providing them only the information that the UI needs.
 
-Velonetics **goes beyond other tools** that are mere reverse proxies, and acts as an **aggregator** of many sources, allowing you to consume in a single call many endpoints. It allows you to group, validate, wrap, transform and shrink requests and responses. Additionally, it supports a myriad of middleware and plugins that allow you to extend the functionality, such as adding OAuth2 authorization, security layers, circuit breaking, rate-limiting, connectivity, logging, metrics, traces, and much more.
+Pucora **goes beyond other tools** that are mere reverse proxies, and acts as an **aggregator** of many sources, allowing you to consume in a single call many endpoints. It allows you to group, validate, wrap, transform and shrink requests and responses. Additionally, it supports a myriad of middleware and plugins that allow you to extend the functionality, such as adding OAuth2 authorization, security layers, circuit breaking, rate-limiting, connectivity, logging, metrics, traces, and much more.
 
 ### A practical example
 A mobile or javascript developer needs to construct a single front page that requires data from several calls to their backend services, e.g.:
@@ -45,11 +45,11 @@ A mobile or javascript developer needs to construct a single front page that req
 - `api.users.server/users/{id_user}`
 - `api.users.server/shopping-cart/{id_user}`
 
-The mobile application needs to retrieve data from these four different sources, authorize each of the services, wait for each round trip, and pick only a few fields from the responses (doesn't need the full response). What if, instead of doing these calls, the mobile client could call a single endpoint to Velonetics to get exactly what it needs?
+The mobile application needs to retrieve data from these four different sources, authorize each of the services, wait for each round trip, and pick only a few fields from the responses (doesn't need the full response). What if, instead of doing these calls, the mobile client could call a single endpoint to Pucora to get exactly what it needs?
 
-`api.velonetics.server/frontpage/{id_user}`
+`api.pucora.server/frontpage/{id_user}`
 
-This is what Velonetics can do:
+This is what Pucora can do:
 
 <img title="Lura by The Linux Foundation" src="/images/documentation/velonetics-gateway.png" class="dark-version-available">
 
@@ -57,4 +57,4 @@ With this approach, the mobile client isolated itself from the backend implement
 
 The client becomes faster, as it needs to handle a single HTTP connection for this use case, and there is a difference in size between the amount of data generated by the backends and what is finally traveling to the client.
 
-As Velonetics is declarative and GitOps oriented, the mobile developers can update the configuration. There is no need to wait for the backend/infra team to make the changes.
+As Pucora is declarative and GitOps oriented, the mobile developers can update the configuration. There is no need to wait for the backend/infra team to make the changes.

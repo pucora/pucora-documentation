@@ -3,7 +3,7 @@ lastmod: 2023-06-03
 date: 2019-01-24
 linktitle: Requests and response static manipulation
 title: Static modification of requests and responses with Martian
-description: Learn how to integrate the Martian component into Velonetics API Gateway, enabling static request and response transformations for your APIs
+description: Learn how to integrate the Martian component into Pucora API Gateway, enabling static request and response transformations for your APIs
 weight: 300
 aliases: ["/docs/endpoints/martian"]
 menu:
@@ -11,7 +11,7 @@ menu:
     parent: "060 Request and Response Manipulation"
 meta:
   since: v0.7
-  source: https://github.com/velonetics/velonetics-martian
+  source: https://github.com/pucora/velonetics-martian
   namespace:
   - modifier/martian
   scope:
@@ -37,7 +37,7 @@ Some **examples of typical Martian scenarios** are:
 - Set a new cookie during gateway processing
 - Flag requests with query strings or headers when specific criteria is met
 - Add, remove, or change specific headers
-- Do basic authentication between Velonetics and the backend
+- Do basic authentication between Pucora and the backend
 - Add query strings before making the backend request (e.g., set an API key)
 
 ## Martian configuration
@@ -227,8 +227,8 @@ The example below sets an `?amount=75` independently of the value the user passe
 curl -i http://localhost:8080/test/querystring.Modifier\?currency\=EUR\&amount\=55
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-X-Velonetics: Version 2.3.3
-X-Velonetics-Completed: true
+X-Pucora: Version 2.3.3
+X-Pucora-Completed: true
 Date: Sat, 03 Jun 2023 20:57:43 GMT
 Content-Length: 70
 
@@ -299,7 +299,7 @@ To change headers sent by the client, remember to add `input_headers` in the end
 
 {{< schema data="modifier/martian.json" property="header.Modifier" >}}
 
-For instance, the following configuration changes the `User-Agent` (set internally by Velonetics) to `Late-Night-Commander v2.3` both in the request and the response.
+For instance, the following configuration changes the `User-Agent` (set internally by Pucora) to `Late-Night-Commander v2.3` both in the request and the response.
 
 ```json
 {
@@ -324,7 +324,7 @@ For instance, the following configuration changes the `User-Agent` (set internal
 ```
 
 #### Connecting to Basic Auth (user/pass) backends
-An application of this modifier is when you need Velonetics to provide a fixed user and password to connect to the backend, and the client does not need to know about it. The basic authentication requires you to provide a header with the form `Authorization: Basic <credentials>`. The credentials are the concatenation of the username and password using a colon `:` in base64.
+An application of this modifier is when you need Pucora to provide a fixed user and password to connect to the backend, and the client does not need to know about it. The basic authentication requires you to provide a header with the form `Authorization: Basic <credentials>`. The credentials are the concatenation of the username and password using a colon `:` in base64.
 
 For instance, if your username is `user` and your password `pa55w0rd`, you should generate the base64 as follows:
 
@@ -359,14 +359,14 @@ If the connection works, it means that your credentials are correct, and you can
 With the configuration above, whenever a request is made to the backend, the `Authorization` header is added automatically.
 
 ### Header ID
-The `header.Id` is a modifier that sets a header with a **unique identifier (UUID)** for the request. The default name of the header is `X-Velonetics-Id` but it can be changed by passing a "header" parameter as per the example below which names the header `X-Request-Id`. If for whatever reason, the header already exists, the header is not altered.
+The `header.Id` is a modifier that sets a header with a **unique identifier (UUID)** for the request. The default name of the header is `X-Pucora-Id` but it can be changed by passing a "header" parameter as per the example below which names the header `X-Request-Id`. If for whatever reason, the header already exists, the header is not altered.
 
 {{< schema data="modifier/martian.json" property="header.Id" >}}
 
 ```json
 {
   "version": 3,
-  "$schema": "https://www.velonetics.io/schema/v{{< product minor_version >}}/velonetics.json",
+  "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
   "host": ["http://localhost:8080"],
   "echo_endpoint": true,
   "endpoints": [

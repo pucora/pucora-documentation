@@ -11,7 +11,7 @@ menu:
 ---
 Real-world API deployments suffer daily attacks, even if you don't notice them. It doesn't matter if you have your infrastructure behind a delimited perimeter. Where there is a point of access, there is malicious activity.
 
-The Zero Trust security is a software architecture design choice to **deny by default unless specifically allowed**. In zero trust, you verify all requests, regardless of origin, and prove you can trust them. Velonetics both **evaluates** and **enforces** rules.
+The Zero Trust security is a software architecture design choice to **deny by default unless specifically allowed**. In zero trust, you verify all requests, regardless of origin, and prove you can trust them. Pucora both **evaluates** and **enforces** rules.
 
 ## The pillars of zero-trust
 
@@ -20,7 +20,7 @@ The Zero Trust security is a software architecture design choice to **deny by de
 3. **Assume breach**: Users' credentials might be stolen and servers compromised. Minimize the attacking surface by segmenting access, work only with end-to-end encryption, and visualize activity in the dashboards.
 
 ## Zero-trust assumptions
-Velonetics assumes the following behaviors when serving an API:
+Pucora assumes the following behaviors when serving an API:
 
 - All endpoints protected by tokens are strictly checked
   - No negotiation of algorithms possible

@@ -3,7 +3,7 @@ lastmod: 2021-05-02
 date: 2018-11-05
 linktitle: Metrics API
 title: Extended Metrics API
-description: Explore the extended metrics available in Velonetics API Gateway telemetry for detailed insights into API performance and usage
+description: Explore the extended metrics available in Pucora API Gateway telemetry for detailed insights into API performance and usage
 aliases: ["/docs/extended-metrics/metrics/"]
 weight: 1000
 menu:
@@ -12,7 +12,7 @@ menu:
 notoc: false
 meta:
   since: v0.4
-  source: https://github.com/velonetics/velonetics-metrics
+  source: https://github.com/pucora/velonetics-metrics
   namespace:
   - telemetry/metrics
   scope:
@@ -25,7 +25,7 @@ The **metrics API** offers a new `/__stats/` endpoint in a different port and co
 This component is unrelated to the [OpenTelemetry](/docs/telemetry/opentelemetry/) metrics, and they can coexist. Previous to the creation of OpenTelemetry, the combination of Influx and the metrics API, offered the older versions of [Grafana dashboard](/docs/telemetry/grafana/).
 
 ## Configuration
-In order to add the metrics API to your Velonetics installation add the `telemetry/metrics` namespace under `extra_config` in the root of your configuration file, e.g.:
+In order to add the metrics API to your Pucora installation add the `telemetry/metrics` namespace under `extra_config` in the root of your configuration file, e.g.:
 
 {{< highlight go "hl_lines=3-11" >}}
 {
@@ -51,30 +51,30 @@ The structure of the metrics looks like this (truncated):
 curl http://localhost:8090/__stats
 {
   "cmdline": [
-    "/usr/bin/velonetics",
+    "/usr/bin/pucora",
     "run",
     "-c",
-    "/etc/velonetics/velonetics.json",
+    "/etc/pucora/pucora.json",
     "-d"
   ],
-  "velonetics.router.connected": 0,
-  "velonetics.router.connected-gauge": 0,
-  "velonetics.router.connected-total": 0,
-  "velonetics.router.disconnected": 0,
-  "velonetics.router.disconnected-gauge": 0,
-  "velonetics.router.disconnected-total": 0,
-  "velonetics.service.debug.GCStats.LastGC": 1605724147216402400,
-  "velonetics.service.debug.GCStats.NumGC": 102,
-  "velonetics.service.debug.GCStats.Pause.50-percentile": 0,
-  "velonetics.service.debug.GCStats.Pause.75-percentile": 0,
-  "velonetics.service.debug.GCStats.Pause.95-percentile": 0,
-  "velonetics.service.debug.GCStats.Pause.99-percentile": 0,
-  "velonetics.service.debug.GCStats.Pause.999-percentile": 0,
-  "velonetics.service.debug.GCStats.Pause.count": 0,
-  "velonetics.service.debug.GCStats.Pause.max": 0,
-  "velonetics.service.debug.GCStats.Pause.mean": 0,
-  "velonetics.service.debug.GCStats.Pause.min": 0,
-  "velonetics.service.debug.GCStats.Pause.std-dev": 0,
+  "pucora.router.connected": 0,
+  "pucora.router.connected-gauge": 0,
+  "pucora.router.connected-total": 0,
+  "pucora.router.disconnected": 0,
+  "pucora.router.disconnected-gauge": 0,
+  "pucora.router.disconnected-total": 0,
+  "pucora.service.debug.GCStats.LastGC": 1605724147216402400,
+  "pucora.service.debug.GCStats.NumGC": 102,
+  "pucora.service.debug.GCStats.Pause.50-percentile": 0,
+  "pucora.service.debug.GCStats.Pause.75-percentile": 0,
+  "pucora.service.debug.GCStats.Pause.95-percentile": 0,
+  "pucora.service.debug.GCStats.Pause.99-percentile": 0,
+  "pucora.service.debug.GCStats.Pause.999-percentile": 0,
+  "pucora.service.debug.GCStats.Pause.count": 0,
+  "pucora.service.debug.GCStats.Pause.max": 0,
+  "pucora.service.debug.GCStats.Pause.mean": 0,
+  "pucora.service.debug.GCStats.Pause.min": 0,
+  "pucora.service.debug.GCStats.Pause.std-dev": 0,
     ...
   }
 }
@@ -91,7 +91,7 @@ You can accomplish it with the following snippet.
           "address":"http://influxdb:8086",
           "ttl":"25s",
           "buffer_size":0,
-          "db": "velonetics",
+          "db": "pucora",
           "username": "your-influxdb-user",
           "password": "your-influxdb-password"
       },
@@ -109,12 +109,12 @@ The properties of the `telemetry/influx` are as follows:
 See below how to configure InfluxDB, and you are ready to [publish a Grafana dashboard](/docs/telemetry/grafana/).
 
 ## Setting up Influx
-For **InfluxDB v2.x**, we have included in our [Telemetry Dashboards](https://github.com/velonetics/telemetry-dashboards/) the files that create the authorization part.
+For **InfluxDB v2.x**, we have included in our [Telemetry Dashboards](https://github.com/pucora/telemetry-dashboards/) the files that create the authorization part.
 
 For **InfluxDB v1.x** (older) the process is straightforward and requires you nothing else than start an Influx instance with the desired configuration.
 
 ### Influx v2
-If you use Docker, you can start InfluxDB as part of a docker compose file. You need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following `docker-compose.yml` sets the credentials you need to reflect in the Velonetics configuration.
+If you use Docker, you can start InfluxDB as part of a docker compose file. You need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following `docker-compose.yml` sets the credentials you need to reflect in the Pucora configuration.
 
 ```yaml
 version: "3"
@@ -126,24 +126,24 @@ services:
       - "DOCKER_INFLUXDB_INIT_USERNAME=velonetics-dev"
       - "DOCKER_INFLUXDB_INIT_PASSWORD=pas5w0rd"
       - "DOCKER_INFLUXDB_INIT_ORG=my-org"
-      - "DOCKER_INFLUXDB_INIT_BUCKET=velonetics"
+      - "DOCKER_INFLUXDB_INIT_BUCKET=pucora"
       - "DOCKER_INFLUXDB_INIT_RETENTION=1w"
       - "DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-super-secret-auth-token"
     ports:
       - "8086:8086"
     volumes:
       - "./config/telemetry/influx:/docker-entrypoint-initdb.d"
-  velonetics:
+  pucora:
     image: {{< product image >}}:{{< product minor_version >}}
     volumes:
-      - ./velonetics:/etc/velonetics
+      - ./pucora:/etc/pucora
     ports:
       - "8080:8080"
 ```
 
 In the fields `db`, `username`, and `password` of the component configuration reflect the same values as in `DOCKER_INFLUXDB_INIT_BUCKET`, `DOCKER_INFLUXDB_INIT_USERNAME`, and `DOCKER_INFLUXDB_INIT_PASSWORD` accordingly.
 
-The Influx **volume** below must have the contents of the [influx initdb script](https://github.com/velonetics/telemetry-dashboards/tree/main/influx), that it will create the authorization needed to let Velonetics push the metrics.
+The Influx **volume** below must have the contents of the [influx initdb script](https://github.com/pucora/telemetry-dashboards/tree/main/influx), that it will create the authorization needed to let Pucora push the metrics.
 
 #### Manual configuration
 If you don't want to use the automated docker compose above, the manual steps to create the auth are:
@@ -210,7 +210,7 @@ Now your configuration should work and start sending data to InfluxDB:
 Make sure to type in `db` the bucket name you created on InfluxDB and the `username` and `password` as well.
 
 ### Influx v1
-When using InfluxDB v1.x, you need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following docker compose sets the credentials you need to reflect in the Velonetics configuration.
+When using InfluxDB v1.x, you need to specify in the configuration above the same data you used to run InfluxDB. For instance, the following docker compose sets the credentials you need to reflect in the Pucora configuration.
 
 ```yaml
 version: "3"
@@ -218,17 +218,17 @@ services:
   influxdb:
     image: influxdb:1.8
     environment:
-      - "INFLUXDB_DB=velonetics"
+      - "INFLUXDB_DB=pucora"
       - "INFLUXDB_USER=velonetics-dev"
       - "INFLUXDB_USER_PASSWORD=pas5w0rd"
       - "INFLUXDB_ADMIN_USER=admin"
       - "INFLUXDB_ADMIN_PASSWORD=supersecretpassword"
     ports:
       - "8086:8086"
-  velonetics:
+  pucora:
     image: {{< product image >}}:{{< product minor_version >}}
     volumes:
-      - ./velonetics:/etc/velonetics
+      - ./pucora:/etc/pucora
     ports:
       - "8080:8080"
 ```

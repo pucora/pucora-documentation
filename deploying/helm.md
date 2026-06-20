@@ -84,7 +84,7 @@ helm install my-gateway ./deploy/helm/pucora \
 Build a Docker image that copies your config, then point the chart at it:
 
 ```dockerfile
-FROM niteesh20/pucora:2.2.0
+FROM pucora/pucora:2.2.0
 COPY pucora.json /etc/pucora/pucora.json
 ```
 
@@ -100,7 +100,7 @@ Run `pucora check --lint` in CI before upgrading the release:
 
 {{< terminal title="Validate configuration" >}}
 docker run --rm -v $(pwd)/pucora.json:/etc/pucora/pucora.json \
-  niteesh20/pucora:2.2.0 check --lint -c /etc/pucora/pucora.json
+  pucora/pucora:2.2.0 check --lint -c /etc/pucora/pucora.json
 {{< /terminal >}}
 {{< /note >}}
 
@@ -283,7 +283,7 @@ Alternatively use Argo Rollouts or Flagger with the Istio options above.
 |-----------|---------|-------------|
 | `replicaCount` | `2` | Gateway pod replicas |
 | `config.mode` | `configmap` | `configmap`, `secret`, or `image` |
-| `image.repository` | `niteesh20/pucora` | Container image |
+| `image.repository` | `pucora/pucora` | Container image |
 | `image.tag` | chart `appVersion` | Image tag |
 | `usageReporting.disable` | `true` | Sets `USAGE_DISABLE=1` |
 | `probes.startup.enabled` | `false` | Startup probe (enable with mesh) |

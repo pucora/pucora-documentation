@@ -96,21 +96,23 @@ For a more step by step process see [this blog entry](/blog/pucora-on-kubernetes
 
 ## Helm Chart
 
-An official Helm chart ships with Pucora CE at [`deploy/helm/pucora/`](https://github.com/pucora/pucora-ce/tree/main/deploy/helm/pucora) in the [pucora-ce](https://github.com/pucora/pucora-ce) repository.
+The recommended way to deploy on Kubernetes is the **official Helm chart** shipped with Pucora CE.
 
-Quick start:
+It includes Deployment, Service, health probes, optional Ingress, HPA, PDB, Prometheus integration, and three configuration modes (ConfigMap, Secret, or immutable image).
+
+{{< button-group >}}
+{{< button url="/docs/deploying/helm/" text="Helm chart guide" >}}
+{{< /button-group >}}
+
+Quick install:
 
 {{< terminal title="Helm install" >}}
 git clone https://github.com/pucora/pucora-ce.git
 cd pucora-ce
 helm install my-gateway ./deploy/helm/pucora
+kubectl port-forward svc/my-gateway-pucora 8080:8080
+curl http://localhost:8080/__health
+helm test my-gateway
 {{< /terminal >}}
 
-The chart supports two configuration modes:
-
-- **ConfigMap** (default) — mount `pucora.json` from a ConfigMap for quick starts and development.
-- **Image** — use a custom image with configuration baked in (recommended for production).
-
-Optional resources (disabled by default): Ingress, HorizontalPodAutoscaler, PodDisruptionBudget, and Prometheus ServiceMonitor.
-
-See the chart [README](https://github.com/pucora/pucora-ce/blob/main/deploy/helm/pucora/README.md) for full configuration options.
+For production values, OCI installs, upgrades, and GitOps patterns, see the [Deploy Pucora with the Helm Chart](/docs/deploying/helm/) guide.

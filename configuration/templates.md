@@ -295,7 +295,7 @@ In this file, we have written the content of the rate limit configuration and ci
 
 ```json
 {
-    "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/backend_extra_config.json",
+    "$schema": "https://www.pucora.in/schema/v{{< product minor_version >}}/backend_extra_config.json",
     "qos/ratelimit/proxy": {
         "max_rate": 100,
         "capacity": 100

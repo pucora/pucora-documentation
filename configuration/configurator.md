@@ -61,7 +61,7 @@ The configurator hides that complexity behind a **simple profile format** and **
 ## Profile format
 
 ```yaml
-apiVersion: configurator.pucora.io/v1
+apiVersion: configurator.pucora.in/v1
 kind: GatewayProfile
 metadata:
   name: My API Gateway

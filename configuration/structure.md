@@ -17,7 +17,7 @@ The correctness of a configuration file is determined by the [check](/docs/confi
 There are a large number of options you can put in this file. Let's focus now only on the main structure:
 ```json
 {
-    "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
+    "$schema": "https://www.pucora.in/schema/v{{< product minor_version >}}/pucora.json",
     "version": 3,
     "endpoints": [],
     "extra_config": {}

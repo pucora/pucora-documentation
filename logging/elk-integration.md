@@ -22,7 +22,7 @@ The configuration you need on your `pucora.json` to enable ELK integration is:
 
 ```json
 {
-  "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
+  "$schema": "https://www.pucora.in/schema/v{{< product minor_version >}}/pucora.json",
   "version": 3,
   "extra_config": {
     "telemetry/logging": {

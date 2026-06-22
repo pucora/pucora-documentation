@@ -83,8 +83,8 @@ Our sample JWT payload has the following characteristics:
 
 ```json
 {
-    "aud": "https://www.pucora.io",
-    "iss": "https://api.pucora.io",
+    "aud": "https://www.pucora.in",
+    "iss": "https://api.pucora.in",
     "sub": "john@domain.com",
     "jti": "mnb23vcsrt756yuiomnbvcx98ertyuiop",
     "roles": ["user", "premium"],

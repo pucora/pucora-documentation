@@ -16,7 +16,7 @@ Pucora is a **single binary file** that does not require any external libraries 
 {{< button url="/download/" text="Download" >}}<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
 </svg>{{< /button >}}
-{{< button url="https://designer.pucora.io/" type="inversed" >}}Generate a config file{{< /button >}}
+{{< button url="https://designer.pucora.in/" type="inversed" >}}Generate a config file{{< /button >}}
 {{< /button-group >}}
 
 ## Installation
@@ -31,7 +31,7 @@ The easiest way to get started is by pulling and running the [Pucora image](http
 docker run -p 8080:8080 -v $PWD:/etc/pucora/ {{< product image >}} run --config /etc/pucora/pucora.json
 {{< /terminal >}}
 
-If you choose not to mount the volume (the `-v`), a default `pucora.json` serving a `/__health` endpoint will be used. The volume expects to find a `pucora.json` in the current directory ([generate your first here](https://designer.pucora.io/)).
+If you choose not to mount the volume (the `-v`), a default `pucora.json` serving a `/__health` endpoint will be used. The volume expects to find a `pucora.json` in the current directory ([generate your first here](https://designer.pucora.in/)).
 
 ### AWS and Azure VM
 See the [downloads page](/download/) for pre-built virtual machines in Azure and AWS.

@@ -69,7 +69,7 @@ The following example shows a configuration that takes the user IP from an `X-Fo
 
 ```json
 {
-  "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
+  "$schema": "https://www.pucora.in/schema/v{{< product minor_version >}}/pucora.json",
   "version": 3,
   "echo_endpoint": true,
   "extra_config": {

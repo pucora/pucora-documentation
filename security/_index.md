@@ -15,7 +15,7 @@ images:
 ---
 Pucora is a software built with a **security-first philosophy**. In 2022, we became a recognized **CVE Numbering Authority (CNA)** worldwide for software distribution ([Partner page](https://www.cve.org/PartnerInformation/ListofPartners/partner/Pucora)), and we publish CVE Records for vulnerabilities within any Pucora software or the Lura Project (© the Linux Foundation).
 
-In addition, our company is [SOC 2 Type II Certified](/blog/soc2-certification-announcement/) and you can get more information on our [Trust Center](https://trust.pucora.io/).
+In addition, our company is [SOC 2 Type II Certified](/blog/soc2-certification-announcement/) and you can get more information on our [Trust Center](https://trust.pucora.in/).
 
 {{< button-group >}}
 {{< button url="/categories/security/" text="Security Advisories" >}}<svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">

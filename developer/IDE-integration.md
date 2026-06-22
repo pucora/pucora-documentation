@@ -30,7 +30,7 @@ Pucora has published an updated JSON-schema definition ([source](https://github.
 
 ```json
 {
-    "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json"
+    "$schema": "https://www.pucora.in/schema/v{{< product minor_version >}}/pucora.json"
 }
 ```
 
@@ -38,7 +38,7 @@ If you want to point to the latest version of Pucora, and not to a specific vers
 
 ```json
 {
-    "$schema": "https://www.pucora.io/schema/pucora.json"
+    "$schema": "https://www.pucora.in/schema/pucora.json"
 }
 ```
 

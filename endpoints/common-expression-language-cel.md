@@ -159,7 +159,7 @@ This is an example of accessing claims in a `backend` expression, through propag
 
 ```json
 {
-  "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
+  "$schema": "https://www.pucora.in/schema/v{{< product minor_version >}}/pucora.json",
   "version": 3,
   "endpoints": [
     {

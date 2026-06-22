@@ -109,7 +109,7 @@ For instance:
 ```json
 {
     "version": 3,
-    "$schema": "https://www.pucora.io/schema/pucora.json",
+    "$schema": "https://www.pucora.in/schema/pucora.json",
     "dns_cache_ttl": "10s"
 }
 ```

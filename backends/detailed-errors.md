@@ -122,7 +122,7 @@ Place the following configuration in the configuration:
 ```json
 {
   "version": 3,
-  "$schema": "http://www.pucora.io/schema/pucora.json",
+  "$schema": "http://www.pucora.in/schema/pucora.json",
   "extra_config": {
     "router": {
       "return_error_msg": true
@@ -157,7 +157,7 @@ When you want to show the interpretation of the error but not the error of the b
 ```json
 {
   "version": 3,
-  "$schema": "http://www.pucora.io/schema/pucora.json",
+  "$schema": "http://www.pucora.in/schema/pucora.json",
   "extra_config": {
     "router": {
       "return_error_msg": true

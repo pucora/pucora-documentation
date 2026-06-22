@@ -84,7 +84,7 @@ Here's an example with a Grafana Tempo and a Prometheus.
 ```json
 {
     "version": 3,
-    "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
+    "$schema": "https://www.pucora.in/schema/v{{< product minor_version >}}/pucora.json",
     "extra_config": {
         "telemetry/opentelemetry": {
             "service_name": "pucora_middle_service",

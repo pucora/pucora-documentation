@@ -33,7 +33,7 @@ Datadog uses the standard OTLP exporter, here is a configuration example:
 ```json
 {
     "version": 3,
-    "$schema": "https://www.pucora.io/schema/pucora.json",
+    "$schema": "https://www.pucora.in/schema/pucora.json",
     "host": [
         "http://localhost:8080"
     ],

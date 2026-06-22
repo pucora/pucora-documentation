@@ -26,7 +26,7 @@ Securing your APIs and underlying microservices is crucial in modern development
 [Descope](https://www.descope.com/) is a passwordless authentication and user management service designed for developers. Pucora integrates with Descope via the [JWT validation](/docs/authorization/jwt-validation/) component.
 
 ## Descope integration
-JSON web tokens (JWT) are an open standard ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519)) that define a way for securely transmitting information between parties. JWT tokens are compact, secure (digitally signed), and have become an industry-standard used at internet scale. Pucora supports [any system using this open standard](https://www.pucora.io/docs/authorization/jwt-validation/), including Descope.
+JSON web tokens (JWT) are an open standard ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519)) that define a way for securely transmitting information between parties. JWT tokens are compact, secure (digitally signed), and have become an industry-standard used at internet scale. Pucora supports [any system using this open standard](https://www.pucora.in/docs/authorization/jwt-validation/), including Descope.
 
 ## The validation workflow
 

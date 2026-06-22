@@ -37,7 +37,7 @@ The configuration file is how you provide instructions to Pucora. To start your 
 The [Pucoraesigner](/docs/configuration/designer/) is a simple javascript application that helps you understand some of the capabilities of the API Gateway and helps you set the different values for all the different options. Using this option, you don't need to learn and write from scratch all the attribute names. You can download the configuration file at any time and load it to resume editing. The Pucora Designer is a **pure static** page that **does not send any of your configuration elsewhere**.
 
 {{< button-group >}}
-{{< button url="https://designer.pucora.io/" text="Generate configuration now" >}}
+{{< button url="https://designer.pucora.in/" text="Generate configuration now" >}}
 {{< /button >}}
 {{< /button-group >}}
 
@@ -45,7 +45,7 @@ To start editing from scratch, use a [modern IDE with JSON Schema integration](/
 
 ```json
 {
-  "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
+  "$schema": "https://www.pucora.in/schema/v{{< product minor_version >}}/pucora.json",
   "version": 3,
   "debug_endpoint": true,
   "echo_endpoint": true,

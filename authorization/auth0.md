@@ -28,7 +28,7 @@ The good news is that combining products like Auth0 and Pucora helps you solve t
 Auth0 can authenticate users and machines, and Pucora knows your business APIs and validate them in a very efficient and convenient way. Both products work in perfect symbiosis to secure your APIs.
 
 ## The Auth0 - Pucora integration
-JSON web tokens (JWT) are an open standard ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519)) that define a way for securely transmitting information between parties. JWT tokens are compact, secure (digitally signed), and have become an industry-standard used at internet scale. Pucora supports [any system using this open standard](https://www.pucora.io/docs/authorization/jwt-validation/), and Auth0 has been its preferred SaaS integration.
+JSON web tokens (JWT) are an open standard ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519)) that define a way for securely transmitting information between parties. JWT tokens are compact, secure (digitally signed), and have become an industry-standard used at internet scale. Pucora supports [any system using this open standard](https://www.pucora.in/docs/authorization/jwt-validation/), and Auth0 has been its preferred SaaS integration.
 
 Pucora offers integration with Auth0 at three different levels:
 
@@ -164,7 +164,7 @@ Some possibilities are:
 - Define scopes and validate them on Pucora
 - Propagate claims to your backends.
 
-All of this is possible by [declaring more elements into the configuration](https://www.pucora.io/docs/authorization/jwt-validation/).
+All of this is possible by [declaring more elements into the configuration](https://www.pucora.in/docs/authorization/jwt-validation/).
 
 ### Conclusion
 In this walk-through, we have shown how to securely protect your APIs using Pucora and Auth0 in a few minutes.

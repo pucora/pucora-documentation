@@ -33,7 +33,7 @@ Your backend needs to implement a **login endpoint** that after validating the u
 {
     "access_token": {
         "aud": "http://api.example.com",
-        "iss": "https://pucora.io",
+        "iss": "https://pucora.in",
         "sub": "1234567890qwertyuio",
         "jti": "mnb23vcsrt756yuiomnbvcx98ertyuiop",
         "roles": ["role_a", "role_b"],
@@ -41,7 +41,7 @@ Your backend needs to implement a **login endpoint** that after validating the u
     },
     "refresh_token": {
         "aud": "http://api.example.com",
-        "iss": "https://pucora.io",
+        "iss": "https://pucora.in",
         "sub": "1234567890qwertyuio",
         "jti": "mnb23vcsrt756yuiomn12876bvcx98ertyuiop",
         "exp": 1735689600
@@ -61,7 +61,7 @@ For instance, your backend could have an endpoint like `/token-issuer` that when
 curl -X POST --data '{"user":"john","pass":"doe"}' https://your-backend/token-issuer
 {
     "access_token": {
-        "aud": "https://your.pucora.io",
+        "aud": "https://your.pucora.in",
         "iss": "https://your-backend",
         "sub": "1234567890qwertyuio",
         "jti": "mnb23vcsrt756yuiomnbvcx98ertyuiop",
@@ -69,7 +69,7 @@ curl -X POST --data '{"user":"john","pass":"doe"}' https://your-backend/token-is
         "exp": 1735689600
     },
     "refresh_token": {
-        "aud": "https://your.pucora.io",
+        "aud": "https://your.pucora.in",
         "iss": "https://your-backend",
         "sub": "1234567890qwertyuio",
         "jti": "mnb23vcsrt756yuiomn12876bvcx98ertyuiop",

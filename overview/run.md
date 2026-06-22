@@ -51,13 +51,13 @@ You can use the following commands:
 - `pucora version`: Use the version command to print the current Pucora version and the Glibc and Go versions used during compilation.
 
 ## Starting the gateway server
-To start the server, invoke the `pucora run` command with a configuration file containing your API definition. You can visually create your first `pucora.json` file using the [Pucoraesigner](https://designer.pucora.io/) if you prefer a UI.
+To start the server, invoke the `pucora run` command with a configuration file containing your API definition. You can visually create your first `pucora.json` file using the [Pucoraesigner](https://designer.pucora.in/) if you prefer a UI.
 
 Or to get started right away, you can paste the following content inside a `pucora.json` file:
 
 ```json
 {
-    "$schema": "https://www.pucora.io/schema/v{{< product minor_version >}}/pucora.json",
+    "$schema": "https://www.pucora.in/schema/v{{< product minor_version >}}/pucora.json",
     "version": 3
 }
 ```

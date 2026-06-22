@@ -27,7 +27,7 @@ The Keycloak integration allows one of the many possible OpenID Connect differen
 [Keycloak](https://www.keycloak.org/) is an Open Source **Identity and Access Management** project, sponsored by RedHat. The Pucora configuration for Keycloak relies internally on the [JWT validation](/docs/authorization/jwt-validation/) component.
 
 ## Keycloak integration
-JSON web tokens (JWT) are an open standard ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519)) that define a way for securely transmitting information between parties. JWT tokens are compact, secure (digitally signed), and have become an industry-standard used at internet scale. Pucora supports [any system using this open standard](https://www.pucora.io/docs/authorization/jwt-validation/), including Keycloak.
+JSON web tokens (JWT) are an open standard ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519)) that define a way for securely transmitting information between parties. JWT tokens are compact, secure (digitally signed), and have become an industry-standard used at internet scale. Pucora supports [any system using this open standard](https://www.pucora.in/docs/authorization/jwt-validation/), including Keycloak.
 
 Either if you are trying to protect your API from end-users or machine-to-machine access, the workflow is the same:
 
@@ -76,7 +76,7 @@ Make sure that the JWK URL exists, some set ups do not have the `/auth/` part in
 
 That's the minimum configuration you need to protect your API from being accessed by someone who has not a valid token from Keycloak. Also notice there is a flag `"disable_jwk_security": true`, this is necessary when we are accessing our JWK address with http instead of https.
 
-Now you might want to add **additional checks to your system** and take advantage of all the powerful features of Keycloak. This is possible by [declaring more elements into the configuration](https://www.pucora.io/docs/authorization/jwt-validation/).
+Now you might want to add **additional checks to your system** and take advantage of all the powerful features of Keycloak. This is possible by [declaring more elements into the configuration](https://www.pucora.in/docs/authorization/jwt-validation/).
 
 ## Keycloak demo with Pucora
 The repository "[Demo Microservices with keycloak and pucora](https://gitlab.com/bensiewert/demo-microservices-with-keycloak-and-pucora)" by Ben Siewert, is a demonstration project integrating microservices with Keycloak for authentication and Pucora as an API gateway.
